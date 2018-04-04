@@ -1,40 +1,50 @@
-<nav class="navbar navbar-expand navbar-purple bg-light">
+<nav class="navbar navbar-expand navbar-purple bg-light ">
   <div class="collapse navbar-collapse">
 
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link text-xl" href="#"><h3>О нас</h3></a>
+    <ul class="nav nav-tabs mr-auto">
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" routerLink="/about" >{{'menu.navitem.about'|translate}}</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><h3>Стулья</h3></a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+           aria-expanded="true">{{'menu.navitem.goods'|translate}}</a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.doors'|translate}}</a>
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.beds'|translate}}</a>
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.tables'|translate}}</a>
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.chairs'|translate}}</a>
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.doors'|translate}}</a>
+          <a class="dropdown-item" routerLink="/view">{{'menu.navitem.goods.dressers'|translate}}</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><h3>Столы</h3></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><h3>Шкафы</h3></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><h3>Комоды</h3></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"><h3>Двери</h3></a>
-      </li>
+      <!--<li class="nav-item" routerLinkActive="active">-->
+        <!--<a class="nav-link" routerLink="/view"><h3></h3></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item" routerLinkActive="active">-->
+        <!--<a class="nav-link" href="#"><h3></h3></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item" routerLinkActive="active">-->
+        <!--<a class="nav-link" href="#"><h3></h3></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item" routerLinkActive="active">-->
+        <!--<a class="nav-link" href="#"><h3></h3></a>-->
+      <!--</li>-->
+      <!--<li class="nav-item" routerLinkActive="active">-->
+        <!--<a class="nav-link" href="#"><h3></h3></a>-->
+      <!--</li>-->
     </ul>
 
     <ul class="navbar-nav">
       <li class="nav-item">
         <button class="btn btn-outline-primary btn-lg" routerLink="/login" type="button">
-          Авторизация
+          {{'menu.button.login'|translate}}
         </button>
       </li>
       <li class="nav-item">
         <button class="btn btn-outline-secondary btn-lg" routerLink="/register" type="button">
-          Регистрация
+          {{'menu.button.register'|translate}}
         </button>
       </li>
     </ul>
-
   </div>
-
 </nav>

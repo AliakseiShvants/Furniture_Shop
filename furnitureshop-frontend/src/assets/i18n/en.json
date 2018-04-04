@@ -1,0 +1,52 @@
+{
+  "header.shopName": "12 CHAIRS",
+  "header.form.search": "Search",
+  "header.en": "EN",
+  "header.ru": "РУС",
+
+  "footer.author.p1": "Made with",
+  "footer.author.p2": "by A.Shvants",
+
+  "menu.navitem.about": "About us",
+  "menu.navitem.goods": "Goods",
+  "menu.navitem.goods.doors": "Doors",
+  "menu.navitem.goods.beds": "Beds",
+  "menu.navitem.goods.tables": "Tables",
+  "menu.navitem.goods.chairs": "Chairs",
+  "menu.navitem.goods.dressers": "Dressers",
+  "menu.button.register": "Register",
+  "menu.button.login": "Log in",
+
+  "about.quote1": "We have the best furniture store and all the others envy us!",
+  "about.quote2": "You don't have a TV? What's with all your furniture?",
+  "about.quote3": "Buy yourself a sofa, and for two years you are completely satisfied: it does not matter that something goes wrong, at least, you've got your sofa issue handled.",
+  "about.quote4": "In the first year buy furniture. In the second year to rearrange furniture. For the third year the furniture is divided.",
+  "about.quote5": "She looked at the furniture, and she suddenly wanted to the sofa, stretched out her arms and hugged her. No, he remained indifferent.",
+  "about.quote6": "If people with good mood drag furniture, most likely, it is bailiffs.",
+  "about.quote7": "Only bourgeois people buy furniture; real aristocrats inherit furniture.",
+  "about.quote8": "The couch in the lab was great. Not too hard, not too soft; the pillow is folded under the head. Carrying out orders in various offices, I had a rest on the most different sofas, and I can professionally say: really comfortable sofas in the world almost will not meet. In the vast majority, it's a common punching, bought at random: look — seems to be top class, and try lie down and curse the world. To be honest, I don't understand why people choose their sofas so casually. I am convinced, though it is possible and prejudice: the way a person chooses a sofa, you can judge his character. Sofas — a separate world with its unshakable laws. But understand this is the only one who grew up on the good sofa. About the same as grow on good music or good literature. A good sofa gives life to another good the sofa bad sofa breeds nothing but another bad sofa. Alas, this is. I know a lot of people who drive super cars, but in their home they rest on second-class, if not third-rate sofas. Such people do not really want to trust. In expensive machine, to be sure, there is their dignity  - but whatever you say, it's just an expensive car. Such a will buy any-were would money. But in order to buy nice couch, needs its own view of the world, his experience, his own philosophy. Money, of course,,, too, need, but low -- money you're welcome. Without a clear idea of what's good for you in the life of the sofa, the perfect option to choose.",
+  "about.quote9": "He didn't have any friends. It was regarded as the furniture is a useful, but impersonal and as silent.",
+  "about.quote10": "Not so terrible furniture, as a woman who constantly changes the decision-where to rearrange it.",
+  "about.quote11": "Why is something made with your own hands always brings a warm feeling than shamelessly use all sorts of bunglers type IKEA, selling under the guise of furniture sloppy designers. Collect yourself.",
+  "about.quote12": "When we are young, the furniture prefers to eat our toes as we age, the favorite dish of all its corners getting our head, especially the forehead.",
+
+  "button.info": "About url",
+  "button.shorter": "Url shorter",
+  "button.clean": "Clean",
+  "button.close": "Close",
+
+  "register.title": "New user register",
+  "register.name": "Full name",
+  "register.name.help": "Full name must be at least 4 symbols",
+  "register.login": "Login",
+  "register.login.help": "Login must be at least 4 symbols",
+  "register.password": "Password",
+  "register.password.help": "Password must be at least 7 symbols",
+  "register.confirmPassword": "Confirm password",
+  "register.confirmPassword.alert": "Fields 'Password' and 'Confirm password' must be equals",
+
+  "alert.register.success.part1": "User ",
+  "alert.register.success.part2": ", registration is done!",
+  "alert.register.danger.part1": "User with login ",
+  "alert.register.danger.part2": " is already exist!"
+}
