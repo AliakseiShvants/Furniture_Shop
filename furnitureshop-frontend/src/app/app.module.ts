@@ -15,6 +15,7 @@ import {AlertModule, ModalModule} from 'ngx-bootstrap';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LoginComponent } from './login/login.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     RoutingModule,
     HttpClientModule,
     AlertModule.forRoot(),
