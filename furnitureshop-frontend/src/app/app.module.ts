@@ -16,6 +16,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from '@angular/forms';
+import { ChairComponent } from './chair/chair.component';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import {FormsModule} from '@angular/forms';
     AboutComponent,
     ViewerComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    ChairComponent
   ],
   imports: [
     BrowserModule,

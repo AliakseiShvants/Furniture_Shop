@@ -1,0 +1,1 @@
+DROP SCHEMA furniture_shop CASCADE;
