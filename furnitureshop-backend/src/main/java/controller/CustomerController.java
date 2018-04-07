@@ -2,11 +2,13 @@ package controller;
 
 import domain.customer.Customer;
 import domain.customer.Role;
+import domain.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import repo.RoleRepo;
+import service.RoleService;
 
 import java.util.List;
 
@@ -18,11 +20,11 @@ import java.util.List;
 public class CustomerController {
 
     @Autowired
-    private RoleRepo roleRepo;
+    private RoleService roleService;
 
     @GetMapping("roles")
-    public List<Role> roles(){
-        return (List<Role>) roleRepo.findAll();
+    public ResponseEntity<List<Role>> roles(){
+        return new ResponseEntity<>(roleService.getAll());
     }
 
 }
