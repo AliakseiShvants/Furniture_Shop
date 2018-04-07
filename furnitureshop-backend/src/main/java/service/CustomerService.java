@@ -12,6 +12,10 @@ public class CustomerService {
     private CustomerRepo customerRepo;
 
     public Customer getCustomerByLogin(String login){
-        return customerRepo.findByLogin(login);
+        return customerRepo.findCustomerByLogin(login);
+    }
+
+    public Customer getCustomerByLogAndPass(String[] body){
+        return customerRepo.findCustomerByLoginAndPassword(body[0], body[1]);
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface CustomerRepo extends CrudRepository<Customer, Long> {
 
-    Customer findByLogin(String login);
+    Customer findCustomerByLogin(String login);
 
-
+    Customer findCustomerByLoginAndPassword(String login, String password);
 }

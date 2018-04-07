@@ -9,19 +9,19 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("prototype")
-public class ResponseEntity<T> {
+public class HttpEntity<T> {
 
     private T body;
     private boolean success = true;
 
-    public ResponseEntity() {
+    public HttpEntity() {
     }
 
-    public ResponseEntity(T body) {
+    public HttpEntity(T body) {
         this.body = body;
     }
 
-    public ResponseEntity(boolean success) {
+    public HttpEntity(boolean success) {
         this.success = success;
     }
 

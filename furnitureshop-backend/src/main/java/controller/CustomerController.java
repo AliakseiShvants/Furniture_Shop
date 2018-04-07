@@ -2,12 +2,10 @@ package controller;
 
 import domain.customer.Customer;
 import domain.customer.Role;
-import domain.http.ResponseEntity;
+import domain.http.HttpEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import repo.RoleRepo;
+import org.springframework.web.bind.annotation.*;
+import service.CustomerService;
 import service.RoleService;
 
 import java.util.List;
@@ -22,9 +20,21 @@ public class CustomerController {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private CustomerService customerService;
+
+    @PostMapping("customer/register")
+    public HttpEntity<Customer> login(@RequestBody HttpEntity<String[]> entity){
+        Customer customer = null;
+        if (entity.isSuccess()){
+            customer = customerService.getCustomerByLogAndPass(entity.getBody());
+        }
+        return customer != null ? new HttpEntity<>(customer) : new HttpEntity<>(false);
+    }
+
     @GetMapping("roles")
-    public ResponseEntity<List<Role>> roles(){
-        return new ResponseEntity<>(roleService.getAll());
+    public HttpEntity<List<Role>> roles(){
+        return new HttpEntity<>(roleService.getAll());
     }
 
 }
