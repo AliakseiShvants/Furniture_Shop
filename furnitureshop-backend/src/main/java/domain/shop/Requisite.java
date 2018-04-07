@@ -1,15 +1,36 @@
 package domain.shop;
 
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+
 /**
  * A object that represents full address of customers or manufacturers.
  */
+@Component
+@Scope("prototype")
+@Entity
+@Table(name = "REQUISITE")
 public class Requisite {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "REQUISITE_ID")
     private Long id;
+
+    @Column(name = "ZIP")
     private String zip;
+
+    @Column(name = "COUNTRY")
     private String country;
+
+    @Column(name = "CITY")
     private String city;
+
+    @Column(name = "ADDRESS")
     private String address;
+
 
     public Requisite() {
     }

@@ -1,5 +1,6 @@
 package domain.customer;
 
+import domain.shop.Requisite;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -42,6 +43,13 @@ public class Customer {
     @JoinColumn(name = "ROLE_ID", unique = true, nullable = false, updatable = false)
     private Role role;
 
+    @OneToOne(optional = false)
+    @JoinTable(name = "CUSTOMER_REQUISITE",
+            joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "REQUISITE_ID")
+    )
+    private Requisite requisite;
+
     public Customer() {
     }
 
@@ -51,6 +59,14 @@ public class Customer {
         this.password = password;
         this.email = email;
         this.role = role;
+    }
+
+    public Requisite getRequisite() {
+        return requisite;
+    }
+
+    public void setRequisite(Requisite requisite) {
+        this.requisite = requisite;
     }
 
     public Long getId() {
