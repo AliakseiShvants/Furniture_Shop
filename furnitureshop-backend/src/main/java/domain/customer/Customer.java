@@ -29,24 +29,28 @@ public class Customer {
     @Column(name = "PASSWORD")
     private String password;
 
+    @Column(name = "EMAIL")
+    private String email;
+
     @Column(name = "BIRTHDAY")
     private LocalDate birthday;
 
     @Column(name = "SEX")
     private Boolean sex;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(optional = false)
+    @JoinColumn(name = "ROLE_ID", unique = true, nullable = false, updatable = false)
     private Role role;
 
     public Customer() {
     }
 
-    public Customer(Long id, String fullName, String login, String password) {
-        this.id = id;
+    public Customer(String fullName, String login, String password, String email, Role role) {
         this.fullName = fullName;
         this.login = login;
         this.password = password;
+        this.email = email;
+        this.role = role;
     }
 
     public Long getId() {
@@ -79,6 +83,14 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public LocalDate getBirthday() {

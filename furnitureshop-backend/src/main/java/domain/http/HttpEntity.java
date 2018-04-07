@@ -11,10 +11,23 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 public class HttpEntity<T> {
 
+    private String[] authorization;
     private T body;
     private boolean success = true;
 
     public HttpEntity() {
+    }
+
+    public String[] getAuthorization() {
+        return authorization;
+    }
+
+    public void setAuthorization(String[] authorization) {
+        this.authorization = authorization;
+    }
+
+    public HttpEntity(String[] authorization) {
+        this.authorization = authorization;
     }
 
     public HttpEntity(T body) {

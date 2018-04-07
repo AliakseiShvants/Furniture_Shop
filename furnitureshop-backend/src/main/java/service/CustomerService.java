@@ -18,4 +18,8 @@ public class CustomerService {
     public Customer getCustomerByLogAndPass(String[] body){
         return customerRepo.findCustomerByLoginAndPassword(body[0], body[1]);
     }
+
+    public void saveCustomer(Customer newCustomer) {
+        customerRepo.save(newCustomer);
+    }
 }
