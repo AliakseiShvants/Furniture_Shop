@@ -1,5 +1,6 @@
 package domain.customer;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import domain.shop.Requisite;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -33,6 +34,7 @@ public class Customer {
     @Column(name = "EMAIL")
     private String email;
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(name = "BIRTHDAY")
     private LocalDate birthday;
 

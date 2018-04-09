@@ -1,6 +1,7 @@
 package service;
 
 import domain.customer.Customer;
+import domain.shop.Requisite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repo.CustomerRepo;
@@ -22,4 +23,18 @@ public class CustomerService {
     public void saveCustomer(Customer newCustomer) {
         customerRepo.save(newCustomer);
     }
+
+    public Customer getCustomerById(Long id) {
+        return customerRepo.getOne(id);
+    }
+
+    public Customer updateCustomer(Customer customer){
+        return customerRepo.saveAndFlush(customer);
+    }
+
+    public Boolean isCustomerExistsById(Long id){
+        return customerRepo.existsById(id);
+    }
+
+
 }
