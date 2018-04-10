@@ -3,6 +3,9 @@ export class Role {
   private _id: number;
   private _title: string;
 
+  constructor(title: string) {
+    this._title = title;
+  }
 
   get id(): number {
     return this._id;

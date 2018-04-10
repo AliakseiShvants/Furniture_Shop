@@ -16,4 +16,16 @@ public class RequisiteService {
     public Requisite getRequisiteByCustomerId(Long id){
         return requisiteRepo.findRequisiteByCustomerId(id);
     }
+
+    public Requisite updateRequisite(Requisite requisite){
+        return requisiteRepo.saveAndFlush(requisite);
+    }
+
+    public Requisite addRequisite(Requisite requisite) {
+        return requisiteRepo.save(requisite);
+    }
+
+    public boolean isRequisiteExist(Long id) {
+        return requisiteRepo.existsById(id);
+    }
 }

@@ -16,25 +16,35 @@ public class CustomerService {
         return customerRepo.findCustomerByLogin(login);
     }
 
-    public Customer getCustomerByLogAndPass(String[] body){
-        return customerRepo.findCustomerByLoginAndPassword(body[0], body[1]);
-    }
-
-    public void saveCustomer(Customer newCustomer) {
+    public void addCustomer(Customer newCustomer) {
         customerRepo.save(newCustomer);
     }
 
     public Customer getCustomerById(Long id) {
-        return customerRepo.getOne(id);
+        if (customerRepo.findById(id).isPresent()){
+            return customerRepo.findById(id).get();
+        }
+        return null;
     }
 
     public Customer updateCustomer(Customer customer){
         return customerRepo.saveAndFlush(customer);
     }
 
-    public Boolean isCustomerExistsById(Long id){
+    public Boolean isCustomerExists(Long id){
         return customerRepo.existsById(id);
     }
 
+    public void deleteCustomerById(Long id) {
+        customerRepo.deleteById(id);
+    }
+
+    public Customer getCustomerByLoginAndPassword(String login, String password) {
+        return customerRepo.findCustomerByLoginAndPassword(login, password);
+    }
+
+    public Customer getCustomerByLoginAndPassword(String[] body) {
+        return customerRepo.findCustomerByLoginAndPassword(body[0], body[1]);
+    }
 
 }

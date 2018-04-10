@@ -26,19 +26,6 @@ public class Role {
     public Role() {
     }
 
-    public Role(Long id) {
-        this.id = id;
-    }
-
-    public Role(String title) {
-        this.title = title;
-    }
-
-    public Role(Long id, String title) {
-        this(id);
-        this.title = title;
-    }
-
     public Long getId() {
         return id;
     }
@@ -55,11 +42,5 @@ public class Role {
         this.title = title;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                '}';
-    }
+
 }

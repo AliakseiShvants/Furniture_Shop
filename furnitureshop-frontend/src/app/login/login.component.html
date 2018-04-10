@@ -1,3 +1,46 @@
-<p>
-  login works!
-</p>
+<ng-template #loginModal>
+  <div class="modal-header">
+    <h4 class="modal-title modal-title-center">{{'login.title'|translate}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"
+            routerLink="/about">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form action="#" method="post" (submit)="submit()" [hidden]="isLogged">
+
+        <div class="form-group">
+          <label for="login" class="floatLabel">{{'login.login'|translate}}</label>
+          <input class="form-control" id="login" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
+                 required minlength="4">
+          <small id="logHelp" class="form-text text-muted">{{'login.login.help'|translate}}</small>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="floatLabel">{{'login.password'|translate}}</label>
+          <input class="form-control" id="password" name="password" type="password" [(ngModel)]="password"
+                 aria-describedby="passHelp" required minlength="5">
+          <small id="passHelp" class="form-text text-muted">{{'login.password.help'|translate}}</small>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn btn-primary" type="submit" >{{'button.submit'|translate}}</button>
+          <button class="btn btn-secondary" type="reset" >{{'button.clean'|translate}}</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()"
+                  routerLink="/about">
+            {{'button.close'|translate}}
+          </button>
+        </div>
+      </form>
+      <alert id="success" *ngIf="isLogged" type="success">
+        {{ 'alert.login.success.part1' | translate }}
+        {{ customer.login }}
+        {{ 'alert.login.success.part2' | translate }}
+      </alert>
+      <alert id="danger" *ngIf="isNotExist" type="danger" dismissOnTimeout="5000">
+        {{ 'alert.login.danger' | translate }}
+      </alert>
+    </div>
+  </div>
+</ng-template>

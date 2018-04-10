@@ -11,25 +11,25 @@ import * as $ from 'jquery';
 })
 export class RegisterComponent implements OnInit {
 
-  private fullName: string;
-  private login: string;
-  private email: string;
-  private password: string;
-  private confirmPassword: string;
+  fullName: string;
+  login: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
 
-  private success = false;
-  private isExist = false;
+  success = false;
+  isExist = false;
 
-  private isShortName = false;
-  private isIncorrectEmail = false;
-  private isShortLogin = false;
-  private isShortPass = false;
-  private notEqual = false;
+  isShortName = false;
+  isIncorrectEmail = false;
+  isShortLogin = false;
+  isShortPass = false;
+  notEqual = false;
 
-  private modalRef: BsModalRef;
+  modalRef: BsModalRef;
 
   @ViewChild('registerModal')
-  private template: TemplateRef<any>;
+  template: TemplateRef<any>;
 
   constructor(private modalService: BsModalService) {
   }
@@ -45,12 +45,13 @@ export class RegisterComponent implements OnInit {
   submit() {
     const newUser = new User(this.fullName, this.email, this.login, this.password, Role.USER);
     this.validateInput(this.fullName, this.email, this.login, this.password, this.confirmPassword);
+
   }
 
   validateInput(_name: string, _email: string, _login: string, _pass: string, _confirm: string): boolean {
     this.isShortName = this.isShortLogin = this.isShortPass = this.isIncorrectEmail = this.notEqual = false;
     let flag = true;
-    if (_name.length < 4) {
+    if (_name.length > 3) {
       this.isShortName = true;
       flag = false;
     }
@@ -58,11 +59,11 @@ export class RegisterComponent implements OnInit {
       this.isIncorrectEmail = true;
       flag = false;
     }
-    if (_login.length < 4) {
+    if (_login.length > 3) {
       this.isShortLogin = true;
       flag = false;
     }
-    if (_pass.length < 7) {
+    if (_pass.length > 3) {
       this.isShortPass = true;
       flag = false;
     }

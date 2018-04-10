@@ -1,7 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,8 +15,10 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LoginComponent } from './login/login.component';
 import {FormsModule} from '@angular/forms';
 import { ChairComponent } from './chair/chair.component';
-
-
+import {CustomerService} from '../service/customer.service';
+import { ProfileComponent } from './profile/profile.component';
+import { OrdersComponent } from './orders/orders.component';
+import { BasketComponent } from './basket/basket.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,10 @@ import { ChairComponent } from './chair/chair.component';
     ViewerComponent,
     RegisterComponent,
     LoginComponent,
-    ChairComponent
+    ChairComponent,
+    ProfileComponent,
+    OrdersComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,7 @@ import { ChairComponent } from './chair/chair.component';
       }
     })
   ],
-  providers: [],
+  providers: [CustomerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

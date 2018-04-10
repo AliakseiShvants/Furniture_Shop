@@ -58,7 +58,7 @@
       </form>
       <alert id="success" *ngIf="success" type="success">
         {{ 'alert.register.success.part1' | translate }}
-        {{ user.fullName }}
+        {{ customer.fullName }}
         {{ 'alert.register.success.part2' | translate }}
       </alert>
       <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">

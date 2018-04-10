@@ -1,12 +1,17 @@
- import { Component } from '@angular/core';
+ import {Component, OnInit} from '@angular/core';
  import {TranslateService} from '@ngx-translate/core';
+ import {Customer} from '../domain/customer/customer';
+ import {Role} from '../domain/customer/role';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
+
+  customer: Customer;
+  role: Role;
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('ru');
@@ -14,6 +19,12 @@ export class AppComponent {
 
   switchLang(lang: string) {
     this.translate.use(lang);
+  }
+
+  ngOnInit(): void {
+    this.role = new Role('ROLE_USER');
+    this.customer = new Customer();
+    this.customer.role = this.role;
   }
 }
 

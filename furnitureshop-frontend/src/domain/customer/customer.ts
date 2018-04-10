@@ -12,13 +12,16 @@ export class Customer {
   private _role: Role;
 
 
-  constructor(fullName: string, login: string, password: string, email: string) {
-    this._fullName = fullName;
-    this._login = login;
-    this._password = password;
-    this._email = email;
-  }
+  // constructor(fullName: string, login: string, password: string, email: string) {
+  //   this._fullName = fullName;
+  //   this._login = login;
+  //   this._password = password;
+  //   this._email = email;
+  // }
 
+
+  constructor() {
+  }
 
   get id(): number {
     return this._id;

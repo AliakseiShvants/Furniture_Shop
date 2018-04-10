@@ -14,8 +14,18 @@
   "menu.navitem.goods.tables": "Tables",
   "menu.navitem.goods.chairs": "Chairs",
   "menu.navitem.goods.dressers": "Dressers",
+
+  "menu.navitem.profile": "Profile",
+  "menu.navitem.profile.edit": "Edit profile",
+  "menu.navitem.profile.requisite": "Shipping address",
+  "menu.navitem.profile.delete": "Delete profile",
+
+  "menu.navitem.orders": "Orders",
+  "menu.navitem.basket": "Basket",
+
   "menu.button.register": "Register",
   "menu.button.login": "Log in",
+  "menu.button.logout": "Log out",
 
   "about.quote1": "We have the best furniture store and all the others envy us!",
   "about.quote2": "You don't have a TV? What's with all your furniture?",
@@ -41,7 +51,7 @@
   "register.login": "Login",
   "register.login.help": "Login must be at least 4 symbols",
   "register.password": "Password",
-  "register.password.help": "Password must be at least 7 symbols",
+  "register.password.help": "Password must be at least 5 symbols",
   "register.confirmPassword": "Confirm password",
   "register.alert.length": "Invalid field length",
   "register.alert.email": "Incorrect email format",
@@ -50,5 +60,15 @@
   "alert.register.success.part1": "User ",
   "alert.register.success.part2": ", registration is done!",
   "alert.register.danger.part1": "User with login ",
-  "alert.register.danger.part2": " is already exist!"
+  "alert.register.danger.part2": " is already exist!",
+
+  "login.title": "Authorization",
+  "login.login": "Login",
+  "login.login.help": "Login must be at least 4 symbols",
+  "login.password": "Password",
+  "login.password.help": "Password must be at least 5 symbols",
+
+  "alert.login.success.part1": "User ",
+  "alert.login.success.part2": ", is successfully logged in!",
+  "alert.login.danger": "User with such login and password does not exist!"
 }

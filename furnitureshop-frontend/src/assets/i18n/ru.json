@@ -14,8 +14,19 @@
   "menu.navitem.goods.tables": "Столы",
   "menu.navitem.goods.chairs": "Стулья",
   "menu.navitem.goods.dressers": "Шкафы",
+
+  "menu.navitem.profile": "Профиль",
+  "menu.navitem.profile.edit": "Изменить профиль",
+  "menu.navitem.profile.requisite": "Адрес доставки",
+  "menu.navitem.profile.delete": "Удалить профиль",
+
+  "menu.navitem.orders": "Заказы",
+  "menu.navitem.basket": "Корзина",
+
+
   "menu.button.register": "Регистрация",
   "menu.button.login": "Авторизация",
+  "menu.button.logout": "Выход",
 
   "about.quote1": "У нас самый лучший мебельный магазин и все остальные нам завидуют!",
   "about.quote2": "У вас нет телевизора? А к чему повернута вся ваша мебель?",
@@ -41,15 +52,24 @@
   "register.login": "Логин",
   "register.login.help": "Логин должен быть не менее 4 символов",
   "register.password": "Пароль",
-  "register.password.help": "Пароль должен быть не менее 7 символов",
+  "register.password.help": "Пароль должен быть не менее 5 символов",
   "register.confirmPassword": "Подтвердите пароль",
   "register.alert.length": "Недопустимая длина поля",
   "register.alert.email": "Неверный формат эл.почты",
   "register.alert.notEqual": "'Пароль' и 'Подтвердите пароль' должны совпадать",
 
-
   "alert.register.success.part1": "Пользователь ",
   "alert.register.success.part2": ", регистрация прошла успешно!",
   "alert.register.danger.part1": "Пользователь с логином ",
-  "alert.register.danger.part2": " уже существует!"
+  "alert.register.danger.part2": " уже существует!",
+
+  "login.title": "Авторизация",
+  "login.login": "Логин",
+  "login.login.help": "Логин должен быть не менее 4 символов",
+  "login.password": "Пароль",
+  "login.password.help": "Пароль должен быть не менее 5 символов",
+
+  "alert.login.success.part1": "Пользователь ",
+  "alert.login.success.part2": ", успешно вошел в систему!",
+  "alert.login.danger": "Пользователя с таким логином и паролем не существует!"
 }

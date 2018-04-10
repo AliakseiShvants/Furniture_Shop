@@ -35,6 +35,13 @@ public class Requisite {
     public Requisite() {
     }
 
+    public Requisite(String zip, String country, String city, String address) {
+        this.zip = zip;
+        this.country = country;
+        this.city = city;
+        this.address = address;
+    }
+
     public Long getId() {
         return id;
     }
@@ -74,4 +81,5 @@ public class Requisite {
     public void setAddress(String address) {
         this.address = address;
     }
+
 }

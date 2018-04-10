@@ -3,10 +3,12 @@ package domain.customer;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import domain.shop.Requisite;
 import org.springframework.context.annotation.Scope;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 /**
  * A object that represents a customer in shop.
@@ -42,14 +44,11 @@ public class Customer {
     private Boolean sex;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "ROLE_ID", unique = true, nullable = false, updatable = false)
+    @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false)
     private Role role;
 
-    @OneToOne(optional = false)
-    @JoinTable(name = "CUSTOMER_REQUISITE",
-            joinColumns = @JoinColumn(name = "CUSTOMER_ID"),
-            inverseJoinColumns = @JoinColumn(name = "REQUISITE_ID")
-    )
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "REQUISITE_ID")
     private Requisite requisite;
 
     public Customer() {
@@ -72,7 +71,7 @@ public class Customer {
     }
 
     public Long getId() {
-        return id;
+        return id ;
     }
 
     public void setId(Long id) {
@@ -135,16 +134,5 @@ public class Customer {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", birthday=" + birthday +
-                ", sex=" + sex +
-                ", role=" + role +
-                '}';
-    }
+
 }
