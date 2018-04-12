@@ -72,4 +72,5 @@
   "alert.login.success.part1": "Пользователь ",
   "alert.login.success.part2": ", успешно вошел в систему!",
   "alert.login.danger": "Пользователя с таким логином и паролем не существует!"
+
 }

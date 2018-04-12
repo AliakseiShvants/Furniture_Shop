@@ -12,7 +12,7 @@ public class Constants {
     public static final String SHOW_SQL = "spring.jpa.show-sql";
     public static final String SERVLET_NAME = "dispatcher";
     public static final String URL_PATTERN = "/";
-    public static final String[] ENTITIES_PACKAGES = {"domain.customer", "domain.product", "domain.shop",
+    public static final String[] ENTITIES_PACKAGES = {"domain.user", "domain.product", "domain.shop",
             "domain.http"};
     public static final String MESSAGE_SOURCE_NAME = "spring.messages.baseName";
     public static final String ENCODING = "spring.messages.encoding";

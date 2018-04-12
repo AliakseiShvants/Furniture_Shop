@@ -1,15 +1,30 @@
 package domain.product;
 
-import domain.product.Product;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * A object that represents a image of product.
  */
-public class Image {
+@Component
+@Scope("prototype")
+@Entity
+@Table(name = "PRODUCT_IMAGE")
+public class Image implements Serializable{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_IMAGE_ID")
     private Long id;
+
+    @Column(name = "URL")
     private String url;
 
-    private Product product;
+//    @ManyToOne
+//    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+//    private Product product;
 
     public Image() {
     }
@@ -30,11 +45,11 @@ public class Image {
         this.url = url;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+//    public Product getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(Product product) {
+//        this.product = product;
+//    }
 }

@@ -108,6 +108,14 @@
             <artifactId>jackson-datatype-jsr310</artifactId>
             <version>2.9.4</version>
         </dependency>
+
+        <!--dozer mapper-->
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
     </dependencies>
 
     <build>

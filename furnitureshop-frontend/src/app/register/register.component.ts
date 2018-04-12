@@ -1,8 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {User} from '../entity/user';
-import {Role} from '../entity/role';
-import * as $ from 'jquery';
+import {User} from '../../domain/user/user';
 
 @Component({
   selector: 'app-register',
@@ -43,7 +41,7 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    const newUser = new User(this.fullName, this.email, this.login, this.password, Role.USER);
+    const newUser = new User(this.fullName, this.email, this.login, this.password);
     this.validateInput(this.fullName, this.email, this.login, this.password, this.confirmPassword);
 
   }

@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {Customer} from '../../domain/customer/customer';
+import {Customer} from '../../domain/user/customer';
 import {HttpResponse} from '@angular/common/http';
 
 @Component({

@@ -31,7 +31,6 @@ public class Requisite {
     @Column(name = "ADDRESS")
     private String address;
 
-
     public Requisite() {
     }
 

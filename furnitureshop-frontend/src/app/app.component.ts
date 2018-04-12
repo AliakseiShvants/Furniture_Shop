@@ -1,7 +1,7 @@
  import {Component, OnInit} from '@angular/core';
  import {TranslateService} from '@ngx-translate/core';
- import {Customer} from '../domain/customer/customer';
- import {Role} from '../domain/customer/role';
+ import {Customer} from '../domain/user/customer';
+ import {Role} from '../domain/user/role';
 
 @Component({
   selector: 'app-root',

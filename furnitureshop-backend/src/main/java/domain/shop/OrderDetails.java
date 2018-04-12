@@ -1,9 +1,8 @@
 package domain.shop;
 
-import domain.customer.Customer;
+import domain.user.User;
 import domain.product.Product;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -12,7 +11,7 @@ import java.util.Map;
 public class OrderDetails {
     private Long id;
     private Order order;
-    private Customer customer;
+    private User user;
     private Map<Product, Integer> productQuantityMap;
 
     public OrderDetails() {
@@ -34,12 +33,12 @@ public class OrderDetails {
         this.order = order;
     }
 
-    public Customer getCustomer() {
-        return customer;
+    public User getUser() {
+        return user;
     }
 
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Map<Product, Integer> getProductQuantityMap() {

@@ -19,6 +19,10 @@ import {CustomerService} from '../service/customer.service';
 import { ProfileComponent } from './profile/profile.component';
 import { OrdersComponent } from './orders/orders.component';
 import { BasketComponent } from './basket/basket.component';
+import { DoorComponent } from './door/door.component';
+import { BedComponent } from './bed/bed.component';
+import { TableComponent } from './table/table.component';
+import { DresserComponent } from './dresser/dresser.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,7 +36,11 @@ import { BasketComponent } from './basket/basket.component';
     ChairComponent,
     ProfileComponent,
     OrdersComponent,
-    BasketComponent
+    BasketComponent,
+    DoorComponent,
+    BedComponent,
+    TableComponent,
+    DresserComponent
   ],
   imports: [
     BrowserModule,

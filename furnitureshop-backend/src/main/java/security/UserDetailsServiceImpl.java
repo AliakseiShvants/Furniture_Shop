@@ -1,15 +1,14 @@
 package security;
 
-import domain.customer.Customer;
+import domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import service.CustomerService;
+import service.user.UserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,15 +17,15 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private CustomerService customerService;
+    private UserService userService;
 
     @Override
     public UserDetails loadUserByUsername(String login) {
-        Customer customer = customerService.getCustomerByLogin(login);
-        if (customer != null){
+        User user = userService.getCustomerByLogin(login);
+        if (user != null){
             List<GrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(customer.getRole().getTitle()));
-            return new User(customer.getLogin(), customer.getPassword(), authorities);
+            authorities.add(new SimpleGrantedAuthority(user.getRole().getTitle()));
+            return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
         }
         throw new UsernameNotFoundException("User '" + login + "' not found");
 

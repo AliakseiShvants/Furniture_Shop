@@ -1,0 +1,35 @@
+package service.shop;
+
+import domain.shop.Order;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import repo.shop.OrderRepo;
+
+import java.util.List;
+
+/**
+ * <p>Service class for {@link Order} entity for working with repository interface
+ */
+@Service
+@Transactional
+public class OrderService {
+
+    @Autowired
+    private OrderRepo orderRepo;
+
+    public List<Order> getAll(){
+        return orderRepo.findAll();
+    }
+
+    public List<Order> getCustomerOrders(Long id) {
+        return orderRepo.findAllByCustomerId(id);
+    }
+
+    public Order getOrderById(Long id) {
+        if (orderRepo.findById(id).isPresent()){
+            return orderRepo.findById(id).get();
+        }
+        return null;
+    }
+}

@@ -19,7 +19,8 @@ import util.Constants;
 @Import(value = {
                     SecurityConfig.class,
                     WebMvcConfig.class,
-                    DBConnectionConfig.class
+                    DBConnectionConfig.class,
+                    MappingConfig.class
         })
 public class AppConfig {
 

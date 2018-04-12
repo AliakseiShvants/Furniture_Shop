@@ -1,17 +1,56 @@
 package domain.product;
 
-import domain.shop.Manufacturer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 /**
  * A object that represents a product in the shop
  */
-public class Product {
+@Component
+@Scope("prototype")
+@Entity
+@Table(name = "PRODUCT")
+public class Product implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PRODUCT_ID")
     private Long id;
-    private String title;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "CATEGORY_ID", nullable = false, updatable = false)
+    private Category category;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "MANUFACTURER_ID", nullable = false, updatable = false)
+    private Manufacturer manufacturer;
+
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    private Category category;
-    private Manufacturer manufacturer;
+//    @OneToMany(cascade = ALL, mappedBy = "product", orphanRemoval = true)
+//    @JsonIgnore
+
+//    @OneToMany(orphanRemoval = true)
+//    @JoinColumn(name = "PRODUCT_ID")
+//    private Set<Image> images;
+
+//    @SuppressWarnings("unchecked")
+//    private List<Image> images = em.createNativeQuery(
+//            "SELECT product_image_id, url " +
+//                    "FROM furniture_shop.product_image " +
+//                    "WHERE product_id = :id", Image.class)
+//        .setParameter("id", id)
+//        .getResultList();
 
     public Product() {
     }
@@ -24,12 +63,12 @@ public class Product {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -55,4 +94,13 @@ public class Product {
     public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
+
+
+//    public Set<Image> getImages() {
+//        return images;
+//    }
+//
+//    public void setImages(Set<Image> images) {
+//        this.images = images;
+//    }
 }

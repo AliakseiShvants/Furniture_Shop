@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  showForm = 'profile';
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  switchForm(form: string){
+    this.showForm = form;
   }
 
 }
