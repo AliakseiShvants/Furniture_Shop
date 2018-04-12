@@ -63,5 +63,18 @@ INSERT INTO furniture_shop.storage(product_id, code, price, quantity)
       (12, 'DRS002', 125.00, 10),
       (13, 'DRS003', 195.00, 5);
 
+INSERT INTO furniture_shop.orders(customer_id, manager_id, create_date)
+    VALUES
+      (1, 3, '2018-04-12 08:00:00'),
+      (1, 3, '2018-04-12 09:00:00');
+
+INSERT INTO furniture_shop.order_details(order_id, product_id, quantity)
+  VALUES
+    (1, 1, 1),
+    (1, 2, 2),
+    (1, 3, 1),
+
+    (2, 9, 1),
+    (2, 10, 1);
 
 

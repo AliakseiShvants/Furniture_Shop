@@ -15,8 +15,6 @@ import java.util.List;
 @Transactional
 public interface OrderRepo extends JpaRepository<Order, Long> {
 
-    @Query(value = "SELECT o.order_id, o.customer_id, o.manager_id, o.create_date, o.finish_date\n" +
-            "FROM furniture_shop.orders o\n" +
-            "WHERE customer_id = ?1", nativeQuery = true)
-    List<Order> findAllByCustomerId(Long id);
+    List<Order> findAllByCustomer_Id(Long id);
+
 }

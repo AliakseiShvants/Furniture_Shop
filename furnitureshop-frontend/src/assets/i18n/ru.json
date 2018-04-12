@@ -44,6 +44,7 @@
   "button.submit": "Подтвердить",
   "button.clean": "Oчистить",
   "button.close": "Закрыть",
+  "button.delete": "Да, я подтверждаю",
 
   "register.title": "Регистрация нового пользователя",
   "register.name": "Имя и фамилия",
@@ -71,6 +72,25 @@
 
   "alert.login.success.part1": "Пользователь ",
   "alert.login.success.part2": ", успешно вошел в систему!",
-  "alert.login.danger": "Пользователя с таким логином и паролем не существует!"
+  "alert.login.danger": "Пользователя с таким логином и паролем не существует!",
+
+  "profile.edit": "Изменить профиль",
+  "profile.edit.title": "Данные профиля",
+  "profile.edit.name": "Имя и фамилия",
+  "profile.edit.name.help": "Имя и фамилия должны быть не менее 4 символов",
+  "profile.edit.birthday": "Дата рождения",
+  "profile.edit.sex": "Пол",
+  "profile.edit.sex.male": "мужской",
+  "profile.edit.sex.female": "женский",
+
+  "profile.address": "Изменить адрес доставки",
+  "profile.address.title": "Адрес доставки",
+  "profile.address.zip": "Индекс",
+  "profile.address.country": "Страна",
+  "profile.address.city": "Город",
+  "profile.address.address": "Адрес",
+
+  "profile.delete": "Удалить аккаунт",
+  "profile.delete.title": "Вы действительно хотите удалить свой аккаунт?"
 
 }

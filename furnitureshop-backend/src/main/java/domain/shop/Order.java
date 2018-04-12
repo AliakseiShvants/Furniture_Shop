@@ -3,6 +3,7 @@ package domain.shop;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import domain.user.User;
 import org.springframework.context.annotation.Scope;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -24,17 +25,17 @@ public class Order {
 
     @OneToOne(optional = false)
     @JoinColumn(name = "CUSTOMER_ID", nullable = false, updatable = false)
-    private User user;
+    private User customer;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "MANAGER_ID", nullable = false, updatable = false)
     private User manager;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "CREATE_DATE")
     private LocalDateTime creatingDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "FINISH_DATE")
     private LocalDateTime completionDate;
 
@@ -73,11 +74,11 @@ public class Order {
         this.completionDate = completionDate;
     }
 
-    public User getUser() {
-        return user;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 }

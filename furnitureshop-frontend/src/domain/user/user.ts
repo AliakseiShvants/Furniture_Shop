@@ -12,11 +12,14 @@ export class User {
   private _role: Role;
 
 
-  constructor(fullName: string, login: string, password: string, email: string) {
+  constructor(fullName: string, login?: string, password?: string, email?: string, birthday?: string, sex?: boolean, role?: Role) {
     this._fullName = fullName;
     this._login = login;
     this._password = password;
     this._email = email;
+    this._birthday = birthday;
+    this._sex = sex;
+    this._role = role;
   }
 
 

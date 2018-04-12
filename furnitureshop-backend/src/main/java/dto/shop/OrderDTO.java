@@ -7,8 +7,8 @@ import java.time.LocalDateTime;
 public class OrderDTO {
     private Long id;
     private UserDTO manager;
-    private LocalDateTime creatingDate;
-    private LocalDateTime completionDate;
+    private String creatingDate;
+    private String completionDate;
 
     public OrderDTO() {
     }
@@ -29,19 +29,19 @@ public class OrderDTO {
         this.manager = manager;
     }
 
-    public LocalDateTime getCreatingDate() {
+    public String getCreatingDate() {
         return creatingDate;
     }
 
-    public void setCreatingDate(LocalDateTime creatingDate) {
+    public void setCreatingDate(String creatingDate) {
         this.creatingDate = creatingDate;
     }
 
-    public LocalDateTime getCompletionDate() {
+    public String getCompletionDate() {
         return completionDate;
     }
 
-    public void setCompletionDate(LocalDateTime completionDate) {
+    public void setCompletionDate(String completionDate) {
         this.completionDate = completionDate;
     }
 }

@@ -1,5 +1,6 @@
 package dto.product;
 
+@Deprecated
 public class CategoryDTO {
     private Long id;
     private String title;

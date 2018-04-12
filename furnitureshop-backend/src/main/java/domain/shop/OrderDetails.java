@@ -1,18 +1,35 @@
 package domain.shop;
 
-import domain.user.User;
 import domain.product.Product;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 
-import java.util.Map;
+import javax.persistence.*;
 
 /**
- * A object that represents concrete info about order (order name, products categories and their amount.
+ * A object that represents concrete info about order (order name, products categories and their amount).
  */
+@Component
+@Scope("prototype")
+@Entity
+@Table(name = "ORDER_DETAILS")
 public class OrderDetails {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ORDER_DETAILS_ID")
     private Long id;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "ORDER_ID",  nullable = false, updatable = false)
     private Order order;
-    private User user;
-    private Map<Product, Integer> productQuantityMap;
+
+    @OneToOne(optional = false)
+    @JoinColumn(name = "PRODUCT_ID",  nullable = false, updatable = false)
+    private Product product;
+
+    @Column(name = "QUANTITY")
+    private Integer quantity;
 
     public OrderDetails() {
     }
@@ -33,19 +50,19 @@ public class OrderDetails {
         this.order = order;
     }
 
-    public User getUser() {
-        return user;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
-    public Map<Product, Integer> getProductQuantityMap() {
-        return productQuantityMap;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setProductQuantityMap(Map<Product, Integer> productQuantityMap) {
-        this.productQuantityMap = productQuantityMap;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

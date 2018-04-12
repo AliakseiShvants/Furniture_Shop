@@ -23,13 +23,17 @@ public class OrderService {
     }
 
     public List<Order> getCustomerOrders(Long id) {
-        return orderRepo.findAllByCustomerId(id);
+        return orderRepo.findAllByCustomer_Id(id);
     }
 
     public Order getOrderById(Long id) {
-        if (orderRepo.findById(id).isPresent()){
+        if (orderRepo.existsById(id)){
             return orderRepo.findById(id).get();
         }
         return null;
+    }
+
+    public boolean isOrderExists(Long orderId) {
+        return orderRepo.existsById(orderId);
     }
 }

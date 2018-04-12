@@ -37,21 +37,6 @@ public class Product implements Serializable{
     @Column(name = "DESCRIPTION")
     private String description;
 
-//    @OneToMany(cascade = ALL, mappedBy = "product", orphanRemoval = true)
-//    @JsonIgnore
-
-//    @OneToMany(orphanRemoval = true)
-//    @JoinColumn(name = "PRODUCT_ID")
-//    private Set<Image> images;
-
-//    @SuppressWarnings("unchecked")
-//    private List<Image> images = em.createNativeQuery(
-//            "SELECT product_image_id, url " +
-//                    "FROM furniture_shop.product_image " +
-//                    "WHERE product_id = :id", Image.class)
-//        .setParameter("id", id)
-//        .getResultList();
-
     public Product() {
     }
 
@@ -95,12 +80,4 @@ public class Product implements Serializable{
         this.manufacturer = manufacturer;
     }
 
-
-//    public Set<Image> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(Set<Image> images) {
-//        this.images = images;
-//    }
 }

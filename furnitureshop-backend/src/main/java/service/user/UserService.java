@@ -1,6 +1,5 @@
 package service.user;
 
-import domain.user.Manager;
 import domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,10 +50,10 @@ public class UserService {
 
 
     public List<User> getAllCustomers() {
-        return userRepo.findAllUsers();
+        return userRepo.findAllCustomers();
     }
 
-    public List<Manager> getAllManagers() {
+    public List<User> getAllManagers() {
         return userRepo.findAllManagers();
     }
 }

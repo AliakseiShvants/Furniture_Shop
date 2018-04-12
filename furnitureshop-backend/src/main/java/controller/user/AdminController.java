@@ -2,8 +2,6 @@ package controller.user;
 
 import domain.product.Product;
 import domain.shop.Order;
-import domain.user.Admin;
-import domain.user.Manager;
 import domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +16,7 @@ import service.user.UserService;
 import java.util.List;
 
 /**
- * <p>Controller class for {@link Admin} entity.
+ * <p>Controller class for {@link User} entity with 'ADMIN' role.
  */
 @RestController
 @RequestMapping("api/admin/")
@@ -37,22 +35,22 @@ public class AdminController {
      * A method that returns all customers
      * @return list of customers
      */
-    @GetMapping("customer/all")
+    @GetMapping("customers")
     public ResponseEntity<List<User>> getAllCustomers(){
         return new ResponseEntity<>(userService.getAllCustomers(), HttpStatus.OK);
     }
 
-    @GetMapping("manager/all")
-    public ResponseEntity<List<Manager>> getAllManagers(){
+    @GetMapping("managers")
+    public ResponseEntity<List<User>> getAllManagers(){
         return new ResponseEntity<>(userService.getAllManagers(), HttpStatus.OK);
     }
 
-    @GetMapping("order/all")
+    @GetMapping("orders")
     public ResponseEntity<List<Order>> getAllOrders(){
         return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("product/all")
+    @GetMapping("products")
     public ResponseEntity<List<Product>> getAllProducts(){
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }

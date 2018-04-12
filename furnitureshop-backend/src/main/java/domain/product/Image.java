@@ -22,9 +22,9 @@ public class Image implements Serializable{
     @Column(name = "URL")
     private String url;
 
-//    @ManyToOne
-//    @JoinColumn(name = "PRODUCT_ID", nullable = false)
-//    private Product product;
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID", nullable = false)
+    private Product product;
 
     public Image() {
     }
@@ -45,11 +45,11 @@ public class Image implements Serializable{
         this.url = url;
     }
 
-//    public Product getProduct() {
-//        return product;
-//    }
-//
-//    public void setProduct(Product product) {
-//        this.product = product;
-//    }
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }

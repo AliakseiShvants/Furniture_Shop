@@ -43,6 +43,7 @@
   "button.submit": "Submit",
   "button.clean": "Clean",
   "button.close": "Close",
+  "button.delete": "Yes, I accept",
 
   "register.title": "New user register",
   "register.name": "Full name",
@@ -70,5 +71,24 @@
 
   "alert.login.success.part1": "User ",
   "alert.login.success.part2": ", is successfully logged in!",
-  "alert.login.danger": "User with such login and password does not exist!"
+  "alert.login.danger": "User with such login and password does not exist!",
+
+  "profile.edit": "Edit profile",
+  "profile.edit.title": "Profile info",
+  "profile.edit.name": "Full name",
+  "profile.edit.name.help": "Full name must be at least 4 symbols",
+  "profile.edit.birthday": "Birthday",
+  "profile.edit.sex": "Sex",
+  "profile.edit.sex.male": "male",
+  "profile.edit.sex.female": "female",
+
+  "profile.address": "Edit shipping address",
+  "profile.address.title": "Shipping address",
+  "profile.address.zip": "Zip",
+  "profile.address.country": "Country",
+  "profile.address.city": "City",
+  "profile.address.address": "Address",
+
+  "profile.delete": "Delete account",
+  "profile.delete.title": "Do you really want to delete your account?"
 }

@@ -1,23 +1,26 @@
 package controller.user;
 
 import domain.UIResponse;
+import domain.shop.OrderDetails;
 import domain.user.AuthorizationData;
 import domain.user.User;
 import domain.user.Role;
 import domain.shop.Order;
 import domain.shop.Requisite;
+import dto.product.CategoryDTO;
+import dto.product.ProductDTO;
 import dto.shop.OrderDTO;
+import dto.shop.OrderDetailsDTO;
 import dto.shop.RequisiteDTO;
 import dto.user.UserDTO;
-import exception.RequisiteExistsException;
-import exception.RequisiteNotFoundException;
-import exception.UserExistsException;
-import exception.UserNotFoundException;
+import exception.*;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import service.product.ProductService;
+import service.shop.OrderDetailsService;
 import service.user.UserService;
 import service.shop.OrderService;
 import service.shop.RequisiteService;
@@ -47,6 +50,12 @@ public class CustomerController {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private OrderDetailsService detailsService;
+
+    @Autowired
+    private ProductService productService;
 
     /**
      * A method for user's authorization.
@@ -207,18 +216,23 @@ public class CustomerController {
     }
 
     /**
-     * A method that represents info about order
+     * A method that represents order details
      * @param customerId
      * @param orderId
      * @return
      */
     @GetMapping("{customerId}/orders/{orderId}")
-    public ResponseEntity<?> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
+    public UIResponse<List<OrderDetailsDTO>> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
         if (userService.isUserExists(customerId)){
-            Order order = orderService.getOrderById(orderId);
-            return new ResponseEntity<>(order, HttpStatus.OK);
+            if (orderService.isOrderExists(orderId)){
+                List<OrderDetailsDTO> detailsList = detailsService.getDetailsByOrderId(orderId).stream()
+                        .map(details -> mapper.map(details, OrderDetailsDTO.class))
+                        .collect(Collectors.toList());
+                return new UIResponse<>(true, detailsList);
+            }
+            return new UIResponse<>(new OrderExistsException());
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new UIResponse<>(new UserNotFoundException());
     }
 
 }
