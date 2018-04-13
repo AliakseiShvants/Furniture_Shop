@@ -2,7 +2,7 @@ package controller.product;
 
 import domain.UIResponse;
 import domain.product.Image;
-import domain.shop.Storage;
+import domain.shop.StorageItem;
 import dto.product.ImageDTO;
 import dto.product.ProductDTO;
 import exception.CategoryExistsException;
@@ -47,9 +47,9 @@ public class ProductController {
 
             for(ProductDTO dto : productDTOList){
                 Image image = imageService.getImageByProductId(dto.getId());
-                Storage storage = storageService.getStorageByProductId(dto.getId());
+                StorageItem storageItem = storageService.getStorageByProductId(dto.getId());
 
-                dto.setCode(storage.getCode());
+                dto.setCode(storageItem.getCode());
                 dto.setUrl(image.getUrl());
             }
             return new UIResponse<>(true, productDTOList);
@@ -73,7 +73,5 @@ public class ProductController {
         return new UIResponse<>(new ProductExistsException());
     }
 
-//    public UIResponse<Void> addProductToBasket(@PathVariable Long customerId, @PathVariable Long productId){
-//
-//    }
+
 }

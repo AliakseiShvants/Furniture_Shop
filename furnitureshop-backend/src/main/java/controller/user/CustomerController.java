@@ -1,14 +1,12 @@
 package controller.user;
 
 import domain.UIResponse;
-import domain.shop.OrderDetails;
-import domain.user.AuthorizationData;
-import domain.user.User;
-import domain.user.Role;
-import domain.shop.Order;
+import domain.product.Product;
+import domain.shop.BasketItem;
 import domain.shop.Requisite;
-import dto.product.CategoryDTO;
-import dto.product.ProductDTO;
+import domain.user.AuthorizationData;
+import domain.user.Role;
+import domain.user.User;
 import dto.shop.OrderDTO;
 import dto.shop.OrderDetailsDTO;
 import dto.shop.RequisiteDTO;
@@ -16,15 +14,11 @@ import dto.user.UserDTO;
 import exception.*;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.product.ProductService;
-import service.shop.OrderDetailsService;
-import service.user.UserService;
-import service.shop.OrderService;
-import service.shop.RequisiteService;
+import service.shop.*;
 import service.user.RoleService;
+import service.user.UserService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -56,6 +50,12 @@ public class CustomerController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private BasketService basketService;
+
+    @Autowired
+    private StorageService storageService;
 
     /**
      * A method for user's authorization.
@@ -200,7 +200,7 @@ public class CustomerController {
      */
 
     /**
-     * A method that gives all user's orders
+     * A method that gives all customer's orders
      * @param id a user id
      * @return list of orders
      */
@@ -216,7 +216,7 @@ public class CustomerController {
     }
 
     /**
-     * A method that represents order details
+     * A method that represents details of customer's order
      * @param customerId
      * @param orderId
      * @return
@@ -234,5 +234,35 @@ public class CustomerController {
         }
         return new UIResponse<>(new UserNotFoundException());
     }
+
+    /**
+     * BASKET
+     */
+
+    /**
+     * A method that adds a one product item to basket
+     * @param customerId customer id
+     * @param productId product id
+     * @return success message or appropriate exception otherwise
+     */
+    @GetMapping("{customerId}/basket/{productId}/add")
+    public UIResponse<Void> addProductToBasket(@PathVariable Long customerId, @PathVariable Long productId){
+        if (userService.isUserExists(customerId)){
+            if (productService.isProductExists(productId)){
+                if (storageService.isItemExists(productId) && storageService.isAvailable(productId, 1)){
+                    User customer = userService.getUserById(customerId);
+                    Product product = productService.getProductById(productId);
+                    BasketItem basketItem = new BasketItem(customer, product, 1);
+                    basketService.addBasketItem(basketItem);
+                    return new UIResponse<>(true);
+                }
+                return new UIResponse<>(new StorageNotFoundException());
+            }
+            return new UIResponse<>(new ProductExistsException());
+        }
+        return new UIResponse<>(new UserExistsException());
+    }
+
+
 
 }

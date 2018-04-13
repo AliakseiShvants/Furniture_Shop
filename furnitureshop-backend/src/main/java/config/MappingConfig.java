@@ -1,18 +1,16 @@
 package config;
 
-import domain.product.Category;
 import domain.product.Image;
 import domain.product.Product;
-import domain.shop.Basket;
+import domain.shop.BasketItem;
 import domain.shop.Order;
 import domain.shop.OrderDetails;
 import domain.shop.Requisite;
 import domain.user.Role;
 import domain.user.User;
-import dto.product.CategoryDTO;
 import dto.product.ImageDTO;
 import dto.product.ProductDTO;
-import dto.shop.BasketDTO;
+import dto.shop.BasketItemDTO;
 import dto.shop.OrderDTO;
 import dto.shop.OrderDetailsDTO;
 import dto.shop.RequisiteDTO;
@@ -40,7 +38,7 @@ public class MappingConfig {
                 mapping(Product.class, ProductDTO.class)
                         .fields("category.title", "category")
                         .fields("manufacturer.title", "manufacturer");
-                mapping(Basket.class, BasketDTO.class);
+                mapping(BasketItem.class, BasketItemDTO.class);
                 mapping(Image.class, ImageDTO.class);
             }
         };

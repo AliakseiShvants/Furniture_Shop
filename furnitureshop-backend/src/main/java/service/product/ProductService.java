@@ -35,4 +35,10 @@ public class ProductService {
         return productRepo.existsById(id);
     }
 
+    public Product getProductById(Long id) {
+        if (productRepo.existsById(id)){
+            return productRepo.findById(id).get();
+        }
+        return null;
+    }
 }

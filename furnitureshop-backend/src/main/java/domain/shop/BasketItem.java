@@ -1,36 +1,53 @@
 package domain.shop;
 
+import domain.user.User;
 import domain.product.Product;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.util.Map;
 
+/**
+ * A object that represents customer basket.
+ */
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "STORAGE")
-public class Storage {
+@Table(name = "BASKET")
+public class BasketItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "STORAGE_ID")
+    @Column(name = "BASKET_ID")
     private Long id;
 
     @OneToOne(optional = false)
     @JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)
     private Product product;
 
-    @Column(name = "CODE")
-    private String code;
-
-    @Column(name = "PRICE")
-    private Double price;
+    @OneToOne(optional = false)
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false, updatable = false)
+    private User customer;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    public Storage() {
+    public BasketItem() {
+    }
+
+    public BasketItem(User customer, Product product, Integer quantity) {
+        this.customer = customer;
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -47,22 +64,6 @@ public class Storage {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Integer getQuantity() {

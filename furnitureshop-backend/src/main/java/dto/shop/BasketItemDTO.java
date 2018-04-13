@@ -2,13 +2,13 @@ package dto.shop;
 
 import domain.product.Product;
 
-public class BasketDTO {
+public class BasketItemDTO {
 
     private Long id;
     private Product product;
     private Integer quantity;
 
-    public BasketDTO() {
+    public BasketItemDTO() {
     }
 
     public Long getId() {
