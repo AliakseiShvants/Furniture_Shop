@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import repo.product.ImageRepo;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -19,7 +20,9 @@ public class ImageService {
         return imageRepo.findAllByProduct_Id(id);
     }
 
-    public Image getImageByProductId(Long id) {
-        return imageRepo.findByProduct_Id(id);
+    public List<String> getProductImagesUrl(Long id) {
+        return imageRepo.findAllByProduct_Id(id).stream()
+                .map(Image::getUrl)
+                .collect(Collectors.toList());
     }
 }

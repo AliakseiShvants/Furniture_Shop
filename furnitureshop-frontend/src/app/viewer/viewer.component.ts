@@ -23,25 +23,25 @@ export class ViewerComponent implements OnInit {
       new Product(
         'Name1',
         'green chair',
-        new Manufacturer('PRC'),
+        'PRC',
         [
-          new Image('"../../assets/img/chairs/green.jpg"')
+          '../../assets/img/chairs/green.jpg'
         ]
       ),
       new Product(
         'Name2',
         'red chair',
-        new Manufacturer('Taiwain'),
+        'Taiwain',
         [
-          new Image('../../assets/img/chairs/red.jpg')
+          '../../assets/img/chairs/red.jpg'
         ]
       ),
       new Product(
         'Name3',
         'white chair',
-        new Manufacturer('RF'),
+        'RF',
         [
-          new Image('../../assets/img/chairs/white.jpg')
+          '../../assets/img/chairs/white.jpg'
         ]
       ),
     ];

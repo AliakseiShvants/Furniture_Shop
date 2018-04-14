@@ -1,16 +1,30 @@
 package dto.shop;
 
-import dto.user.UserDTO;
-
-import java.time.LocalDateTime;
-
 public class OrderDTO {
     private Long id;
-    private UserDTO manager;
+    private String manager;
+    private String status;
     private String creatingDate;
     private String completionDate;
+    private Double total;
 
     public OrderDTO() {
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Long getId() {
@@ -21,11 +35,11 @@ public class OrderDTO {
         this.id = id;
     }
 
-    public UserDTO getManager() {
+    public String getManager() {
         return manager;
     }
 
-    public void setManager(UserDTO manager) {
+    public void setManager(String manager) {
         this.manager = manager;
     }
 

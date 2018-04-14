@@ -1,23 +1,35 @@
 package dto.product;
 
+import static util.Constants.COMMA;
+
+
 public class ProductDTO {
 
     private Long id;
     private String code;
-    private String url;
+    private String[] url;
     private String category;
     private String manufacturer;
     private String name;
     private String description;
+    private Double price;
 
     public ProductDTO() {
     }
 
-    public String getUrl() {
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
+    }
+
+    public String[] getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
+    public void setUrl(String[] url) {
         this.url = url;
     }
 
@@ -67,5 +79,15 @@ public class ProductDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder(name)
+                .append(COMMA)
+                .append(code)
+                .append(COMMA)
+                .append(manufacturer);
+        return sb.toString();
     }
 }

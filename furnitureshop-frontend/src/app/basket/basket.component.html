@@ -1,3 +1,45 @@
-<p>
-  basket works!
-</p>
+<div class="row mx-4 my-4">
+  <div class="col-2 m-auto">
+    <h3 class="font-weight-bold">BASKET</h3>
+  </div>
+</div>
+<div class="row mx-4 my-4" *ngIf="basket.length == 0">
+  <div class="col-3 m-auto">
+    <h4 >No items in the basket</h4>
+  </div>
+</div>
+<div class="row mx-4 my-4">
+  <div class="col-8 m-auto">
+    <table class="table table-bordered" *ngIf="basket.length > 0">
+      <thead>
+      <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Product</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of basket">
+        <td>{{item.product.code}}</td>
+        <td>{{item.product.name}}</td>
+        <td>
+          <input type="number" name="quantity" class="input-number" [(ngModel)]="item.quantity" min="1" max="100">
+        </td>
+        <td>{{item.product.price}}</td>
+        <td>
+          <a (click)="delete(item)">
+            <img src="../../assets/img/trash.png" alt="Delete" height="30" width="30">
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2"></td>
+        <td class="font-weight-bold float-right">Total:</td>
+        <td>{{totalPrice()}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

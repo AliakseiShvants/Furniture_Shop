@@ -27,4 +27,5 @@ public class Constants {
     public static final String GOODBYE = "Method %s is finished!";
     public static final String PATH_PATTERNS = "*";
     public static final String INDEX = "forward:/index.html";
+    public static final String COMMA = ", ";
 }

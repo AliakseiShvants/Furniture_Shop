@@ -2,6 +2,7 @@ package controller.product;
 
 import domain.UIResponse;
 import domain.product.Image;
+import domain.product.Product;
 import domain.shop.StorageItem;
 import dto.product.ImageDTO;
 import dto.product.ProductDTO;
@@ -14,6 +15,7 @@ import service.product.ImageService;
 import service.product.ProductService;
 import service.shop.StorageService;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,20 +41,26 @@ public class ProductController {
      * @return list of products
      */
     @GetMapping("{category}")
+    //todo nullpointer
     public UIResponse<List<ProductDTO>> getProductsByCategory(@PathVariable String category){
         if (productService.isCategoryExists(category)){
-            List<ProductDTO> productDTOList = productService.getProductsByCategory(category).stream()
-                    .map(product -> mapper.map(product, ProductDTO.class))
-                    .collect(Collectors.toList());
+            List<Product> products = productService.getProductsByCategory(category);
+            if (products != null){
+                List<ProductDTO> productDTOList = products.stream()
+                        .map(product -> mapper.map(product, ProductDTO.class))
+                        .collect(Collectors.toList());
 
-            for(ProductDTO dto : productDTOList){
-                Image image = imageService.getImageByProductId(dto.getId());
-                StorageItem storageItem = storageService.getStorageByProductId(dto.getId());
+                for(ProductDTO productDTO : productDTOList){
+                    List<String> imagesUrlList = imageService.getProductImagesUrl(productDTO.getId());
+                    StorageItem storageItem = storageService.getStorageByProductId(productDTO.getId());
 
-                dto.setCode(storageItem.getCode());
-                dto.setUrl(image.getUrl());
+                    productDTO.setCode(storageItem.getCode());
+                    productDTO.setPrice(storageItem.getPrice());
+                    productDTO.setUrl((imagesUrlList.toArray(new String[0])));
+                }
+                return new UIResponse<>(true, productDTOList);
             }
-            return new UIResponse<>(true, productDTOList);
+            return new UIResponse<>(new ProductExistsException());
         }
         return new UIResponse<>(new CategoryExistsException());
     }

@@ -1,14 +1,26 @@
 package dto.shop;
 
-import domain.product.Product;
+import dto.product.ProductDTO;
 
+/**
+ * A class that represents a position in the basket sending to UI
+ */
 public class BasketItemDTO {
 
     private Long id;
-    private Product product;
+    private ProductDTO product;
     private Integer quantity;
+    private Double price;
 
     public BasketItemDTO() {
+    }
+
+    public Double getPrice() {
+        return price;
+    }
+
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Long getId() {
@@ -19,11 +31,11 @@ public class BasketItemDTO {
         this.id = id;
     }
 
-    public Product getProduct() {
+    public ProductDTO getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(ProductDTO product) {
         this.product = product;
     }
 

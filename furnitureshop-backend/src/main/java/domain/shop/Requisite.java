@@ -81,4 +81,8 @@ public class Requisite {
         this.address = address;
     }
 
+    @Override
+    public String toString() {
+        return city + ", " + country;
+    }
 }

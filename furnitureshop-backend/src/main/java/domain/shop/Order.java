@@ -1,6 +1,5 @@
 package domain.shop;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import domain.user.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -31,6 +30,10 @@ public class Order {
     @JoinColumn(name = "MANAGER_ID", nullable = false, updatable = false)
     private User manager;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "STATUS_ID", nullable = false, updatable = false)
+    private Status status;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
     @Column(name = "CREATE_DATE")
     private LocalDateTime creatingDate;
@@ -40,6 +43,14 @@ public class Order {
     private LocalDateTime completionDate;
 
     public Order() {
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     public User getManager() {

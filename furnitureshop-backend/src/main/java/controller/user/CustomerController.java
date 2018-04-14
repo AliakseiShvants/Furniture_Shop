@@ -3,7 +3,9 @@ package controller.user;
 import domain.UIResponse;
 import domain.product.Product;
 import domain.shop.BasketItem;
+import domain.shop.OrderDetails;
 import domain.shop.Requisite;
+import domain.shop.StorageItem;
 import domain.user.AuthorizationData;
 import domain.user.Role;
 import domain.user.User;
@@ -228,6 +230,10 @@ public class CustomerController {
                 List<OrderDetailsDTO> detailsList = detailsService.getDetailsByOrderId(orderId).stream()
                         .map(details -> mapper.map(details, OrderDetailsDTO.class))
                         .collect(Collectors.toList());
+                for (OrderDetailsDTO orderDetailsDTO: detailsList){
+                    StorageItem storageItem = storageService.getStorageByProductId(orderDetailsDTO.getProduct().getId());
+                    orderDetailsDTO.setPrice(storageItem.getPrice());
+                }
                 return new UIResponse<>(true, detailsList);
             }
             return new UIResponse<>(new OrderExistsException());
@@ -263,6 +269,8 @@ public class CustomerController {
         return new UIResponse<>(new UserExistsException());
     }
 
+
+//    public UIResponse<List<>>
 
 
 }
