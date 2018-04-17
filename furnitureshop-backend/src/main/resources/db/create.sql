@@ -139,11 +139,11 @@ CREATE TABLE furniture_shop.ORDERS
 );
 
 /**
-  A table with order details (products and their quantity)
+  A table with order items (products and their quantity)
  */
-CREATE TABLE furniture_shop.ORDER_DETAILS
+CREATE TABLE furniture_shop.ORDER_ITEM
 (
-  ORDER_DETAILS_ID BIGSERIAL PRIMARY KEY ,
+  ORDER_ITEM_ID BIGSERIAL PRIMARY KEY ,
   ORDER_ID BIGINT NOT NULL ,
   PRODUCT_ID BIGINT NOT NULL ,
   QUANTITY SMALLINT DEFAULT 1,

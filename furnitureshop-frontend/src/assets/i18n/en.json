@@ -90,5 +90,21 @@
   "profile.address.address": "Address",
 
   "profile.delete": "Delete account",
-  "profile.delete.title": "Do you really want to delete your account?"
+  "profile.delete.title": "Do you really want to delete your account?",
+
+  "basket.title": "BASKET",
+  "basket.empty": "No items in the basket",
+  "basket.table.header.1": "Code",
+  "basket.table.header.2": "Product",
+  "basket.table.header.3": "Quantity",
+  "basket.table.header.4": "Price",
+  "basket.total": "Total:",
+
+  "orders.title": "ORDERS",
+  "orders.table.header.1": "№",
+  "orders.table.header.2": "Date",
+  "orders.table.header.3": "Order number",
+  "orders.table.header.4": "Manager",
+  "orders.table.header.5": "Status",
+  "orders.table.header.6": "Accept/Sent"
 }

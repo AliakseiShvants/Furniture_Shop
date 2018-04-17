@@ -21,24 +21,27 @@ export class ViewerComponent implements OnInit {
     this.mockCategory = new Category('chair');
     this.mockProducts = [
       new Product(
+        'XXX001',
         'Name1',
-        'green chair',
+        12.00,
         'PRC',
         [
           '../../assets/img/chairs/green.jpg'
         ]
       ),
       new Product(
+        'XXX003',
         'Name2',
-        'red chair',
+        7.00,
         'Taiwain',
         [
           '../../assets/img/chairs/red.jpg'
         ]
       ),
       new Product(
+        'XXX005',
         'Name3',
-        'white chair',
+        110.00,
         'RF',
         [
           '../../assets/img/chairs/white.jpg'

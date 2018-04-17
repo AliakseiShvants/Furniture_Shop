@@ -6,23 +6,13 @@ import static util.Constants.COMMA;
 public class ProductDTO {
 
     private Long id;
-    private String code;
     private String[] url;
     private String category;
     private String manufacturer;
     private String name;
     private String description;
-    private Double price;
 
     public ProductDTO() {
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public String[] getUrl() {
@@ -39,14 +29,6 @@ public class ProductDTO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
     }
 
     public String getCategory() {
@@ -84,8 +66,6 @@ public class ProductDTO {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder(name)
-                .append(COMMA)
-                .append(code)
                 .append(COMMA)
                 .append(manufacturer);
         return sb.toString();

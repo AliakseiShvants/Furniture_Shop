@@ -36,4 +36,8 @@ public class OrderService {
     public boolean isOrderExists(Long orderId) {
         return orderRepo.existsById(orderId);
     }
+
+    public Order addOrder(Order order) {
+        return orderRepo.save(order);
+    }
 }

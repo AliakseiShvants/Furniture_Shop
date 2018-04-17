@@ -2,13 +2,9 @@ package controller.user;
 
 import domain.UIResponse;
 import domain.product.Product;
-import domain.shop.BasketItem;
-import domain.shop.OrderDetails;
-import domain.shop.Requisite;
-import domain.shop.StorageItem;
-import domain.user.AuthorizationData;
-import domain.user.Role;
+import domain.shop.*;
 import domain.user.User;
+import dto.shop.BasketItemDTO;
 import dto.shop.OrderDTO;
 import dto.shop.OrderDetailsDTO;
 import dto.shop.RequisiteDTO;
@@ -19,9 +15,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.product.ProductService;
 import service.shop.*;
-import service.user.RoleService;
 import service.user.UserService;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,9 +33,6 @@ public class CustomerController {
     private DozerBeanMapper mapper;
 
     @Autowired
-    private RoleService roleService;
-
-    @Autowired
     private RequisiteService requisiteService;
 
     @Autowired
@@ -48,7 +42,7 @@ public class CustomerController {
     private OrderService orderService;
 
     @Autowired
-    private OrderDetailsService detailsService;
+    private OrderItemService orderItemService;
 
     @Autowired
     private ProductService productService;
@@ -59,38 +53,8 @@ public class CustomerController {
     @Autowired
     private StorageService storageService;
 
-    /**
-     * A method for user's authorization.
-     * @param body login and password
-     * @return special user entity
-     */
-    @PostMapping("login")
-    public UIResponse<UserDTO> login(@RequestBody String[] body){
-        User user = userService.getCustomerByLoginAndPassword(body);
-        if (user != null){
-            UserDTO userDTO = mapper.map(user, UserDTO.class);
-            return new UIResponse<>(true, userDTO);
-        }
-        return new UIResponse<>(new UserNotFoundException());
-    }
-
-    /**
-     * A method for registration new user
-     * @param data registration data
-     * @return special user entity
-     */
-    @PostMapping("register")
-    public UIResponse<UserDTO> register(@RequestBody AuthorizationData data){
-        User newUser;
-        if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
-            Role role = roleService.getRoleByTitle("ROLE_USER");
-            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(),
-                    data.getEmail(), role);
-            newUser = userService.addUser(newUser);
-            return new UIResponse<>(true, mapper.map(newUser, UserDTO.class));
-        }
-        return new UIResponse<>(new UserExistsException());
-    }
+    @Autowired
+    private StatusService statusService;
 
     /**
      * PROFILE METHODS
@@ -227,11 +191,11 @@ public class CustomerController {
     public UIResponse<List<OrderDetailsDTO>> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
         if (userService.isUserExists(customerId)){
             if (orderService.isOrderExists(orderId)){
-                List<OrderDetailsDTO> detailsList = detailsService.getDetailsByOrderId(orderId).stream()
+                List<OrderDetailsDTO> detailsList = orderItemService.getDetailsByOrderId(orderId).stream()
                         .map(details -> mapper.map(details, OrderDetailsDTO.class))
                         .collect(Collectors.toList());
                 for (OrderDetailsDTO orderDetailsDTO: detailsList){
-                    StorageItem storageItem = storageService.getStorageByProductId(orderDetailsDTO.getProduct().getId());
+                    StorageItem storageItem = storageService.getStorageItemByProductId(orderDetailsDTO.getProduct().getId());
                     orderDetailsDTO.setPrice(storageItem.getPrice());
                 }
                 return new UIResponse<>(true, detailsList);
@@ -255,7 +219,7 @@ public class CustomerController {
     public UIResponse<Void> addProductToBasket(@PathVariable Long customerId, @PathVariable Long productId){
         if (userService.isUserExists(customerId)){
             if (productService.isProductExists(productId)){
-                if (storageService.isItemExists(productId) && storageService.isAvailable(productId, 1)){
+                if (storageService.isItemExists(productId) && storageService.isItemAvailable(productId, 1)){
                     User customer = userService.getUserById(customerId);
                     Product product = productService.getProductById(productId);
                     BasketItem basketItem = new BasketItem(customer, product, 1);
@@ -269,8 +233,58 @@ public class CustomerController {
         return new UIResponse<>(new UserExistsException());
     }
 
+    /**
+     * A method that returns all products in customer's basket.
+     * @param customerId customer id
+     * @return a list of products in the basket.
+     */
+    @PostMapping("{customerId}/basket/all")
+    public UIResponse<List<BasketItemDTO>> getAllBasketItems(@PathVariable Long customerId){
+        if (userService.isUserExists(customerId)){
+            List<BasketItemDTO> basketItemDTOS = basketService.getBasketItemsByUserId(customerId).stream()
+                    .map(basketItem -> mapper.map(basketItem, BasketItemDTO.class))
+                    .peek(
+                            basketItemDTO -> basketItemDTO.setPrice(
+                                                storageService.getStorageItemByProductId(
+                                                                basketItemDTO.getProduct().getId()
+                                                ).getPrice()
+                            )
+                    )
+                    .collect(Collectors.toList());
+            return new UIResponse<>(true, basketItemDTOS);
+        }
+        return new UIResponse<>(new UserExistsException());
+    }
 
-//    public UIResponse<List<>>
 
+    @PostMapping("{customerId}/basket/order")
+    public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketItemDTO> basketItemsDtos){
+        if (userService.isUserExists(customerId)){
+            List<BasketItem> basketItems = basketItemsDtos.stream()
+                    .map(basketItemDTO -> mapper.map(basketItemDTO, BasketItem.class))
+                    .collect(Collectors.toList());
+
+            if (basketItems != null){
+                User customer = userService.getUserById(customerId);
+                User manager = userService.getFreeManager();
+                Status status = statusService.getStatus("IN_PROCESSING");
+                Order newOrder = orderService.addOrder(new Order(customer, manager, LocalDateTime.now(), status));
+
+                List<OrderItem> orderItems = new ArrayList<>();
+                basketItems.forEach(basketItem -> orderItems.add(
+                        orderItemService.addItem(
+                                new OrderItem(
+                                        newOrder,
+                                        basketItem.getProduct(),
+                                        basketItem.getQuantity()
+                                ))));
+
+                basketService.deleteItemsByCustomerId(customerId);
+                return new UIResponse<>(true);
+            }
+            return new UIResponse<>(new NoBasketItemsException());
+        }
+        return new UIResponse<>(new UserExistsException());
+    }
 
 }

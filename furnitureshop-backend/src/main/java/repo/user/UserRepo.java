@@ -32,5 +32,6 @@ public interface UserRepo extends JpaRepository<User, Long> {
             "WHERE r.title = 'ROLE_MANAGER'", nativeQuery = true)
     List<User> findAllManagers();
 
-
+//    @Query(value = "", nativeQuery = true)
+//    User findManagerByMinimalOrdersCount();
 }

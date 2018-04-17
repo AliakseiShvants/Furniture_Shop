@@ -45,6 +45,13 @@ public class Order {
     public Order() {
     }
 
+    public Order(User customer, User manager, LocalDateTime creatingDate, Status status) {
+        this.customer = customer;
+        this.manager = manager;
+        this.creatingDate = creatingDate;
+        this.status = status;
+    }
+
     public Status getStatus() {
         return status;
     }

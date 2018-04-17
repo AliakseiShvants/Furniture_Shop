@@ -12,12 +12,12 @@ import javax.persistence.*;
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "ORDER_DETAILS")
-public class OrderDetails {
+@Table(name = "ORDER_ITEM")
+public class OrderItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_DETAILS_ID")
+    @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
     @OneToOne(optional = false)
@@ -31,7 +31,13 @@ public class OrderDetails {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    public OrderDetails() {
+    public OrderItem() {
+    }
+
+    public OrderItem(Order order, Product product, Integer quantity) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
     }
 
     public Long getId() {

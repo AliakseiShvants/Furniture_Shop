@@ -56,4 +56,10 @@ public class UserService {
     public List<User> getAllManagers() {
         return userRepo.findAllManagers();
     }
+
+    public User getFreeManager() {
+        //todo mock
+        return getUserById(4L);
+//        return userRepo.findManagerByMinimalOrdersCount();
+    }
 }

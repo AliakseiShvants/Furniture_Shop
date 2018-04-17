@@ -91,6 +91,22 @@
   "profile.address.address": "Адрес",
 
   "profile.delete": "Удалить аккаунт",
-  "profile.delete.title": "Вы действительно хотите удалить свой аккаунт?"
+  "profile.delete.title": "Вы действительно хотите удалить свой аккаунт?",
+
+  "basket.title": "КОРЗИНА",
+  "basket.empty": "Корзина пуста",
+  "basket.table.header.1": "Код",
+  "basket.table.header.2": "Наименование продукта",
+  "basket.table.header.3": "Количество",
+  "basket.table.header.4": "Цена",
+  "basket.total": "Всего:",
+
+  "orders.title": "ЗАКАЗЫ",
+  "orders.table.header.1": "№",
+  "orders.table.header.2": "Дата",
+  "orders.table.header.3": "Номер заказа",
+  "orders.table.header.4": "Менеджер",
+  "orders.table.header.5": "Статус",
+  "orders.table.header.6": "Принято/Выполнено"
 
 }

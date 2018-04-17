@@ -22,7 +22,7 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.role = new Role('ROLE_USER');
+    this.role = Role.USER;
     this.customer = new Customer();
     this.customer.role = this.role;
   }

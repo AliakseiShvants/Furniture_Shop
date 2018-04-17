@@ -9,10 +9,11 @@ export class Product {
   private _imagesUrl: string[];
 
 
-  constructor(code: string, name: string, price: number) {
+  constructor(code: string, name: string, price: number, manufacturer?: string, imagesUrl?: string[]) {
     this._code = code;
     this._name = name;
-    this._price = price;
+    this._manufacturer = manufacturer;
+    this._imagesUrl = imagesUrl;
   }
 
   get id(): number {

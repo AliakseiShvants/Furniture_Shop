@@ -6,6 +6,7 @@ import domain.product.Product;
 import domain.shop.StorageItem;
 import dto.product.ImageDTO;
 import dto.product.ProductDTO;
+import dto.shop.StorageItemDTO;
 import exception.CategoryExistsException;
 import exception.ProductExistsException;
 import org.dozer.DozerBeanMapper;
@@ -42,23 +43,19 @@ public class ProductController {
      */
     @GetMapping("{category}")
     //todo nullpointer
-    public UIResponse<List<ProductDTO>> getProductsByCategory(@PathVariable String category){
+    public UIResponse<List<StorageItemDTO>> getProductsByCategory(@PathVariable String category){
         if (productService.isCategoryExists(category)){
             List<Product> products = productService.getProductsByCategory(category);
             if (products != null){
-                List<ProductDTO> productDTOList = products.stream()
-                        .map(product -> mapper.map(product, ProductDTO.class))
+                List<StorageItemDTO> storageItemDTOS = storageService.getStorageItemsByCategory(category).stream()
+                        .map(storageItem -> mapper.map(storageItem, StorageItemDTO.class))
                         .collect(Collectors.toList());
 
-                for(ProductDTO productDTO : productDTOList){
-                    List<String> imagesUrlList = imageService.getProductImagesUrl(productDTO.getId());
-                    StorageItem storageItem = storageService.getStorageByProductId(productDTO.getId());
-
-                    productDTO.setCode(storageItem.getCode());
-                    productDTO.setPrice(storageItem.getPrice());
-                    productDTO.setUrl((imagesUrlList.toArray(new String[0])));
-                }
-                return new UIResponse<>(true, productDTOList);
+                storageItemDTOS.forEach(item -> item.getProduct().setUrl(
+                                imageService.getProductImagesUrl(item.getProduct().getId())
+                                        .toArray(new String[0])
+                                ));
+                return new UIResponse<>(true, storageItemDTOS);
             }
             return new UIResponse<>(new ProductExistsException());
         }

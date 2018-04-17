@@ -30,7 +30,7 @@ export class BasketComponent implements OnInit {
   totalPrice() {
     this.sum = 0;
     for (const item of this.basket) {
-      this.sum = this.sum + item.product.price;
+      this.sum = this.sum + item.product.price * item.quantity;
     }
     return this.sum;
   }

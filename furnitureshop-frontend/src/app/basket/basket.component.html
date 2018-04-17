@@ -1,11 +1,11 @@
 <div class="row mx-4 my-4">
   <div class="col-2 m-auto">
-    <h3 class="font-weight-bold">BASKET</h3>
+    <h3 class="font-weight-bold">{{'basket.title'|translate}}</h3>
   </div>
 </div>
 <div class="row mx-4 my-4" *ngIf="basket.length == 0">
   <div class="col-3 m-auto">
-    <h4 >No items in the basket</h4>
+    <h4 >{{'basket.empty'|translate}}</h4>
   </div>
 </div>
 <div class="row mx-4 my-4">
@@ -13,10 +13,10 @@
     <table class="table table-bordered" *ngIf="basket.length > 0">
       <thead>
       <tr>
-        <th scope="col">Code</th>
-        <th scope="col">Product</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Price</th>
+        <th scope="col">{{'basket.table.header.1'|translate}}</th>
+        <th scope="col">{{'basket.table.header.2'|translate}}</th>
+        <th scope="col">{{'basket.table.header.3'|translate}}</th>
+        <th scope="col">{{'basket.table.header.4'|translate}}</th>
       </tr>
       </thead>
       <tbody>
@@ -35,7 +35,7 @@
       </tr>
       <tr>
         <td colspan="2"></td>
-        <td class="font-weight-bold float-right">Total:</td>
+        <td class="font-weight-bold float-right">{{'basket.total'|translate}}</td>
         <td>{{totalPrice()}}</td>
       </tr>
       </tbody>
