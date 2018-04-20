@@ -1,17 +1,18 @@
- import {Component, OnInit} from '@angular/core';
+ import {Component, OnInit, Output} from '@angular/core';
  import {TranslateService} from '@ngx-translate/core';
- import {Customer} from '../domain/user/customer';
  import {Role} from '../domain/user/role';
+ import {User} from '../domain/user/user';
+ import {AppService} from '../service/app.service';
+ import {CustomerService} from '../service/customer.service';
+ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
+ import {AuthorizationService} from '../service/authorization.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit{
-
-  customer: Customer;
-  role: Role;
+export class AppComponent implements OnInit {
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('ru');
@@ -21,10 +22,8 @@ export class AppComponent implements OnInit{
     this.translate.use(lang);
   }
 
-  ngOnInit(): void {
-    this.role = Role.USER;
-    this.customer = new Customer();
-    this.customer.role = this.role;
+  ngOnInit() {
   }
+
 }
 

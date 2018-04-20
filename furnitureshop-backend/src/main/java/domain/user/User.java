@@ -60,12 +60,14 @@ public class User {
         this.role = role;
     }
 
-    public User(String fullName, String email, LocalDate birthday, Boolean sex) {
+    public User(Long id, String fullName, String email, LocalDate birthday, Boolean sex) {
+        this.id = id;
         this.fullName = fullName;
         this.email = email;
         this.birthday = birthday;
         this.sex = sex;
     }
+
 
     public Requisite getRequisite() {
         return requisite;

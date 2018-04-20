@@ -7,17 +7,20 @@ import {RoutingModule} from './routing/routing.module';
 import {MenuComponent} from './menu/menu.component';
 import {AboutComponent} from './about/about.component';
 import {ViewerComponent} from './viewer/viewer.component';
-import {RegisterComponent} from './register/register.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {AlertModule, ModalModule} from 'ngx-bootstrap';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {LoginComponent} from './login/login.component';
 import {FormsModule} from '@angular/forms';
 import {CustomerService} from '../service/customer.service';
 import {ProfileComponent} from './profile/profile.component';
 import {OrdersComponent} from './orders/orders.component';
 import {BasketComponent} from './basket/basket.component';
+import {UserComponent} from './user/user.component';
+import {CustomerComponent} from './customer/customer.component';
+import {ManagersComponent} from './managers/managers.component';
+import {AuthorizationService} from '../service/authorization.service';
+import {AppService} from '../service/app.service';
 
 @NgModule({
   declarations: [
@@ -27,11 +30,12 @@ import {BasketComponent} from './basket/basket.component';
     MenuComponent,
     AboutComponent,
     ViewerComponent,
-    RegisterComponent,
-    LoginComponent,
     ProfileComponent,
     OrdersComponent,
-    BasketComponent
+    BasketComponent,
+    UserComponent,
+    CustomerComponent,
+    ManagersComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +52,11 @@ import {BasketComponent} from './basket/basket.component';
       }
     })
   ],
-  providers: [CustomerService],
+  providers: [
+    AppService,
+    CustomerService,
+    AuthorizationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

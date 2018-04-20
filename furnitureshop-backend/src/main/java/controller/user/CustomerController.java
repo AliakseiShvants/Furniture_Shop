@@ -74,17 +74,19 @@ public class CustomerController {
 
     /**
      * A method for updating user's profile info
-     * @param id user id
      * @param updateUser user entity with updated fields
      * @return user entity
      */
-    @PatchMapping("{id}/update")
-    public UIResponse<UserDTO> updateProfile(@PathVariable Long id, @RequestBody UserDTO updateUser){
-        if (userService.isUserExists(id)){
-            User user = new User(updateUser.getFullName(), updateUser.getEmail(), updateUser.getBirthday(),
-                    updateUser.getSex());
-            user = userService.updateUser(user);
-            return new UIResponse<>(true, mapper.map(user, UserDTO.class));
+    @PatchMapping("update")
+    public UIResponse<UserDTO> updateProfile(@RequestBody UserDTO updateUser){
+        if (userService.isUserExists(updateUser.getId())){
+            User dbUser = userService.getUserById(updateUser.getId());
+            dbUser.setFullName(updateUser.getFullName());
+            dbUser.setEmail(updateUser.getEmail());
+            dbUser.setBirthday(updateUser.getBirthday());
+            dbUser.setSex(updateUser.getSex());
+            dbUser = userService.updateUser(dbUser);
+            return new UIResponse<>(true, mapper.map(dbUser, UserDTO.class));
         }
         return new UIResponse<>(new UserNotFoundException());
     }
@@ -109,7 +111,7 @@ public class CustomerController {
      * @param requisite requisite entity
      * @return new requisite entity binding with concrete user
      */
-    @PostMapping("{id}/requisite/add")
+    @PostMapping("{id}/addRequisite")
     public UIResponse<RequisiteDTO> addRequisite(@PathVariable Long id, @RequestBody RequisiteDTO requisite){
         User user = userService.getUserById(id);
         if (user != null){
@@ -255,7 +257,6 @@ public class CustomerController {
         }
         return new UIResponse<>(new UserExistsException());
     }
-
 
     @PostMapping("{customerId}/basket/order")
     public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketItemDTO> basketItemsDtos){

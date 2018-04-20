@@ -15,13 +15,20 @@
   "menu.navitem.goods.chairs": "Chairs",
   "menu.navitem.goods.dressers": "Dressers",
 
-  "menu.navitem.profile": "Profile",
+  "menu.navitem.admin.customers": "All customers",
+  "menu.navitem.admin.managers": "All managers",
+  "menu.navitem.admin.orders": "All orders",
+  "menu.navitem.admin.products": "All products",
+
+  "menu.navitem.manager.products": "My products",
+  "menu.navitem.manager.orders": "My orders",
+
+  "menu.navitem.customer.profile": "Profile",
   "menu.navitem.profile.edit": "Edit profile",
   "menu.navitem.profile.requisite": "Shipping address",
   "menu.navitem.profile.delete": "Delete profile",
-
-  "menu.navitem.orders": "Orders",
-  "menu.navitem.basket": "Basket",
+  "menu.navitem.customer.orders": "Orders",
+  "menu.navitem.customer.basket": "Basket",
 
   "menu.button.register": "Register",
   "menu.button.login": "Log in",
@@ -51,6 +58,7 @@
   "register.email": "Email",
   "register.login": "Login",
   "register.login.help": "Login must be at least 4 symbols",
+  "register.birthday.help": "Date format dd/mm/yyyy",
   "register.password": "Password",
   "register.password.help": "Password must be at least 5 symbols",
   "register.confirmPassword": "Confirm password",
@@ -69,20 +77,26 @@
   "login.password": "Password",
   "login.password.help": "Password must be at least 5 symbols",
 
-  "alert.login.success.part1": "User ",
-  "alert.login.success.part2": ", is successfully logged in!",
+  "alert.login.success": "Success!",
   "alert.login.danger": "User with such login and password does not exist!",
+
+  "customer.form.title": "List of customers",
+  "customer.form.add": "Add New Customer",
+
+  "profile.submit": "The changes are saved",
 
   "profile.edit": "Edit profile",
   "profile.edit.title": "Profile info",
   "profile.edit.name": "Full name",
   "profile.edit.name.help": "Full name must be at least 4 symbols",
   "profile.edit.birthday": "Birthday",
+  "profile.edit.email": "Email",
   "profile.edit.sex": "Sex",
   "profile.edit.sex.male": "male",
   "profile.edit.sex.female": "female",
 
-  "profile.address": "Edit shipping address",
+  "profile.address.add": "Add shipping address",
+  "profile.address.edit": "Edit shipping address",
   "profile.address.title": "Shipping address",
   "profile.address.zip": "Zip",
   "profile.address.country": "Country",

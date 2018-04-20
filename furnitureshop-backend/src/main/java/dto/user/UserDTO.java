@@ -1,5 +1,8 @@
 package dto.user;
 
+import domain.user.AuthorizationData;
+import dto.shop.RequisiteDTO;
+
 import java.time.LocalDate;
 
 public class UserDTO {
@@ -8,10 +11,19 @@ public class UserDTO {
     private String fullName;
     private String email;
     private LocalDate birthday;
+    private RequisiteDTO requisite;
     private Boolean sex;
-    private RoleDTO role;
+    private String role;
 
     public UserDTO() {
+    }
+
+    public RequisiteDTO getRequisite() {
+        return requisite;
+    }
+
+    public void setRequisite(RequisiteDTO requisite) {
+        this.requisite = requisite;
     }
 
     public Long getId() {
@@ -54,12 +66,11 @@ public class UserDTO {
         this.sex = sex;
     }
 
-    public RoleDTO getRole() {
+    public String getRole() {
         return role;
     }
 
-    public void setRole(RoleDTO role) {
+    public void setRole(String role) {
         this.role = role;
     }
-
 }

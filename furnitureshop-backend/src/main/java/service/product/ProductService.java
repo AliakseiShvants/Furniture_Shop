@@ -41,4 +41,8 @@ public class ProductService {
         }
         return null;
     }
+
+    public List<Product> getProductsByManagerId(Long id) {
+        return null;
+    }
 }

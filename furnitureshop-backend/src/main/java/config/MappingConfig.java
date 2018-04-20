@@ -17,6 +17,9 @@ import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Configuration
 public class MappingConfig {
 
@@ -26,7 +29,8 @@ public class MappingConfig {
             @Override
             protected void configure() {
                 mapping(Role.class, RoleDTO.class);
-                mapping(User.class, UserDTO.class);
+                mapping(User.class, UserDTO.class)
+                        .fields("role.title", "role");
                 mapping(Requisite.class, RequisiteDTO.class);
                 mapping(Order.class, OrderDTO.class)
                         .fields("manager.fullName", "manager")
@@ -48,6 +52,13 @@ public class MappingConfig {
     public DozerBeanMapper beanMapper() {
         DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
         dozerBeanMapper.addMapping(beanMappingBuilder());
+
+        List<String> customConverters = new ArrayList();
+        customConverters.add("dozerJdk8Converters.xml");
+        dozerBeanMapper.setMappingFiles(customConverters);
+
         return dozerBeanMapper;
     }
+
+
 }

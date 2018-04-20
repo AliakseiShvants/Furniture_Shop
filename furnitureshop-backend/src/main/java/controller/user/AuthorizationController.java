@@ -31,12 +31,12 @@ public class AuthorizationController {
 
     /**
      * A method for user's authorization.
-     * @param body login and password
+     * @param data login and password
      * @return special user entity
      */
     @PostMapping("login")
-    public UIResponse<UserDTO> login(@RequestBody String[] body){
-        User user = userService.getCustomerByLoginAndPassword(body);
+    public UIResponse<UserDTO> login(@RequestBody AuthorizationData data){
+        User user = userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword());
         if (user != null){
             UserDTO userDTO = mapper.map(user, UserDTO.class);
             return new UIResponse<>(true, userDTO);

@@ -7,7 +7,8 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">{{'menu.navitem.goods'|translate}}</a>
+           aria-expanded="true">{{'menu.navitem.goods'|translate}}
+        </a>
         <div class="dropdown-menu bg-light">
           <a class="dropdown-item" routerLink="/doors">{{'menu.navitem.goods.doors'|translate}}</a>
           <a class="dropdown-item" routerLink="/beds">{{'menu.navitem.goods.beds'|translate}}</a>
@@ -16,48 +17,173 @@
           <a class="dropdown-item" routerLink="/dressers">{{'menu.navitem.goods.dressers'|translate}}</a>
         </div>
       </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/view"><h3></h3></a>
-      </li>
-      <!--<li class="nav-item" routerLinkActive="active">-->
-        <!--<a class="nav-link" href="#"><h3></h3></a>-->
-      <!--</li>-->
-      <!--<li class="nav-item" routerLinkActive="active">-->
-        <!--<a class="nav-link" href="#"><h3></h3></a>-->
-      <!--</li>-->
-      <!--<li class="nav-item" routerLinkActive="active">-->
-        <!--<a class="nav-link" href="#"><h3></h3></a>-->
-      <!--</li>-->
-      <!--<li class="nav-item" routerLinkActive="active">-->
-        <!--<a class="nav-link" href="#"><h3></h3></a>-->
-      <!--</li>-->
     </ul>
 
     <ul class="navbar-nav">
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown" [hidden]="!isAdmin()">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">User_Login</a>
+           aria-expanded="true">Admin_Login</a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/profile">{{'menu.navitem.profile'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.orders'|translate}}</a>
-          <a class="dropdown-item" routerLink="/basket">{{'menu.navitem.basket'|translate}}</a>
+          <a class="dropdown-item" routerLink="/customers">{{'menu.navitem.admin.customers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/managers">{{'menu.navitem.admin.managers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/products">{{'menu.navitem.admin.products'|translate}}</a>
+          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.admin.orders'|translate}}</a>
         </div>
       </li>
-      <li class="nav-item">
-        <button class="btn btn-outline-warning btn-lg" routerLink="/about" type="button">
-          {{'menu.button.logout'|translate}}
-        </button>
+
+      <li class="nav-item dropdown" [hidden]="!isManager()">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+           aria-expanded="true">Manager_Login</a>
+        <div class="dropdown-menu bg-light">
+          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.manager.orders'|translate}}</a>
+          <a class="dropdown-item" routerLink="/products">{{'menu.navitem.manager.products'|translate}}</a>
+        </div>
       </li>
-      <li class="nav-item">
-        <button class="btn btn-outline-primary btn-lg" routerLink="/login" type="button">
+
+      <li class="nav-item dropdown" [hidden]="!isCustomer()">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+           aria-expanded="true">
+          {{user?.fullName}}
+          <span class="fa fa-list"></span>
+        </a>
+        <div class="dropdown-menu bg-light">
+          <a class="dropdown-item" routerLink="/profile">{{'menu.navitem.customer.profile'|translate}}</a>
+          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.customer.orders'|translate}}</a>
+          <a class="dropdown-item" routerLink="/basket">{{'menu.navitem.customer.basket'|translate}}
+            <span class="fa fa-shopping-cart"></span>
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item" [hidden]="isGuest()">
+        <a href="/">
+          <button class="btn btn-outline-warning btn-lg" (click)="logout()" type="button">
+            {{'menu.button.logout'|translate}}
+          </button>
+        </a>
+      </li>
+      <li class="nav-item" [hidden]="!isGuest()">
+        <button class="btn btn-outline-primary btn-lg" (click)="openLogin()" type="button">
           {{'menu.button.login'|translate}}
         </button>
       </li>
-      <li class="nav-item">
-        <button class="btn btn-outline-secondary btn-lg" routerLink="/register" type="button">
+      <li class="nav-item" [hidden]="!isGuest()">
+        <button class="btn btn-outline-secondary btn-lg" (click)="openRegister()" type="button">
           {{'menu.button.register'|translate}}
         </button>
       </li>
     </ul>
   </div>
 </nav>
+
+<ng-template #loginModal>
+  <div class="modal-header">
+    <h4 class="modal-title modal-title-center">{{'login.title'|translate}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form action="#" method="post" (submit)="submitLogin()" [hidden]="isLogged">
+
+        <div class="form-group">
+          <label for="logLogin" class="floatLabel">{{'login.login'|translate}}</label>
+          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
+                 required minlength="4">
+          <small id="logLogHelp" class="form-text text-muted">{{'login.login.help'|translate}}</small>
+        </div>
+
+        <div class="form-group">
+          <label for="logPassword" class="floatLabel">{{'login.password'|translate}}</label>
+          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password"
+                 aria-describedby="passHelp" required minlength="5">
+          <small id="logPassHelp" class="form-text text-muted">{{'login.password.help'|translate}}</small>
+        </div>
+
+        <div class="form-footer">
+          <button class="btn btn-primary" type="submit" >{{'button.submit'|translate}}</button>
+          <button class="btn btn-secondary" type="reset" >{{'button.clean'|translate}}</button>
+          <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()">
+            {{'button.close'|translate}}
+          </button>
+        </div>
+      </form>
+      <alert id="logDanger" *ngIf="isNotExist" type="danger" dismissOnTimeout="5000">
+        {{ 'alert.login.danger' | translate }}
+      </alert>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #registerModal>
+  <div class="modal-header">
+    <h4 id="modal-title" class="modal-title text-center">{{ 'register.title' | translate }}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"
+            routerLink="/about">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form action="#" method="post" (submit)="submitRegister()" [hidden]="isRegistered">
+
+        <div class="form-group">
+          <label for="fullName" class="floatLabel">{{ 'register.name' | translate }}</label>
+          <input class="form-control" id="fullName" name="fullName" type="text" [(ngModel)]="fullName"
+                 aria-describedby="nameHelp" required minlength="4">
+          <small id="nameHelp" class="form-text text-muted">{{ 'register.name.help' | translate }}</small>
+          <alert id="nameAlert" class="danger" *ngIf="isShortName">{{ 'register.alert.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="login" class="floatLabel">{{ 'register.login' | translate }}</label>
+          <input class="form-control" id="login" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
+                 required minlength="4">
+          <small id="logHelp" class="form-text text-muted">{{ 'register.login.help' | translate }}</small>
+          <alert id="logAlert" class="danger" *ngIf="isShortLogin">{{ 'register.alert.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="floatLabel">{{ 'register.email' | translate }}</label>
+          <input class="form-control" id="email" name="email" type="text" [(ngModel)]="email" required>
+          <alert id="emailAlert" class="danger" *ngIf="isIncorrectEmail">{{ 'register.alert.email' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="floatLabel">{{ 'register.password' | translate }}</label>
+          <input class="form-control" id="password" name="password" type="password" [(ngModel)]="password"
+                 aria-describedby="passHelp" required minlength="5">
+          <small id="passHelp" class="form-text text-muted">{{ 'register.password.help' | translate }}</small>
+          <alert id="passAlert" class="danger" *ngIf="isShortPass">{{ 'register.alert.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="floatLabel">{{ 'register.confirmPassword' | translate }}</label>
+          <input class="form-control" id="confirmPassword" name="confirmPassword" type="password"
+                 [(ngModel)]="confirmPassword" required minlength="5">
+          <alert id="equalAlert" class="danger" *ngIf="notEqual">{{ 'register.alert.notEqual' | translate }}</alert>
+        </div>
+
+        <div class="form-footer">
+          <button id="submit" class="btn btn-primary" type="submit">{{ 'button.submit' | translate }}</button>
+          <button id="reset" class="btn btn-secondary" type="reset">{{ 'button.clean' | translate }}</button>
+          <button id="close" class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()"
+                  routerLink="/about">
+            {{ 'button.close' | translate }}
+          </button>
+        </div>
+      </form>
+      <alert id="success" *ngIf="isRegistered" type="success">
+        {{ 'alert.register.success.part1' | translate }}
+        {{ fullName }}
+        {{ 'alert.register.success.part2' | translate }}
+      </alert>
+      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">
+        {{ 'alert.register.danger.part1' | translate }}
+        {{ login }}
+        {{ 'alert.register.danger.part2' | translate }}
+      </alert>
+    </div>
+  </div>
+</ng-template>

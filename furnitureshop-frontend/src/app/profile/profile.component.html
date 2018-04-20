@@ -2,11 +2,14 @@
 
   <div class="col-6 m-auto">
     <div class="btn-group-lg" role="group">
-      <button type="button" class="btn btn-primary" (click)="switchForm('profile');">
+      <button type="button" class="btn btn-secondary" (click)="switchForm('updateProfile');">
         {{'profile.edit'|translate}}
       </button>
-      <button type="button" class="btn btn-warning" (click)="switchForm('requisite')">
-        {{'profile.address'|translate}}
+      <button *ngIf="!requisiteExists()" type="button" class="btn btn-primary" (click)="switchForm('addRequisite')">
+        {{'profile.address.add'|translate}}
+      </button>
+      <button *ngIf="requisiteExists()" type="button" class="btn btn-secondary" (click)="switchForm('updateRequisite')">
+        {{'profile.address.edit'|translate}}
       </button>
       <button type="button" class="btn btn-danger" (click)="switchForm('delete')">
         {{'profile.delete'|translate}}
@@ -18,40 +21,49 @@
 
 <div [ngSwitch] = "showForm">
 
-  <div *ngSwitchCase="'profile'" class="row mx-4 my-4">
+  <div *ngSwitchCase="'updateProfile'" class="row mx-4 my-4">
     <div class="col-5 m-auto bg-white">
       <h4 class="ml-4 my-4">{{'profile.edit.title'|translate}}</h4>
-      <form>
+      <form method="post" (submit)="updateProfile()">
 
         <div class="form-group">
           <label for="fullName" class="floatLabel">{{ 'profile.edit.name' | translate }}</label>
-          <input class="form-control" id="fullName" name="fullName" type="text" [value]="fullName"
-                 placeholder="{{user.fullName}}" aria-describedby="nameHelp" required minlength="4">
+          <input class="form-control" id="fullName" name="fullName" type="text" [(ngModel)]="user.fullName"
+                 aria-describedby="nameHelp" required minlength="4">
           <small id="nameHelp" class="form-text text-muted">{{ 'register.name.help' | translate }}</small>
-          <alert id="nameAlert" class="danger" *ngIf="isShortName">{{ 'register.alert.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="email">{{'profile.edit.email'|translate}}</label>
+          <input type="email" class="form-control" id="email" [(ngModel)]="user.email"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="birthday">{{'profile.edit.birthday'|translate}}</label>
-          <input type="date" class="form-control" id="birthday" [value]="user.birthday">
+          <input type="date" class="form-control" id="birthday" [(ngModel)]="user.birthday" [value]="user.birthday | date:'dd/MM/yyyy'"
+                 [ngModelOptions]="{standalone: true}">
+          <small id="birthdayHelp" class="form-text text-muted">{{ 'register.birthday.help' | translate }}</small>
         </div>
-
 
         <div class="form-check-group" id="check-group">
           <label class="form-check-label" for="check-group">{{'profile.edit.sex'|translate}}</label>
 
           <div class="form-check mx-4">
-            <input type="checkbox" class="form-check-input" id="male" [value]="user.sex">
+            <input class="form-check-input" name="group100" type="radio" id="male" [(ngModel)]="user.sex" [value]="true"
+                   [checked]="getSex()">
             <label class="form-check-label" for="male">{{'profile.edit.sex.male'|translate}}</label>
           </div>
 
           <div class="form-check mx-4">
-            <input type="checkbox" class="form-check-input" id="female" [value]="user.sex">
+            <input class="form-check-input" name="group100" type="radio" id="female" [(ngModel)]="user.sex" [value]="false"
+                   [checked]="!getSex()" >
             <label class="form-check-label" for="female">{{'profile.edit.sex.female'|translate}}</label>
           </div>
         </div>
 
         <div class="form-footer my-4">
+          <alert id="updateUser" type="success" *ngIf="isUpdated">{{ 'profile.submit' | translate }}</alert>
           <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
         </div>
@@ -59,32 +71,72 @@
     </div>
   </div>
 
-  <div *ngSwitchCase="'requisite'" class="row mx-4 my-4">
+  <div *ngSwitchCase="'addRequisite'" class="row mx-4 my-4">
     <div class="col-5 m-auto bg-white">
       <h4 class="ml-4 my-4">{{'profile.address.title'|translate}}</h4>
-      <form>
+      <form method="post" (submit)="addRequisite()">
+
+        <div class="form-group">
+          <label for="addZip">{{'profile.address.zip'|translate}}</label>
+          <input type="text" class="form-control" id="addZip" [(ngModel)]="zip" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="addCountry">{{'profile.address.country'|translate}}</label>
+          <input type="text" class="form-control" id="addCountry" [(ngModel)]="country" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="addCity">{{'profile.address.city'|translate}}</label>
+          <input type="text" class="form-control" id="addCity" [(ngModel)]="city" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-group">
+          <label for="addAddress">{{'profile.address.address'|translate}}</label>
+          <input type="text" class="form-control" id="addAddress" [(ngModel)]="address" [ngModelOptions]="{standalone: true}">
+        </div>
+
+        <div class="form-footer my-4">
+          <alert id="updateRequisiteSuccess" type="success" *ngIf="isAdded">{{ 'profile.submit' | translate }}</alert>
+          <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
+          <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <div *ngSwitchCase="'updateRequisite'" class="row mx-4 my-4">
+    <div class="col-5 m-auto bg-white">
+      <h4 class="ml-4 my-4">{{'profile.address.title'|translate}}</h4>
+      <form method="post" (submit)="updateRequisite()">
 
         <div class="form-group">
           <label for="zip">{{'profile.address.zip'|translate}}</label>
-          <input type="text" class="form-control" id="zip" [(ngModel)]="requisite.zip">
+          <input type="text" class="form-control" id="zip" [(ngModel)]="user.requisite.zip"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="country">{{'profile.address.country'|translate}}</label>
-          <input type="text" class="form-control" id="country" [(ngModel)]="requisite.country">
+          <input type="text" class="form-control" id="country" [(ngModel)]="user.requisite.country"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="city">{{'profile.address.city'|translate}}</label>
-          <input type="text" class="form-control" id="city" [(ngModel)]="requisite.city">
+          <input type="text" class="form-control" id="city" [(ngModel)]="user.requisite.city"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="address">{{'profile.address.address'|translate}}</label>
-          <input type="text" class="form-control" id="address" [(ngModel)]="requisite.address">
+          <input type="text" class="form-control" id="address" [(ngModel)]="user.requisite.address"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-footer my-4">
+          <alert id="updateRequisite" type="success" *ngIf="isUpdated">{{ 'profile.submit' | translate }}</alert>
           <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
         </div>
@@ -94,13 +146,16 @@
   </div>
 
   <div *ngSwitchCase="'delete'" class="row mx-4 my-4">
-    <div class="col-5 m-auto bg-white">
+    <div class="col-5 m-auto bg-white" [hidden]="isDeleted">
       <h3>{{'profile.delete.title'|translate}}</h3>
       <div class="my-4">
-        <button type="submit" class="btn btn-danger">{{'button.delete'|translate}}</button>
-        <button type="reset" class="btn btn-primary" routerLink="/about">{{'button.clean'|translate}}</button>
+        <button type="submit" class="btn btn-danger" (click)="delete()" routerLink="/about">
+          {{'button.delete'|translate}}
+        </button>
+        <!--<button type="reset" class="btn btn-primary" routerLink="/profile">{{'button.clean'|translate}}</button>-->
       </div>
     </div>
+    <alert id="success" *ngIf="isDeleted" type="success">{{'alert.login.success'|translate}}</alert>
   </div>
 
 </div>
