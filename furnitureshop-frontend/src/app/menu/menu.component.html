@@ -10,11 +10,11 @@
            aria-expanded="true">{{'menu.navitem.goods'|translate}}
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/doors">{{'menu.navitem.goods.doors'|translate}}</a>
-          <a class="dropdown-item" routerLink="/beds">{{'menu.navitem.goods.beds'|translate}}</a>
-          <a class="dropdown-item" routerLink="/tables">{{'menu.navitem.goods.tables'|translate}}</a>
-          <a class="dropdown-item" routerLink="/viewer">{{'menu.navitem.goods.chairs'|translate}}</a>
-          <a class="dropdown-item" routerLink="/dressers">{{'menu.navitem.goods.dressers'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/viewer', 'door']">{{'menu.navitem.goods.doors'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/viewer', 'bed']">{{'menu.navitem.goods.beds'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/viewer', 'table']">{{'menu.navitem.goods.tables'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/viewer', 'chair']">{{'menu.navitem.goods.chairs'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/viewer', 'dresser']">{{'menu.navitem.goods.dressers'|translate}}</a>
         </div>
       </li>
     </ul>
@@ -47,9 +47,9 @@
           <span class="fa fa-list"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/profile">{{'menu.navitem.customer.profile'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.customer.orders'|translate}}</a>
-          <a class="dropdown-item" routerLink="/basket">{{'menu.navitem.customer.basket'|translate}}
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'menu.navitem.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'menu.navitem.customer.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'menu.navitem.customer.basket'|translate}}
             <span class="fa fa-shopping-cart"></span>
           </a>
         </div>

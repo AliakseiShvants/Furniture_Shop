@@ -21,6 +21,7 @@ import {CustomerComponent} from './customer/customer.component';
 import {ManagersComponent} from './managers/managers.component';
 import {AuthorizationService} from '../service/authorization.service';
 import {AppService} from '../service/app.service';
+import {ProductService} from '../service/product.service';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,7 @@ import {AppService} from '../service/app.service';
     })
   ],
   providers: [
-    AppService,
+    ProductService,
     CustomerService,
     AuthorizationService
   ],

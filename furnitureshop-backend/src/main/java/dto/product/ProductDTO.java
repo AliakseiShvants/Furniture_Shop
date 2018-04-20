@@ -6,7 +6,7 @@ import static util.Constants.COMMA;
 public class ProductDTO {
 
     private Long id;
-    private String[] url;
+    private String url;
     private String category;
     private String manufacturer;
     private String name;
@@ -15,11 +15,11 @@ public class ProductDTO {
     public ProductDTO() {
     }
 
-    public String[] getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(String[] url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 

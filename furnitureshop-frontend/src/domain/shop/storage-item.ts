@@ -1,11 +1,10 @@
 import {Product} from '../product/product';
 
-export class BasketItem {
+export class StorageItem {
   id: number;
   product: Product;
-  quantity: number;
+  code: string;
   price: number;
-
-
+  quantity: number;
 
 }

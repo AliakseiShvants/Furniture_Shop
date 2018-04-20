@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from '../../domain/user/user';
+import {CustomerService} from '../../service/customer.service';
 
 @Component({
   selector: 'app-about',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AboutComponent implements OnInit {
 
-  constructor() { }
+  user: User;
+  constructor(private customerService: CustomerService) { }
 
   ngOnInit() {
+    this.user = this.customerService.getUser();
   }
 
 }

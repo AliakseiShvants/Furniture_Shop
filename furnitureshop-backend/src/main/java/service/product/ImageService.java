@@ -20,9 +20,8 @@ public class ImageService {
         return imageRepo.findAllByProduct_Id(id);
     }
 
-    public List<String> getProductImagesUrl(Long id) {
-        return imageRepo.findAllByProduct_Id(id).stream()
-                .map(Image::getUrl)
-                .collect(Collectors.toList());
+    public String getProductImageUrl(Long id) {
+        Image image = imageRepo.findByProduct_Id(id);
+        return image != null ? image.getUrl() : "";
     }
 }

@@ -235,12 +235,21 @@ public class CustomerController {
         return new UIResponse<>(new UserExistsException());
     }
 
+    @DeleteMapping("{customerId}/basket/{productId}/delete")
+    public UIResponse<Void> deleteBasketItem(@PathVariable Long customerId, @PathVariable Long productId){
+        if (userService.isUserExists(customerId)){
+            basketService.deleteBasketItemByIds(customerId, productId);
+            return new UIResponse<>(true);
+        }
+        return new UIResponse<>(new UserExistsException());
+    }
+
     /**
      * A method that returns all products in customer's basket.
      * @param customerId customer id
      * @return a list of products in the basket.
      */
-    @PostMapping("{customerId}/basket/all")
+    @GetMapping("{customerId}/basket/all")
     public UIResponse<List<BasketItemDTO>> getAllBasketItems(@PathVariable Long customerId){
         if (userService.isUserExists(customerId)){
             List<BasketItemDTO> basketItemDTOS = basketService.getBasketItemsByUserId(customerId).stream()

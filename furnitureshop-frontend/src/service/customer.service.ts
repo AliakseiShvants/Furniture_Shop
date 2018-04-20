@@ -18,6 +18,9 @@ export class CustomerService {
   private requisite = '/requisite/';
   private update = '/update';
   private _addRequisite = '/addRequisite';
+  private basket = '/basket/';
+  private add = '/add';
+  private all = 'all';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -56,5 +59,17 @@ export class CustomerService {
 
   deleteCustomer(customerId: number) {
     return this.httpClient.delete(this.customer + customerId + this.delete);
+  }
+
+  addProductToBasket(customerId: number, productId: number){
+    return this.httpClient.get(this.customer + customerId + this.basket + productId + this.add);
+  }
+
+  getAllBasketItems(customerId: number){
+    return this.httpClient.get(this.customer + customerId + this.basket + this.all);
+  }
+
+  deleteBasketItem(customerId: number, productId: number) {
+    return this.httpClient.delete(this.customer + customerId + this.basket + productId + this.delete);
   }
 }

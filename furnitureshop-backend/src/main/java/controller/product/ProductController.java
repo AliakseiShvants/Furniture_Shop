@@ -52,9 +52,9 @@ public class ProductController {
                         .collect(Collectors.toList());
 
                 storageItemDTOS.forEach(item -> item.getProduct().setUrl(
-                                imageService.getProductImagesUrl(item.getProduct().getId())
-                                        .toArray(new String[0])
-                                ));
+                                imageService.getProductImageUrl(item.getProduct().getId())
+                                )
+                );
                 return new UIResponse<>(true, storageItemDTOS);
             }
             return new UIResponse<>(new ProductExistsException());

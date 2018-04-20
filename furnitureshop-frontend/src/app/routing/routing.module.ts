@@ -11,14 +11,14 @@ import {CustomerComponent} from '../customer/customer.component';
 export const appRoutes: Routes = [
   {path: 'about', component: AboutComponent},
 
-  {path: 'viewer', component: ViewerComponent},
+  {path: 'viewer/:category', component: ViewerComponent},
 
   {path: 'customers', component: CustomerComponent},
   {path: 'managers', component: CustomerComponent},
 
-  {path: 'profile', component: ProfileComponent},
-  {path: 'orders', component: OrdersComponent},
-  {path: 'basket', component: BasketComponent},
+  {path: 'profile/:id', component: ProfileComponent},
+  {path: 'orders/:id', component: OrdersComponent},
+  {path: 'basket/:id', component: BasketComponent},
 
 
   { path: '',   redirectTo: '/about', pathMatch: 'full' },

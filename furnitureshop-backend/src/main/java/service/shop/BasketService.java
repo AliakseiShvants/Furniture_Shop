@@ -29,4 +29,8 @@ public class BasketService {
     public void deleteItemsByCustomerId(Long customerId) {
         basketRepo.deleteAllByCustomer_Id(customerId);
     }
+
+    public void deleteBasketItemByIds(Long customerId, Long productId){
+        basketRepo.deleteBasketItemByCustomer_IdAndProduct_Id(customerId, productId);
+    }
 }

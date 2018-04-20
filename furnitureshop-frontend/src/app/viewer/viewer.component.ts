@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {Product} from '../../domain/product/product';
-import {Category} from '../../domain/product/category';
-import {Manufacturer} from '../../domain/product/manufacturer';
-import {Image} from '../../domain/product/image';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ProductService} from '../../service/product.service';
+import {StorageItem} from '../../domain/shop/storage-item';
+import {Uiresponse} from '../../domain/uiresponse';
+import {User} from '../../domain/user/user';
+import {CustomerService} from '../../service/customer.service';
 
 @Component({
   selector: 'app-viewer',
@@ -11,46 +13,49 @@ import {Image} from '../../domain/product/image';
 })
 export class ViewerComponent implements OnInit {
 
-  mockProducts: Product[];
-  mockCategory: Category;
-  rowCount: number;
-  colCount: number;
-  constructor() { }
+  user: User;
+  addedProductId: number;
+  storageItems: StorageItem[];
+  category: string;
+
+  isAdded = false;
+
+  constructor(private route: ActivatedRoute,
+              private productService: ProductService,
+              private customerService: CustomerService) { }
 
   ngOnInit() {
-    this.mockCategory = new Category('chair');
-    this.mockProducts = [
-      new Product(
-        'XXX001',
-        'Name1',
-        12.00,
-        'PRC',
-        [
-          '../../assets/img/chairs/green.jpg'
-        ]
-      ),
-      new Product(
-        'XXX003',
-        'Name2',
-        7.00,
-        'Taiwain',
-        [
-          '../../assets/img/chairs/red.jpg'
-        ]
-      ),
-      new Product(
-        'XXX005',
-        'Name3',
-        110.00,
-        'RF',
-        [
-          '../../assets/img/chairs/white.jpg'
-        ]
-      ),
-    ];
+    this.user = this.customerService.getUser();
+    this.category = this.route.snapshot.params['category'];
+    this.getStorageItems();
 
-    this.rowCount = this.mockProducts.length / 3;
-    this.colCount = this.mockProducts.length - this.rowCount * 3;
+  }
+
+  private getStorageItems() {
+    this.productService.getStorageItemsByProductCategory(this.category)
+      .subscribe(
+        (data: Uiresponse) => {
+          if (!data.success){
+            alert('no products');
+          } else {
+            this.storageItems = data.body;
+          }
+        }
+      )
+  }
+
+  addToBasket(productId: number){
+    this.customerService.addProductToBasket(this.user.id, productId)
+      .subscribe(
+        (res: Uiresponse) => {
+          this.isAdded = res.success;
+          this.addedProductId = productId;
+        }
+      );
+  }
+
+  showSuccessAlert(id: number) {
+    return this.isAdded && this.addedProductId === id;
   }
 
 }

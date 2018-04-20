@@ -1,45 +1,54 @@
-<div class="row mx-4 my-4">
-  <div class="col-2 m-auto">
-    <h3 class="font-weight-bold">{{'basket.title'|translate}}</h3>
-  </div>
-</div>
-<div class="row mx-4 my-4" *ngIf="basket.length == 0">
-  <div class="col-3 m-auto">
-    <h4 >{{'basket.empty'|translate}}</h4>
-  </div>
-</div>
-<div class="row mx-4 my-4">
-  <div class="col-8 m-auto">
-    <table class="table table-bordered" *ngIf="basket.length > 0">
+<div class="container-fluid mx-4 my-4">
+  <div class="table-wrapper">
+    <div class="row mx-4 my-4" *ngIf="basketItems?.length == 0">
+      <div class="col-3 m-auto">
+        <h4>{{'basket.empty'|translate}}</h4>
+      </div>
+    </div>
+    <div class="table-title">
+      <div class="row">
+        <div class="col-6">
+          <h2 class="float-right">{{'basket.title'|translate}}</h2>
+        </div>
+      </div>
+    </div>
+    <table class="col-10 table table-striped table-hover" *ngIf="basketItems?.length > 0">
       <thead>
       <tr>
-        <th scope="col">{{'basket.table.header.1'|translate}}</th>
-        <th scope="col">{{'basket.table.header.2'|translate}}</th>
-        <th scope="col">{{'basket.table.header.3'|translate}}</th>
-        <th scope="col">{{'basket.table.header.4'|translate}}</th>
+        <th>{{'basket.name'|translate}}</th>
+        <th>{{'basket.manufacturer'|translate}}</th>
+        <th>{{'basket.quantity'|translate}}</th>
+        <th>{{'basket.price'|translate}}</th>
+        <th>{{'basket.value'|translate}}</th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of basket">
-        <td>{{item.product.code}}</td>
-        <td>{{item.product.name}}</td>
+      <tr *ngFor="let basketItem of basketItems">
+        <td>{{basketItem.product.name}}</td>
+        <td>{{basketItem.product.manufacturer}}</td>
         <td>
-          <input type="number" name="quantity" class="input-number" [(ngModel)]="item.quantity" min="1" max="100">
+          <input type="number" name="quantity" class="input-number" [(ngModel)]="basketItem.quantity" min="1" max="10">
         </td>
-        <td>{{item.product.price}}</td>
+        <td>{{basketItem.price}}</td>
+        <td>{{basketItem.quantity * basketItem.price}}</td>
         <td>
-          <a (click)="delete(item)">
-            <img src="../../assets/img/trash.png" alt="Delete" height="30" width="30">
-          </a>
+          <button type="button" class="btn btn-danger" (click)="delete(basketItem.product.id)">
+            <i class="fa fa-trash-o"></i>
+          </button>
         </td>
       </tr>
       <tr>
-        <td colspan="2"></td>
+        <td colspan="3"></td>
         <td class="font-weight-bold float-right">{{'basket.total'|translate}}</td>
         <td>{{totalPrice()}}</td>
+      </tr>
+      <tr>
+        <td colspan="3"></td>
+        <td colspan="2">
+          <button type="button" class="col btn btn-success" (click)="makeOrder()">{{'basket.order'|translate}}</button>
+        </td>
       </tr>
       </tbody>
     </table>
   </div>
 </div>
-
