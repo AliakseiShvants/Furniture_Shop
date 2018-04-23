@@ -1,4 +1,5 @@
 import {Category} from './category';
+import {Manufacturer} from './manufacturer';
 
 export class Product {
 
@@ -6,7 +7,7 @@ export class Product {
   public category: Category;
   public name: string;
   public description: string;
-  public manufacturer: string;
+  public manufacturer: Manufacturer;
   public url: string;
 
 }

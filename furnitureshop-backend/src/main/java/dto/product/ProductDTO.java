@@ -1,6 +1,7 @@
 package dto.product;
 
 import domain.product.Category;
+import domain.product.Manufacturer;
 
 import static util.Constants.COMMA;
 
@@ -9,7 +10,7 @@ public class ProductDTO {
     private Long id;
     private String url;
     private Category category;
-    private String manufacturer;
+    private Manufacturer manufacturer;
     private String name;
     private String description;
 
@@ -40,11 +41,11 @@ public class ProductDTO {
         this.category = category;
     }
 
-    public String getManufacturer() {
+    public Manufacturer getManufacturer() {
         return manufacturer;
     }
 
-    public void setManufacturer(String manufacturer) {
+    public void setManufacturer(Manufacturer manufacturer) {
         this.manufacturer = manufacturer;
     }
 
@@ -62,13 +63,5 @@ public class ProductDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(name)
-                .append(COMMA)
-                .append(manufacturer);
-        return sb.toString();
     }
 }

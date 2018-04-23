@@ -1,10 +1,12 @@
 package controller.user;
 
 import domain.UIResponse;
+import domain.product.Image;
 import domain.product.Manufacturer;
 import domain.product.Product;
 import domain.shop.Order;
 import domain.shop.Status;
+import domain.user.User;
 import dto.product.ProductDTO;
 import dto.shop.OrderDTO;
 import dto.shop.StorageItemDTO;
@@ -14,6 +16,7 @@ import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.product.CategoryService;
+import service.product.ImageService;
 import service.product.ManufacturerService;
 import service.product.ProductService;
 import service.shop.*;
@@ -46,6 +49,9 @@ public class ManagerController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private BasketService basketService;
@@ -153,19 +159,17 @@ public class ManagerController {
      * @return a new product DTO entity.
      */
     @PostMapping("{managerId}/product/add")
-    public UIResponse<ProductDTO> addProduct(@PathVariable Long managerId, ProductDTO productDTO){
+    public UIResponse<ProductDTO> addProduct(@PathVariable Long managerId, @RequestBody ProductDTO productDTO){
         if (userService.isUserExists(managerId)){
-            Manufacturer manufacturer;
-            if (manufacturerService.isManufacturerExists(productDTO.getManufacturer())){
-                manufacturer = manufacturerService.getByTitle(productDTO.getManufacturer());
-            } else {
-                manufacturer = manufacturerService.addManufacturer(productDTO.getManufacturer());
-            }
-
-            Product newProduct = new Product(productDTO.getName(), productDTO.getCategory(), manufacturer,
+            Product newProduct = new Product(productDTO.getName(), productDTO.getCategory(), productDTO.getManufacturer(),
                     productDTO.getDescription());
             newProduct = productService.addProduct(newProduct);
-            return new UIResponse<>(true, mapper.map(newProduct, ProductDTO.class));
+            User manager = userService.getUserById(managerId);
+            storageService.addStorageItem(manager, newProduct);
+            Image image = imageService.addImage(newProduct, productDTO.getUrl());
+            ProductDTO dto = mapper.map(newProduct, ProductDTO.class);
+            dto.setUrl(image.getUrl());
+            return new UIResponse<>(true, dto);
         }
         return new UIResponse<>(new UserNotFoundException());
     }

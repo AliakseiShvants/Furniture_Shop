@@ -1,6 +1,8 @@
 package service.shop;
 
+import domain.product.Product;
 import domain.shop.Storage;
+import domain.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,5 +34,10 @@ public class StorageService {
 
     public List<Storage> getStorageItemsByManager(Long managerId) {
         return storageRepo.findAllByManager_Id(managerId);
+    }
+
+    public Storage addStorageItem(User manager, Product product) {
+        Storage storage = new Storage(product, manager);
+        return storageRepo.save(storage);
     }
 }

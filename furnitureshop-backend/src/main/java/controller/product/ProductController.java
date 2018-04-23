@@ -2,8 +2,13 @@ package controller.product;
 
 import domain.UIResponse;
 import domain.product.Category;
+import domain.product.Manufacturer;
 import domain.product.Product;
+import domain.shop.Requisite;
 import dto.product.ImageDTO;
+import dto.product.ManufacturerDTO;
+import dto.product.ProductDTO;
+import dto.shop.RequisiteDTO;
 import dto.shop.StorageItemDTO;
 import exception.CategoryExistsException;
 import exception.ProductExistsException;
@@ -12,7 +17,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import service.product.CategoryService;
 import service.product.ImageService;
+import service.product.ManufacturerService;
 import service.product.ProductService;
+import service.shop.RequisiteService;
 import service.shop.StorageService;
 
 import java.util.List;
@@ -36,6 +43,12 @@ public class ProductController {
 
     @Autowired
     private StorageService storageService;
+
+    @Autowired
+    private ManufacturerService manufacturerService;
+
+    @Autowired
+    private RequisiteService requisiteService;
 
     /**
      * A method that returns a list of products by category
@@ -99,4 +112,32 @@ public class ProductController {
         List<Category> categories = categoryService.getAll();
         return new UIResponse<>(true, categories);
     }
+
+    /**
+     *
+     * @param productId
+     * @param manufacturerDTO
+     * @return
+     */
+    @PostMapping("{productId}/manufacturer/add")
+    public UIResponse<ManufacturerDTO> addManufacturer(@PathVariable Long productId,
+                                                       @RequestBody ManufacturerDTO manufacturerDTO){
+        if (productService.isProductExists(productId)){
+            RequisiteDTO requisiteDTO = manufacturerDTO.getRequisite();
+            Requisite newRequisite = new Requisite(requisiteDTO.getZip(), requisiteDTO.getCountry(),
+                    requisiteDTO.getCity(), requisiteDTO.getAddress());
+            newRequisite = requisiteService.addRequisite(newRequisite);
+            Manufacturer newManufacturer = new Manufacturer(manufacturerDTO.getTitle(), newRequisite);
+            newManufacturer = manufacturerService.addManufacturer(newManufacturer);
+            return new UIResponse<>(true, mapper.map(newManufacturer, ManufacturerDTO.class));
+        }
+        return new UIResponse<>(new ProductExistsException());
+    }
+
+    @GetMapping("manufacturer/all")
+    public UIResponse<List<Manufacturer>> getAllManufacturers(){
+        List<Manufacturer> manufacturerList = manufacturerService.getAll();
+        return new UIResponse<>(true, manufacturerList);
+    }
+
 }

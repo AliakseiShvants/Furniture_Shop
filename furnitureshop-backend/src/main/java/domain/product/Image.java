@@ -29,6 +29,11 @@ public class Image implements Serializable{
     public Image() {
     }
 
+    public Image(Product product, String url) {
+        this.url = url;
+        this.product = product;
+    }
+
     public Long getId() {
         return id;
     }

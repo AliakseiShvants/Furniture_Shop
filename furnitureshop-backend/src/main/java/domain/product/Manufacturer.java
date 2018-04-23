@@ -30,8 +30,9 @@ public class Manufacturer {
     public Manufacturer() {
     }
 
-    public Manufacturer(String title) {
+    public Manufacturer(String title, Requisite requisite) {
         this.title = title;
+        this.requisite = requisite;
     }
 
     public Long getId() {

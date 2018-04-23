@@ -37,8 +37,7 @@ public class MappingConfig {
                         .fields("status.status", "status");
                 mapping(OrderItem.class, OrderItemDTO.class);
                 mapping(Manufacturer.class, ManufacturerDTO.class);
-                mapping(Product.class, ProductDTO.class)
-                        .fields("manufacturer.requisite.country", "manufacturer");
+                mapping(Product.class, ProductDTO.class);
                 mapping(BasketItem.class, BasketItemDTO.class);
                 mapping(Image.class, ImageDTO.class);
                 mapping(Storage.class, StorageItemDTO.class);

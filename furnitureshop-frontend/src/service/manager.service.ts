@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Order} from '../domain/shop/order';
+import {Product} from '../domain/product/product';
 
 @Injectable()
 export class ManagerService {
@@ -9,6 +10,7 @@ export class ManagerService {
   private order = '/order/';
   private product = '/product/';
   private all = 'all';
+  private add = 'add';
   private delet = '/delete';
   private update = '/update';
   private storage = '/storage';
@@ -33,5 +35,9 @@ export class ManagerService {
 
   getManagerStorage(userId: number) {
     return this.httpClient.get(this.manager + userId + this.storage);
+  }
+
+  addProduct(userId: number, product: Product) {
+    return this.httpClient.post(this.manager + userId + this.product + this.add, product);
   }
 }

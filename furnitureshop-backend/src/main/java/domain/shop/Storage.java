@@ -38,6 +38,11 @@ public class Storage {
     public Storage() {
     }
 
+    public Storage(Product product, User manager) {
+        this.product = product;
+        this.manager = manager;
+    }
+
     public User getManager() {
         return manager;
     }

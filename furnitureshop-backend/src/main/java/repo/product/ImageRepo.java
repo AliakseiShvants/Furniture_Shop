@@ -15,4 +15,5 @@ public interface ImageRepo extends JpaRepository<Image, Long>{
 
     Image findByProduct_Id(Long id);
 
+
 }

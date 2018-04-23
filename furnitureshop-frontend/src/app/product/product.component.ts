@@ -8,6 +8,7 @@ import {Product} from '../../domain/product/product';
 import {ProductService} from '../../service/product.service';
 import {Uiresponse} from '../../domain/uiresponse';
 import {Category} from '../../domain/product/category';
+import {Manufacturer} from '../../domain/product/manufacturer';
 
 @Component({
   selector: 'app-product',
@@ -23,8 +24,9 @@ export class ProductComponent implements OnInit {
   private productTemplate: TemplateRef<any>;
 
   public productList: Product[];
+  public product = new Product();
   public categoryList: Category[];
-  public product: Product;
+  public manufacturerList: Manufacturer[];
   public modalRef: BsModalRef;
   public isProductAdded= false;
 
@@ -41,7 +43,19 @@ export class ProductComponent implements OnInit {
     this.user = this.customerService.getUser();
     this.userId = this.route.snapshot.params['id'];
     this.loadCategories();
+    this.loadManufacturers();
     this.loadProducts(this.userId);
+    this.product.category = new Category();
+    this.product.manufacturer = new Manufacturer();
+  }
+
+  private loadManufacturers() {
+    this.productService.getManufacturers()
+      .subscribe(
+        (res: Uiresponse) => {
+          this.manufacturerList = res.body;
+        }
+      )
   }
 
   private loadCategories() {
@@ -75,17 +89,19 @@ export class ProductComponent implements OnInit {
   }
 
   addRequisite(item: Product){
-
+    this.productService.addManufacturer(item.id, item.manufacturer)
+      .subscribe()
   }
 
   addProduct(){
-
-
-
-
-
-    this.product = null;
-
+    this.managerService.addProduct(this.userId, this.product)
+      .subscribe(
+        (res: Uiresponse) => {
+          this.isProductAdded = res.success;
+          this.product = res.body;
+          this.productList.push(this.product);
+        }
+      );
   }
 
   update(item: Product){
@@ -95,7 +111,6 @@ export class ProductComponent implements OnInit {
   delete(item: Product){
 
   }
-
 
 
 }

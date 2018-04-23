@@ -1,6 +1,7 @@
 package service.product;
 
 import domain.product.Image;
+import domain.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,5 +24,10 @@ public class ImageService {
     public String getProductImageUrl(Long id) {
         Image image = imageRepo.findByProduct_Id(id);
         return image != null ? image.getUrl() : "";
+    }
+
+    public Image addImage(Product product, String url) {
+        Image image = new Image(product, url);
+        return imageRepo.save(image);
     }
 }

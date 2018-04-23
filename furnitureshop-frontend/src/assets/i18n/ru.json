@@ -139,6 +139,16 @@
   "orders.item.sum": "Сумма",
   "orders.select.1": "В обработке",
   "orders.select.2": "Принято",
-  "orders.select.3": "Послано"
+  "orders.select.3": "Послано",
+
+  "product.title": "Мои добавленные продукты на складе",
+  "product.name": "Наименование продукта",
+  "product.category": "Категория",
+  "product.manufacturer": "Производитель",
+  "product.imageUrl": "Адрес картинки",
+  "product.desc": "Описание продукта",
+  "product.addProduct": "Добавить новый продукт",
+  "product.addRequisite": "Добавить адрес",
+  "product.alert.success": "Продукт добавлен"
 
 }

@@ -113,6 +113,7 @@ export class MenuComponent implements OnInit {
           this.customerService.setUser(response.body);
           this.user = response.body;
           this.modalRef.hide();
+          this.route.navigate(['/about']);
         },
         error2 => {
           this.isNotExist = true;
@@ -148,6 +149,7 @@ export class MenuComponent implements OnInit {
           this.isExist = !data.success;
           this.customerService.setUser(data.body);
           this.modalRef.hide();
+          this.route.navigate(['/about']);
         },
         error2 => {
           this.isExist = true;

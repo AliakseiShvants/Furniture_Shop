@@ -7,8 +7,8 @@
     </div>
     <div class="table-title">
       <div class="row">
-        <div class="col-6">
-          <h2 class="float-right">{{'product.title'|translate}}</h2>
+        <div class="col-5 m-auto font-weight-bold">
+          <h3>{{'product.title'|translate}}</h3>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <button *ngIf="!isRequisiteExists(item)" type="button" class="btn btn-primary" (click)="addRequisite(item)">
             {{'product.addRequisite'|translate}}
           </button>
-          {{item.manufacturer}}
+          {{item.manufacturer.title}}
         </td>
         <td>{{item.url}}</td>
         <td>{{item.description}}</td>
@@ -55,7 +55,7 @@
 
 <ng-template #productModal>
   <div class="modal-header">
-    <h3 class="modal-title ml-auto">{{'product.newProduct'|translate}}</h3>
+    <h3 class="modal-title ml-auto">{{'product.addProduct'|translate}}</h3>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -65,28 +65,39 @@
       <form action="#" method="post" (submit)="addProduct()">
 
         <div class="form-group">
-          <label for="title" class="floatLabel">{{ 'product.title' | translate }}</label>
+          <label for="title" class="floatLabel">{{ 'product.name' | translate }}</label>
           <input class="form-control" id="title" name="title" type="text" [(ngModel)]="product.name"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
 
         <div class="form-group">
           <label for="category" class="floatLabel">{{ 'product.category' | translate }}</label>
-          <select id="category" class="status-select" size="1" [(ngModel)]="product.category">
-            <option *ngFor="let category of categoryList" [ngValue]="category">{{category.title}}</option>
+          <select id="category" class="status-select" size="1" [(ngModel)]="product.category"
+                  [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let category of categoryList" [ngValue]="category">{{category.title|translate}}</option>
           </select>
         </div>
 
         <div class="form-group">
-          <label for="url" class="floatLabel">{{ 'product.url' | translate }}</label>
+          <label for="manufacturer" class="floatLabel">{{ 'product.manufacturer' | translate }}</label>
+          <select id="manufacturer" class="status-select" size="1" [(ngModel)]="product.manufacturer"
+                  [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let manufacturer of manufacturerList" [ngValue]="manufacturer">
+              {{manufacturer.title|translate}}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="url" class="floatLabel">{{ 'product.imageUrl' | translate }}</label>
           <input class="form-control" id="url" name="url" type="text" [(ngModel)]="product.url"
                  [ngModelOptions]="{standalone: true}" required>
         </div>
 
         <div class="form-group">
           <label for="desc" class="floatLabel">{{ 'product.desc' | translate }}</label>
-          <input class="form-control" id="desc" name="desc" type="text" [(ngModel)]="product.description"
-                 [ngModelOptions]="{standalone: true}" required>
+          <textarea class="form-control" id="desc" name="desc" type="text" [(ngModel)]="product.description"
+                    [ngModelOptions]="{standalone: true}" required></textarea>
         </div>
 
         <div class="form-footer">

@@ -145,7 +145,13 @@
   "orders.select.2": "ACCEPT",
   "orders.select.3": "SENT",
 
-  "storage.title": "My added products to storage",
-
-  "product.name": ""
+  "product.title": "My added products to storage",
+  "product.name": "Product name",
+  "product.category": "Category",
+  "product.manufacturer": "Manufacturer",
+  "product.imageUrl": "Image url",
+  "product.desc": "Product description",
+  "product.addProduct": "Add new product",
+  "product.addRequisite": "Add requisite",
+  "product.alert.success": "Product added"
 }
