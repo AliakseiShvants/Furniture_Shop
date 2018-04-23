@@ -12,9 +12,10 @@ import java.util.List;
 @Transactional
 public interface OrderItemRepo extends JpaRepository<OrderItem, Long> {
 
-    @Query(value = "SELECT od.order_details_id, od.order_id, od.product_id, od.quantity\n" +
-            "FROM furniture_shop.order_details od\n" +
+    @Query(value = "SELECT od.order_item_id, od.order_id, od.product_id, od.quantity\n" +
+            "FROM furniture_shop.order_item od\n" +
             "JOIN furniture_shop.orders o ON od.order_id = o.order_id\n" +
             "WHERE o.order_id = ?1", nativeQuery = true)
     List<OrderItem> findDetailsByOrderId(Long orderId);
+
 }

@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthorizationData} from '../domain/user/authorization-data';
 import {User} from '../domain/user/user';
 import {Requisite} from '../domain/shop/requisite';
+import {BasketItem} from '../domain/shop/basket-item';
 
 @Injectable()
 export class CustomerService {
@@ -21,6 +22,8 @@ export class CustomerService {
   private basket = '/basket/';
   private add = '/add';
   private all = 'all';
+  private orders = '/orders/';
+  private order = 'order';
 
   constructor(private httpClient: HttpClient) { }
 
@@ -54,7 +57,7 @@ export class CustomerService {
   }
 
   updateRequisite(customerId: number, requisite: Requisite) {
-    return this.httpClient.post(this.customer + customerId + this.requisite + requisite.id + this.update, requisite);
+    return this.httpClient.patch(this.customer + customerId + this.requisite + requisite.id + this.update, requisite);
   }
 
   deleteCustomer(customerId: number) {
@@ -71,5 +74,17 @@ export class CustomerService {
 
   deleteBasketItem(customerId: number, productId: number) {
     return this.httpClient.delete(this.customer + customerId + this.basket + productId + this.delete);
+  }
+
+  getAllCustomerOrders(customerId: number) {
+    return this.httpClient.get(this.customer + customerId + this.orders + this.all);
+  }
+
+  getOrderInfo(customerId: number, productId: number){
+    return this.httpClient.get(this.customer + customerId + this.orders + productId);
+  }
+
+  makeOrder(customerId: number, basketItems: BasketItem[]){
+    return this.httpClient.post(this.customer + customerId + this.basket + this.order, basketItems);
   }
 }

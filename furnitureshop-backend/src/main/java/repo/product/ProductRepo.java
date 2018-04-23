@@ -1,9 +1,11 @@
 package repo.product;
 
+import domain.product.Category;
 import domain.product.Product;
 import dto.product.ProductDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,5 +22,16 @@ public interface ProductRepo extends JpaRepository<Product, Long> {
 
     Product findByCategory_Title(String category);
 
-//    List<Product> findAllBy
+    /**
+     * A method that returns a list of products added by a manager.
+     * @param id a manager id
+     * @return a list of products
+     */
+    @Query(value = "SELECT p.product_id, p.manufacturer_id, p.category_id, p.name, p.description\n" +
+            "FROM furniture_shop.product p\n" +
+            "JOIN furniture_shop.storage s\n" +
+            "  ON p.product_id = s.product_id\n" +
+            "WHERE s.manager_id = :id", nativeQuery = true)
+    List<Product> findAllByManager_Id(@Param("id") Long id);
+
 }

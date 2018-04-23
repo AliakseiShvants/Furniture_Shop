@@ -1,0 +1,58 @@
+<div id="manager-orders" class="container-fluid mx-4 my-4">
+  <div class="table-wrapper">
+    <div class="row mx-4 my-4" *ngIf="isEmpty(storage)">
+      <div class="col-3 m-auto">
+        <h4>{{'list.empty'|translate}}</h4>
+      </div>
+    </div>
+    <div class="table-title">
+      <div class="row">
+        <div class="col-6">
+          <h2 class="float-right">{{'storage.title'|translate}}</h2>
+        </div>
+      </div>
+    </div>
+    <table class="col-10 table table-striped table-hover" *ngIf="!isEmpty(storage)">
+      <thead>
+      <tr>
+        <th>{{'storage.product'|translate}}</th>
+        <th>{{'storage.code'|translate}}</th>
+        <th>{{'storage.price'|translate}}</th>
+        <th>{{'storage.quantity'|translate}}</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of storage">
+        <td>
+          <button type="button" class="btn btn-primary" (click)="addProduct()">{{'storage.addButton'|translate}}</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="openProductDetails(item)">ORD{{item.id}}</button>
+        </td>
+        <td>
+          <select class="status-select" size="1" [(ngModel)]="item.status">
+            <option [value]="IN_PROC" [selected]="selected(item.status, IN_PROC)">{{'orders.select.1'|translate}}</option>
+            <option [value]="ACCEPT" [selected]="selected(item.status, ACCEPT)">{{'orders.select.2'|translate}}</option>
+            <option [value]="SENT" [selected]="selected(item.status, SENT)">{{'orders.select.3'|translate}}</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" [(ngModel)]="item.completionDate" [ngModelOptions]="{standalone: true}">
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="update(item)">
+            <i class="fa fa-floppy-o"></i>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="delete(item.id)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div >

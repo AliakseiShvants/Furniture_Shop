@@ -1,6 +1,7 @@
 package domain.shop;
 
 import domain.product.Product;
+import domain.user.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Scope("prototype")
 @Entity
 @Table(name = "STORAGE")
-public class StorageItem {
+public class Storage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +22,10 @@ public class StorageItem {
     @JoinColumn(name = "PRODUCT_ID", nullable = false, updatable = false)
     private Product product;
 
+    @OneToOne(optional = false)
+    @JoinColumn(name = "MANAGER_ID", nullable = false)
+    private User manager;
+
     @Column(name = "CODE")
     private String code;
 
@@ -30,7 +35,15 @@ public class StorageItem {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    public StorageItem() {
+    public Storage() {
+    }
+
+    public User getManager() {
+        return manager;
+    }
+
+    public void setManager(User manager) {
+        this.manager = manager;
     }
 
     public Long getId() {

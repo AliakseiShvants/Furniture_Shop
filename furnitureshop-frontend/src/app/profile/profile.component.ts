@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {User} from '../../domain/user/user';
 import {Requisite} from '../../domain/shop/requisite';
 import {Uiresponse} from '../../domain/uiresponse';
@@ -26,7 +26,14 @@ export class ProfileComponent implements OnInit {
   showForm = 'profile';
 
   constructor(private customerService: CustomerService,
-              private route: Router) {}
+              private route: Router,
+              private cd: ChangeDetectorRef) {
+
+    setInterval(() => {
+      this.user = this.customerService.getUser();
+      this.cd.detectChanges();
+    }, 1000);
+  }
 
   ngOnInit() {
     this.user = this.customerService.getUser();

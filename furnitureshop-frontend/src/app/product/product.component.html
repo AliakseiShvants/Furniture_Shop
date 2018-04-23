@@ -1,0 +1,103 @@
+<div id="manager-orders" class="container-fluid mx-4 my-4">
+  <div class="table-wrapper">
+    <div class="row mx-4 my-4" *ngIf="isEmpty(productList)">
+      <div class="col-3 m-auto">
+        <h4>{{'list.empty'|translate}}</h4>
+      </div>
+    </div>
+    <div class="table-title">
+      <div class="row">
+        <div class="col-6">
+          <h2 class="float-right">{{'product.title'|translate}}</h2>
+        </div>
+      </div>
+    </div>
+    <table class="col-10 table table-striped table-hover" *ngIf="!isEmpty(productList)">
+      <thead>
+        <tr>
+          <th>{{'product.name'|translate}}</th>
+          <th>{{'product.manufacturer'|translate}}</th>
+          <th>{{'product.imageUrl'|translate}}</th>
+          <th>{{'product.desc'|translate}}</th>
+          <th colspan="2">
+            <button type="button" class="btn btn-primary" (click)="openModal()">
+              {{'product.addProduct'|translate}}
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of productList">
+        <td>{{item.name}}</td>
+        <td>
+          <button *ngIf="!isRequisiteExists(item)" type="button" class="btn btn-primary" (click)="addRequisite(item)">
+            {{'product.addRequisite'|translate}}
+          </button>
+          {{item.manufacturer}}
+        </td>
+        <td>{{item.url}}</td>
+        <td>{{item.description}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" (click)="update(item)">
+            <i class="fa fa-pencil"></i>
+          </button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-danger" (click)="delete(item)">
+            <i class="fa fa-trash-o"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div >
+
+<ng-template #productModal>
+  <div class="modal-header">
+    <h3 class="modal-title ml-auto">{{'product.newProduct'|translate}}</h3>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form action="#" method="post" (submit)="addProduct()">
+
+        <div class="form-group">
+          <label for="title" class="floatLabel">{{ 'product.title' | translate }}</label>
+          <input class="form-control" id="title" name="title" type="text" [(ngModel)]="product.name"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category" class="floatLabel">{{ 'product.category' | translate }}</label>
+          <select id="category" class="status-select" size="1" [(ngModel)]="product.category">
+            <option *ngFor="let category of categoryList" [ngValue]="category">{{category.title}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="url" class="floatLabel">{{ 'product.url' | translate }}</label>
+          <input class="form-control" id="url" name="url" type="text" [(ngModel)]="product.url"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+
+        <div class="form-group">
+          <label for="desc" class="floatLabel">{{ 'product.desc' | translate }}</label>
+          <input class="form-control" id="desc" name="desc" type="text" [(ngModel)]="product.description"
+                 [ngModelOptions]="{standalone: true}" required>
+        </div>
+
+        <div class="form-footer">
+          <button id="submit" class="btn btn-primary" type="submit">{{ 'button.submit' | translate }}</button>
+          <button id="reset" class="btn btn-secondary" type="reset">{{ 'button.clean' | translate }}</button>
+          <button id="close" class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()">
+            {{ 'button.close' | translate }}
+          </button>
+        </div>
+      </form>
+      <alert id="success" *ngIf="isProductAdded" type="success">{{'product.alert.success'|translate}}</alert>
+    </div>
+  </div>
+</ng-template>

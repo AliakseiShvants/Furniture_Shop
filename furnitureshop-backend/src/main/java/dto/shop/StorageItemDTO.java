@@ -1,16 +1,26 @@
 package dto.shop;
 
 import dto.product.ProductDTO;
+import dto.user.UserDTO;
 
 public class StorageItemDTO {
 
     private Long id;
     private ProductDTO product;
+    private UserDTO manager;
     private String code;
     private Double price;
     private Integer quantity;
 
     public StorageItemDTO() {
+    }
+
+    public UserDTO getManager() {
+        return manager;
+    }
+
+    public void setManager(UserDTO manager) {
+        this.manager = manager;
     }
 
     public Long getId() {

@@ -1,9 +1,12 @@
 import {Product} from '../product/product';
+import {User} from '../user/user';
 
-export class StorageItem {
+export class Storage {
+
   id: number;
-  product: Product;
   code: string;
+  product: Product;
+  manager: User;
   price: number;
   quantity: number;
 

@@ -32,6 +32,23 @@ public interface UserRepo extends JpaRepository<User, Long> {
             "WHERE r.title = 'ROLE_MANAGER'", nativeQuery = true)
     List<User> findAllManagers();
 
-//    @Query(value = "", nativeQuery = true)
-//    User findManagerByMinimalOrdersCount();
+
+    @Query(value = "SELECT u.user_id, u.fullname, u.login, u.password, u.email, u.role_id, u.requisite_id, u.birthday, " +
+            "u.sex\n" +
+            "FROM furniture_shop.users u\n" +
+            "JOIN (\n" +
+            "    SELECT u.user_id, count(o.order_id) AS ordersCount\n" +
+            "    FROM furniture_shop.users u\n" +
+            "      JOIN furniture_shop.role r\n" +
+            "        ON u.role_id = r.role_id\n" +
+            "      LEFT JOIN furniture_shop.orders o\n" +
+            "        ON u.user_id = o.manager_id\n" +
+            "    WHERE r.title LIKE '%MANAGER%'\n" +
+            "    GROUP BY u.user_id\n" +
+            "    ) uro ON u.user_id = uro.user_id\n" +
+            "ORDER BY ordersCount\n" +
+            "LIMIT 1", nativeQuery = true)
+    User findManagerByMinimalOrdersCount();
+
+    void deleteById(Long id);
 }

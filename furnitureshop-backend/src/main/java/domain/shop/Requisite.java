@@ -41,6 +41,11 @@ public class Requisite {
         this.address = address;
     }
 
+    public Requisite(Long id, String zip, String country, String city, String address) {
+        this(zip, country, city, address);
+        this.id = id;
+    }
+
     public Long getId() {
         return id;
     }

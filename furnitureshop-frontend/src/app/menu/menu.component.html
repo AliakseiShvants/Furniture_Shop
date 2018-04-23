@@ -10,11 +10,8 @@
            aria-expanded="true">{{'menu.navitem.goods'|translate}}
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/viewer', 'door']">{{'menu.navitem.goods.doors'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/viewer', 'bed']">{{'menu.navitem.goods.beds'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/viewer', 'table']">{{'menu.navitem.goods.tables'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/viewer', 'chair']">{{'menu.navitem.goods.chairs'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/viewer', 'dresser']">{{'menu.navitem.goods.dressers'|translate}}</a>
+          <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/viewer', category.title]">
+            {{category.title|translate}}</a>
         </div>
       </li>
     </ul>
@@ -22,7 +19,10 @@
     <ul class="navbar-nav">
       <li class="nav-item dropdown" [hidden]="!isAdmin()">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">Admin_Login</a>
+           aria-expanded="true">
+          {{user?.fullName}}
+          <span class="fa fa-user"></span>
+        </a>
         <div class="dropdown-menu bg-light">
           <a class="dropdown-item" routerLink="/customers">{{'menu.navitem.admin.customers'|translate}}</a>
           <a class="dropdown-item" routerLink="/managers">{{'menu.navitem.admin.managers'|translate}}</a>
@@ -33,10 +33,14 @@
 
       <li class="nav-item dropdown" [hidden]="!isManager()">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">Manager_Login</a>
+           aria-expanded="true">
+          {{user?.fullName}}
+          <span class="fa fa-user"></span>
+        </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.manager.orders'|translate}}</a>
-          <a class="dropdown-item" routerLink="/products">{{'menu.navitem.manager.products'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'menu.navitem.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'menu.navitem.manager.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'menu.navitem.manager.products'|translate}}</a>
         </div>
       </li>
 
@@ -44,7 +48,7 @@
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
            aria-expanded="true">
           {{user?.fullName}}
-          <span class="fa fa-list"></span>
+          <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
           <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'menu.navitem.customer.profile'|translate}}</a>

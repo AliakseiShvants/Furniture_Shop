@@ -8,21 +8,20 @@
   "footer.author.p2": "А.Шванц",
 
   "menu.navitem.about": "О нас",
-
   "menu.navitem.goods": "Товары",
-  "menu.navitem.goods.doors": "Двери",
-  "menu.navitem.goods.beds": "Кровати",
-  "menu.navitem.goods.tables": "Столы",
-  "menu.navitem.goods.chairs": "Стулья",
-  "menu.navitem.goods.dressers": "Шкафы",
+  "bed": "Кровати",
+  "door": "Двери",
+  "table": "Столы",
+  "chair": "Стулья",
+  "dresser": "Шкафы",
 
-  "menu.navitem.admin.customers": "All customers",
-  "menu.navitem.admin.managers": "All managers",
-  "menu.navitem.admin.orders": "All orders",
-  "menu.navitem.admin.products": "All products",
+  "menu.navitem.admin.customers": "Все клиеты",
+  "menu.navitem.admin.managers": "Все менеджеры",
+  "menu.navitem.admin.orders": "Все заказы",
+  "menu.navitem.admin.products": "Все продукты",
 
-  "menu.navitem.manager.products": "My products",
-  "menu.navitem.manager.orders": "My orders",
+  "menu.navitem.manager.products": "Мои продукты",
+  "menu.navitem.manager.orders": "Мои заказы",
 
   "menu.navitem.customer.profile": "Профиль",
   "menu.navitem.profile.edit": "Изменить профиль",
@@ -125,13 +124,21 @@
   "basket.price": "Цена за шт.",
   "basket.total": "Итого:",
   "basket.value": "Сумма",
+  "basket.alert": "Ваш заказ успешно сформирован",
 
   "orders.title": "ЗАКАЗЫ",
-  "orders.table.header.1": "№",
-  "orders.table.header.2": "Дата",
-  "orders.table.header.3": "Номер заказа",
-  "orders.table.header.4": "Менеджер",
-  "orders.table.header.5": "Статус",
-  "orders.table.header.6": "Принято/Выполнено"
+  "orders.date": "Дата создания",
+  "orders.number": "Номер заказа",
+  "orders.manager": "Менеджер",
+  "orders.status": "Статус",
+  "orders.data.start": "Принято",
+  "orders.data.finish": "Выполнено",
+  "orders.item.code": "Код",
+  "orders.item.title": "Наименование товара",
+  "orders.item.quantity": "Количество",
+  "orders.item.sum": "Сумма",
+  "orders.select.1": "В обработке",
+  "orders.select.2": "Принято",
+  "orders.select.3": "Послано"
 
 }

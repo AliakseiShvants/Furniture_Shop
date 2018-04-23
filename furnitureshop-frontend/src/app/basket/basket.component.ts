@@ -14,15 +14,20 @@ export class BasketComponent implements OnInit {
 
   customerId: number;
   basketItems: BasketItem[];
-  sum = 0;
   isDeleted = false;
+  isOrderFormed = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService) { }
 
   ngOnInit() {
+    this.isDeleted = this.isOrderFormed = false;
     this.customerId = this.route.snapshot.params['id'];
     this.loadBasketItems();
+  }
+
+  isEmpty(){
+    return this.basketItems.length === 0;
   }
 
   private loadBasketItems() {
@@ -45,14 +50,19 @@ export class BasketComponent implements OnInit {
   }
 
   totalPrice() {
-    this.sum = 0;
+    let sum = 0;
     for (const item of this.basketItems) {
-      this.sum = this.sum + item.price * item.quantity;
+      sum = sum + item.price * item.quantity;
     }
-    return this.sum;
+    return sum;
   }
 
   makeOrder(){
-
+    this.customerService.makeOrder(this.customerId, this.basketItems)
+      .subscribe(
+        (res: Uiresponse) => {
+            this.isOrderFormed = res.success;
+        }
+      );
   }
 }

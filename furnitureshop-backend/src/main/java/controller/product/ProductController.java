@@ -1,27 +1,25 @@
 package controller.product;
 
 import domain.UIResponse;
-import domain.product.Image;
+import domain.product.Category;
 import domain.product.Product;
-import domain.shop.StorageItem;
 import dto.product.ImageDTO;
-import dto.product.ProductDTO;
 import dto.shop.StorageItemDTO;
 import exception.CategoryExistsException;
 import exception.ProductExistsException;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import service.product.CategoryService;
 import service.product.ImageService;
 import service.product.ProductService;
 import service.shop.StorageService;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("api/products/")
+@RequestMapping("api/product/")
 public class ProductController {
 
     @Autowired
@@ -29,6 +27,9 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Autowired
     private ImageService imageService;
@@ -42,9 +43,9 @@ public class ProductController {
      * @return list of products
      */
     @GetMapping("{category}")
-    //todo nullpointer
     public UIResponse<List<StorageItemDTO>> getProductsByCategory(@PathVariable String category){
-        if (productService.isCategoryExists(category)){
+        if (categoryService.isExists(category)){
+
             List<Product> products = productService.getProductsByCategory(category);
             if (products != null){
                 List<StorageItemDTO> storageItemDTOS = storageService.getStorageItemsByCategory(category).stream()
@@ -63,7 +64,7 @@ public class ProductController {
     }
 
     /**
-     * A method that returns all images of product
+     * A method that returns all image entities of product
      * @param id product id
      * @return list of images
      */
@@ -78,5 +79,24 @@ public class ProductController {
         return new UIResponse<>(new ProductExistsException());
     }
 
+    /**
+     * A method that returns a category entity by it title.
+     * @param title category title
+     * @return a category
+     */
+    @GetMapping("category/{title}")
+    public UIResponse<Category> getCategory(@PathVariable String title){
+        Category category = categoryService.getByTitle(title);
+        return new UIResponse<>(true, category);
+    }
 
+    /**
+     * A method that returns a list of all category entities.
+     * @return a list of categories
+     */
+    @GetMapping("categories")
+    public UIResponse<List<Category>> getCategories(){
+        List<Category> categories = categoryService.getAll();
+        return new UIResponse<>(true, categories);
+    }
 }

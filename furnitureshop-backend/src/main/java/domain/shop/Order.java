@@ -27,11 +27,11 @@ public class Order {
     private User customer;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "MANAGER_ID", nullable = false, updatable = false)
+    @JoinColumn(name = "MANAGER_ID", nullable = false)
     private User manager;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "STATUS_ID", nullable = false, updatable = false)
+    @JoinColumn(name = "STATUS_ID", nullable = false)
     private Status status;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")

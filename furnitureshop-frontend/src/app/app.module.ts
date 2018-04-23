@@ -16,12 +16,12 @@ import {CustomerService} from '../service/customer.service';
 import {ProfileComponent} from './profile/profile.component';
 import {OrdersComponent} from './orders/orders.component';
 import {BasketComponent} from './basket/basket.component';
-import {UserComponent} from './user/user.component';
 import {CustomerComponent} from './customer/customer.component';
-import {ManagersComponent} from './managers/managers.component';
 import {AuthorizationService} from '../service/authorization.service';
-import {AppService} from '../service/app.service';
 import {ProductService} from '../service/product.service';
+import {ManagerService} from '../service/manager.service';
+import {ProductComponent} from './product/product.component';
+import { StorageComponent } from './storage/storage.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +34,9 @@ import {ProductService} from '../service/product.service';
     ProfileComponent,
     OrdersComponent,
     BasketComponent,
-    UserComponent,
     CustomerComponent,
-    ManagersComponent,
+    ProductComponent,
+    StorageComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +56,7 @@ import {ProductService} from '../service/product.service';
   providers: [
     ProductService,
     CustomerService,
+    ManagerService,
     AuthorizationService
   ],
   bootstrap: [AppComponent]

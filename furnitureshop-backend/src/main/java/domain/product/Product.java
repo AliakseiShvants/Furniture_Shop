@@ -29,7 +29,7 @@ public class Product implements Serializable{
     private Category category;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "MANUFACTURER_ID", nullable = false, updatable = false)
+    @JoinColumn(name = "MANUFACTURER_ID", nullable = false)
     private Manufacturer manufacturer;
 
     @Column(name = "NAME")
@@ -39,6 +39,13 @@ public class Product implements Serializable{
     private String description;
 
     public Product() {
+    }
+
+    public Product(String name, Category category, Manufacturer manufacturer, String description) {
+        this.category = category;
+        this.manufacturer = manufacturer;
+        this.name = name;
+        this.description = description;
     }
 
     public Long getId() {

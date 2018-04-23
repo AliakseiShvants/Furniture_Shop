@@ -35,14 +35,13 @@ public class MappingConfig {
                 mapping(Order.class, OrderDTO.class)
                         .fields("manager.fullName", "manager")
                         .fields("status.status", "status");
-                mapping(OrderItem.class, OrderDetailsDTO.class);
+                mapping(OrderItem.class, OrderItemDTO.class);
                 mapping(Manufacturer.class, ManufacturerDTO.class);
                 mapping(Product.class, ProductDTO.class)
-                        .fields("category.title", "category")
                         .fields("manufacturer.requisite.country", "manufacturer");
                 mapping(BasketItem.class, BasketItemDTO.class);
                 mapping(Image.class, ImageDTO.class);
-                mapping(StorageItem.class, StorageItemDTO.class);
+                mapping(Storage.class, StorageItemDTO.class);
 
             }
         };

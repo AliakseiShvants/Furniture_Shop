@@ -7,6 +7,8 @@ import {ProfileComponent} from '../profile/profile.component';
 import {OrdersComponent} from '../orders/orders.component';
 import {BasketComponent} from '../basket/basket.component';
 import {CustomerComponent} from '../customer/customer.component';
+import {StorageComponent} from '../storage/storage.component';
+import {ProductComponent} from '../product/product.component';
 
 export const appRoutes: Routes = [
   {path: 'about', component: AboutComponent},
@@ -18,6 +20,8 @@ export const appRoutes: Routes = [
 
   {path: 'profile/:id', component: ProfileComponent},
   {path: 'orders/:id', component: OrdersComponent},
+  {path: 'storage/:id', component: StorageComponent},
+  {path: 'products/:id', component: ProductComponent},
   {path: 'basket/:id', component: BasketComponent},
 
 

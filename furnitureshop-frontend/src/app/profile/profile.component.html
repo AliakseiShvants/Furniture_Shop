@@ -41,8 +41,8 @@
 
         <div class="form-group">
           <label for="birthday">{{'profile.edit.birthday'|translate}}</label>
-          <input type="date" class="form-control" id="birthday" [(ngModel)]="user.birthday" [value]="user.birthday | date:'dd/MM/yyyy'"
-                 [ngModelOptions]="{standalone: true}">
+          <input type="date" class="form-control" id="birthday" [(ngModel)]="user.birthday"
+                 [value]="user.birthday | date:'dd/MM/yyyy'" [ngModelOptions]="{standalone: true}">
           <small id="birthdayHelp" class="form-text text-muted">{{ 'register.birthday.help' | translate }}</small>
         </div>
 

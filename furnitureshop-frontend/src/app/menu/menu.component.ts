@@ -8,15 +8,18 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {AuthorizationData} from '../../domain/user/authorization-data';
 import {Uiresponse} from '../../domain/uiresponse';
 import {AuthorizationService} from '../../service/authorization.service';
+import {Category} from '../../domain/product/category';
+import {ProductService} from '../../service/product.service';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
 
   user = new User();
+  public categoryList: Category[];
 
   fullName: string;
   login: string;
@@ -47,6 +50,26 @@ export class MenuComponent {
   @ViewChild('registerModal')
   private registerTemplate: TemplateRef<any>;
 
+  constructor(private modalService: BsModalService,
+              private customerService: CustomerService,
+              private productService: ProductService,
+              private route: Router,
+              private authService: AuthorizationService) {
+  }
+
+  ngOnInit(): void {
+    this.loadCategories();
+  }
+
+  private loadCategories() {
+    this.productService.getCategories()
+      .subscribe(
+        (res: Uiresponse) => {
+          this.categoryList = res.body;
+        }
+      )
+  }
+
   openLogin() {
     this.isLogged = false;
     this.isNotExist = false;
@@ -57,12 +80,6 @@ export class MenuComponent {
     this.isRegistered = false;
     this.isExist = false;
     this.modalRef = this.modalService.show(this.registerTemplate);
-  }
-
-  constructor(private modalService: BsModalService,
-              private customerService: CustomerService,
-              private route: Router,
-              private authService: AuthorizationService) {
   }
 
   isAdmin(): boolean {

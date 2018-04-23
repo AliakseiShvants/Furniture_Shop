@@ -5,13 +5,22 @@ import dto.product.ProductDTO;
 import java.util.List;
 import java.util.Map;
 
-public class OrderDetailsDTO {
+public class OrderItemDTO {
 
     private ProductDTO product;
+    private String code;
     private Integer quantity;
     private Double price;
 
-    public OrderDetailsDTO() {
+    public OrderItemDTO() {
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Double getPrice() {

@@ -44,11 +44,6 @@ public class UserService {
         return userRepo.findUserByLoginAndPassword(login, password);
     }
 
-    public User getCustomerByLoginAndPassword(String[] body) {
-        return userRepo.findUserByLoginAndPassword(body[0], body[1]);
-    }
-
-
     public List<User> getAllCustomers() {
         return userRepo.findAllCustomers();
     }
@@ -58,8 +53,6 @@ public class UserService {
     }
 
     public User getFreeManager() {
-        //todo mock
-        return getUserById(4L);
-//        return userRepo.findManagerByMinimalOrdersCount();
+        return userRepo.findManagerByMinimalOrdersCount();
     }
 }

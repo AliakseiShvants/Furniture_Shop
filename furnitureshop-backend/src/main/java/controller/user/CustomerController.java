@@ -6,7 +6,7 @@ import domain.shop.*;
 import domain.user.User;
 import dto.shop.BasketItemDTO;
 import dto.shop.OrderDTO;
-import dto.shop.OrderDetailsDTO;
+import dto.shop.OrderItemDTO;
 import dto.shop.RequisiteDTO;
 import dto.user.UserDTO;
 import exception.*;
@@ -140,7 +140,8 @@ public class CustomerController {
                                              @RequestBody RequisiteDTO dto){
         if (userService.isUserExists(customerId)){
             if (requisiteService.isRequisiteExist(requisiteId)){
-                Requisite requisite = new Requisite(dto.getZip(), dto.getCountry(), dto.getCity(), dto.getAddress());
+                Requisite requisite = new Requisite(requisiteId, dto.getZip(), dto.getCountry(), dto.getCity(),
+                        dto.getAddress());
                 requisite = requisiteService.updateRequisite(requisite);
                 return new UIResponse<>(true,  mapper.map(requisite, RequisiteDTO.class));
             }
@@ -172,7 +173,7 @@ public class CustomerController {
      * @param id a user id
      * @return list of orders
      */
-    @GetMapping("{id}/orders")
+    @GetMapping("{id}/orders/all")
     public UIResponse<List<OrderDTO>> getAllUserOrders(@PathVariable Long id){
         if (userService.isUserExists(id)){
             List<OrderDTO> userOrdersDto = orderService.getCustomerOrders(id).stream()
@@ -190,15 +191,18 @@ public class CustomerController {
      * @return
      */
     @GetMapping("{customerId}/orders/{orderId}")
-    public UIResponse<List<OrderDetailsDTO>> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
+    public UIResponse<List<OrderItemDTO>> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
         if (userService.isUserExists(customerId)){
             if (orderService.isOrderExists(orderId)){
-                List<OrderDetailsDTO> detailsList = orderItemService.getDetailsByOrderId(orderId).stream()
-                        .map(details -> mapper.map(details, OrderDetailsDTO.class))
+
+                List<OrderItemDTO> detailsList = orderItemService.getDetailsByOrderId(orderId).stream()
+                        .map(details -> mapper.map(details, OrderItemDTO.class))
                         .collect(Collectors.toList());
-                for (OrderDetailsDTO orderDetailsDTO: detailsList){
-                    StorageItem storageItem = storageService.getStorageItemByProductId(orderDetailsDTO.getProduct().getId());
-                    orderDetailsDTO.setPrice(storageItem.getPrice());
+
+                for (OrderItemDTO orderItemDTO : detailsList){
+                    Storage storage = storageService.getStorageItemByProductId(orderItemDTO.getProduct().getId());
+                    orderItemDTO.setPrice(storage.getPrice());
+                    orderItemDTO.setCode(storage.getCode());
                 }
                 return new UIResponse<>(true, detailsList);
             }
@@ -287,7 +291,9 @@ public class CustomerController {
                                         newOrder,
                                         basketItem.getProduct(),
                                         basketItem.getQuantity()
-                                ))));
+                                )
+                        )
+                ));
 
                 basketService.deleteItemsByCustomerId(customerId);
                 return new UIResponse<>(true);

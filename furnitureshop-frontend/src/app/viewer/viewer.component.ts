@@ -1,45 +1,60 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ProductService} from '../../service/product.service';
-import {StorageItem} from '../../domain/shop/storage-item';
+import {Storage} from '../../domain/shop/storage';
 import {Uiresponse} from '../../domain/uiresponse';
 import {User} from '../../domain/user/user';
 import {CustomerService} from '../../service/customer.service';
+import {Category} from '../../domain/product/category';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
-  styleUrls: ['./viewer.component.css']
+  styleUrls: ['./viewer.component.css'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
-export class ViewerComponent implements OnInit {
+export class ViewerComponent implements  OnInit  {
 
   user: User;
   addedProductId: number;
-  storageItems: StorageItem[];
-  category: string;
+
+  storageItems: Storage[];
+  categoryTitle: string;
+  category: Category;
 
   isAdded = false;
 
+  private subscription: Subscription;
+
   constructor(private route: ActivatedRoute,
               private productService: ProductService,
-              private customerService: CustomerService) { }
+              private customerService: CustomerService,
+              private cd: ChangeDetectorRef) {
+
+    this.subscription = this.route.params
+      .subscribe(
+        params => this.categoryTitle = params['category']
+      );
+    // this.getStorageItems();
+
+    setInterval(() => {
+      this.getStorageItems();
+      // this.cd.detectChanges();
+    }, 1000);
+  }
 
   ngOnInit() {
     this.user = this.customerService.getUser();
-    this.category = this.route.snapshot.params['category'];
+    // this.categoryTitle = this.route.snapshot.params['category'];
     this.getStorageItems();
-
   }
 
   private getStorageItems() {
-    this.productService.getStorageItemsByProductCategory(this.category)
+    this.productService.getStorageItemsByProductCategory(this.categoryTitle)
       .subscribe(
-        (data: Uiresponse) => {
-          if (!data.success){
-            alert('no products');
-          } else {
-            this.storageItems = data.body;
-          }
+        (res: Uiresponse) => {
+          this.storageItems = res.body;
         }
       )
   }

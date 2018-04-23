@@ -1,5 +1,7 @@
 package service.product;
 
+import domain.UIResponse;
+import domain.product.Category;
 import domain.product.Product;
 import dto.product.ProductDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +45,10 @@ public class ProductService {
     }
 
     public List<Product> getProductsByManagerId(Long id) {
-        return null;
+        return productRepo.findAllByManager_Id(id);
+    }
+
+    public Product addProduct(Product newProduct) {
+        return productRepo.save(newProduct);
     }
 }

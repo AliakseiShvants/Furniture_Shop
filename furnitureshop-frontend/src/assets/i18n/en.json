@@ -1,4 +1,6 @@
 {
+  "list.empty": "No items",
+
   "header.shopName": "12 CHAIRS",
   "header.form.search": "Search",
   "header.en": "EN",
@@ -9,11 +11,11 @@
 
   "menu.navitem.about": "About us",
   "menu.navitem.goods": "Goods",
-  "menu.navitem.goods.doors": "Doors",
-  "menu.navitem.goods.beds": "Beds",
-  "menu.navitem.goods.tables": "Tables",
-  "menu.navitem.goods.chairs": "Chairs",
-  "menu.navitem.goods.dressers": "Dressers",
+  "door": "Doors",
+  "bed": "Beds",
+  "table": "Tables",
+  "chair": "Chairs",
+  "dresser": "Dressers",
 
   "menu.navitem.admin.customers": "All customers",
   "menu.navitem.admin.managers": "All managers",
@@ -120,19 +122,30 @@
 
   "basket.title": "BASKET",
   "basket.order": "Place your order",
-  "basket.empty": "No items in the basket",
   "basket.name": "Product name",
   "basket.manufacturer": "Manufacturer",
   "basket.quantity": "Quantity",
   "basket.price": "Price",
   "basket.total": "Total:",
   "basket.value": "Value",
+  "basket.alert": "Your order is successfully formed",
 
   "orders.title": "ORDERS",
-  "orders.table.header.1": "№",
-  "orders.table.header.2": "Date",
-  "orders.table.header.3": "Order number",
-  "orders.table.header.4": "Manager",
-  "orders.table.header.5": "Status",
-  "orders.table.header.6": "Accept/Sent"
+  "orders.date": "Creating date",
+  "orders.number": "Order number",
+  "orders.manager": "Manager",
+  "orders.status": "Status",
+  "orders.data.start": "Accept",
+  "orders.data.finish": "Sent",
+  "orders.item.code": "Code",
+  "orders.item.title": "Product name",
+  "orders.item.quantity": "Quantity",
+  "orders.item.sum": "Sum",
+  "orders.select.1": "IN PROCESSING",
+  "orders.select.2": "ACCEPT",
+  "orders.select.3": "SENT",
+
+  "storage.title": "My added products to storage",
+
+  "product.name": ""
 }

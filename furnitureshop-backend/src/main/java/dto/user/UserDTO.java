@@ -1,6 +1,5 @@
 package dto.user;
 
-import domain.user.AuthorizationData;
 import dto.shop.RequisiteDTO;
 
 import java.time.LocalDate;

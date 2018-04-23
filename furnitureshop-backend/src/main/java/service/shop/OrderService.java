@@ -40,4 +40,16 @@ public class OrderService {
     public Order addOrder(Order order) {
         return orderRepo.save(order);
     }
+
+    public List<Order> getManagerOrders(Long managerId) {
+        return orderRepo.findAllByManager_Id(managerId);
+    }
+
+    public Order update(Order updateOrder) {
+        return orderRepo.saveAndFlush(updateOrder);
+    }
+
+    public void delete(Long orderId) {
+        orderRepo.deleteById(orderId);
+    }
 }

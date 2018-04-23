@@ -1,13 +1,14 @@
 package dto.product;
 
-import static util.Constants.COMMA;
+import domain.product.Category;
 
+import static util.Constants.COMMA;
 
 public class ProductDTO {
 
     private Long id;
     private String url;
-    private String category;
+    private Category category;
     private String manufacturer;
     private String name;
     private String description;
@@ -31,11 +32,11 @@ public class ProductDTO {
         this.id = id;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
