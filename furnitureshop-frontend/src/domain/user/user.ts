@@ -1,4 +1,5 @@
 import {Requisite} from '../shop/requisite';
+import {Role} from './role';
 
 export class User {
 
@@ -9,11 +10,12 @@ export class User {
   public email: string;
   public birthday: Date;
   public sex: boolean;
-  public role: string;
+  public role: Role;
   public requisite: Requisite;
 
 
-  constructor(id?: number, fullName?: string, login?: string, password?: string, email?: string, birthday?: Date, sex?: boolean, role?: string) {
+  constructor(id?: number, fullName?: string, login?: string, password?: string, email?: string, birthday?: Date, sex?: boolean,
+              role?: Role) {
     this.id = id;
     this.fullName = fullName;
     this.login = login;

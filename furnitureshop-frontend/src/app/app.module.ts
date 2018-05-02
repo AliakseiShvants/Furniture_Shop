@@ -22,6 +22,10 @@ import {ProductService} from '../service/product.service';
 import {ManagerService} from '../service/manager.service';
 import {ProductComponent} from './product/product.component';
 import { StorageComponent } from './storage/storage.component';
+import { LoginComponent } from './login/login.component';
+import { ManagerComponent } from './manager/manager.component';
+import {AdminService} from '../service/admin.service';
+import {UtilService} from '../service/util.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +41,8 @@ import { StorageComponent } from './storage/storage.component';
     CustomerComponent,
     ProductComponent,
     StorageComponent,
+    LoginComponent,
+    ManagerComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +63,8 @@ import { StorageComponent } from './storage/storage.component';
     ProductService,
     CustomerService,
     ManagerService,
+    AdminService,
+    UtilService,
     AuthorizationService
   ],
   bootstrap: [AppComponent]

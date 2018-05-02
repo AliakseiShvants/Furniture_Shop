@@ -7,19 +7,21 @@
     <div class="col-xl-3 ">
       <br>
       <a class="navbar-brand" routerLink="/about">
-        <h1 id="shopName" class="text-center font-italic font-weight-bold">{{ 'header.shopName' | translate}}</h1>
+        <h2 id="shopName" class="text-center font-italic font-weight-bold">{{ 'header.shopName' | translate}}</h2>
       </a>
     </div>
 
     <div class="col-xl"></div>
 
-    <div class="col-xl-6 align-self-end">
-      <br>
+    <div class="col-xl-6 align-self-end" hidden>
       <!--TODO lager input-->
       <form class="form-inline my-2 my-lg-0 fl-right">
         <input class="form-control mr-sm-2" type="search" placeholder="{{ 'header.form.search' | translate}}"
                aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ 'header.form.search' | translate}}</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+          {{ 'header.form.search' | translate}}
+          <span class="fa fa-search"></span>
+        </button>
       </form>
     </div>
 

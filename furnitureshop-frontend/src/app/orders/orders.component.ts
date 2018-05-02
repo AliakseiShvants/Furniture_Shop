@@ -7,8 +7,10 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {User} from '../../domain/user/user';
 import {OrderDetails} from '../../domain/shop/order-details';
 import {ManagerService} from '../../service/manager.service';
-import Order = jasmine.Order;
-import {ProductService} from '../../service/product.service';
+import {AppComponent} from '../app.component';
+import {Status} from '../../domain/shop/status';
+import {Role} from '../../domain/user/role';
+import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-orders',
@@ -17,7 +19,7 @@ import {ProductService} from '../../service/product.service';
 })
 export class OrdersComponent implements OnInit {
 
-  private user: User;
+  private user = new User();
   private userId: number;
   private MANAGER = 'ROLE_MANAGER';
   private CUSTOMER = 'ROLE_USER';
@@ -26,6 +28,8 @@ export class OrdersComponent implements OnInit {
   public orderList: Order[];
   public modalItem: Order;
   public orderDetailsList: OrderDetails[];
+  public statusList: Status[];
+  roleList: Role[];
   public modalRef: BsModalRef;
 
   public IN_PROC = 'IN_PROCESSING';
@@ -37,8 +41,10 @@ export class OrdersComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
+              private app: AppComponent,
               private managerService: ManagerService,
               private modalService: BsModalService,
+              private utilService: UtilService,
               private cd: ChangeDetectorRef) {
 
     // setInterval(() => {
@@ -48,14 +54,23 @@ export class OrdersComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.customerService.getUser();
+    this.user = this.app.user;
     this.userId = this.route.snapshot.params['id'];
+    this.loadRoles();
     this.loadStatus();
-    this.loadOrders(this.user.role);
+    this.loadOrders(this.user.role.title);
+  }
+
+  private loadRoles() {
+
   }
 
   private loadStatus() {
-    //todo load from db
+    this.utilService.getAllStatus().subscribe(
+      (res: Uiresponse) => {
+        this.statusList = res.body;
+      }
+    )
   }
 
   private loadOrders(role: string) {
@@ -101,7 +116,7 @@ export class OrdersComponent implements OnInit {
       (res: Uiresponse) => {
         this.isDeleted = res.success;
         if (this.isDeleted){
-          this.loadOrders(this.user.role);
+          this.loadOrders(this.user.role.title);
           this.cd.detectChanges();
         }
       }
@@ -113,7 +128,7 @@ export class OrdersComponent implements OnInit {
       .subscribe(
         (res: Uiresponse) => {
           if (res.success){
-            this.loadOrders(this.user.role);
+            this.loadOrders(this.user.role.title);
             this.cd.detectChanges();
           }
         }
@@ -129,21 +144,24 @@ export class OrdersComponent implements OnInit {
   }
 
   isManager(): boolean {
-    return this.user.role === this.MANAGER;
+    return this.user.role.title === this.MANAGER;
   }
 
   isCustomer(): boolean {
-    return this.user.role === this.CUSTOMER;
+    return this.user.role.title === this.CUSTOMER;
   }
 
-  selected(itemStatus: string, status: string){
-    if(itemStatus === status){
+  selected(first: number, second: number){
+    if(first === second){
       return 'selected';
     }
   }
 
   isEmpty(list: any[]){
-    return list.length === 0;
+    if(list != null){
+      return list.length === 0;
+    }
+    return false;
   }
 
 }

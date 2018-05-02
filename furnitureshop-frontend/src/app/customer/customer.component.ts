@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {User} from '../../domain/user/user';
 import {AdminService} from '../../service/admin.service';
 import {Uiresponse} from '../../domain/uiresponse';
 import {Requisite} from '../../domain/shop/requisite';
 import {AuthorizationData} from '../../domain/user/authorization-data';
-import {CustomerService} from '../../service/customer.service';
+import {Role} from '../../domain/user/role';
+import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-customer',
@@ -19,18 +20,35 @@ export class CustomerComponent implements OnInit {
   email: string;
 
   customers: User[];
-  success: boolean;
+  tempCustomer = new User();
+  roleList: Role[];
+  success = false;
   errorMessage: string;
+  isDeleted = false;
 
-  constructor(private customerService: CustomerService) { }
+  constructor(private adminService: AdminService,
+              private utilService: UtilService,
+              private cd: ChangeDetectorRef) {
+
+    this.tempCustomer.requisite = new Requisite();
+  }
 
   ngOnInit() {
+    this.loadRoles();
     this.loadCustomers();
   }
 
+  private loadRoles() {
+    this.utilService.getAllRoles().subscribe(
+      (res: Uiresponse) => {
+        this.roleList = res.body;
+      }
+    )
+  }
+
   private loadCustomers() {
-    this.success = false;
-    this.customerService.getAllCustomers()
+
+    this.adminService.getAllCustomers()
       .subscribe(
         (data: Uiresponse) => {
           this.success = data.success;
@@ -40,17 +58,81 @@ export class CustomerComponent implements OnInit {
   }
 
   addNewCustomer() {
-    this.success = false;
-    this.customerService.addNewCustomer(new AuthorizationData(this.fullName, this.login, this.password, this.email))
+    this.adminService.addNewCustomer(new AuthorizationData(this.fullName, this.login, this.password, this.email))
       .subscribe(
         (data: Uiresponse) => {
           this.success = data.success;
-          this.errorMessage = data.exception;
         }
       );
   }
 
   getRequisite(requisite: Requisite) {
     return requisite.zip + ', ' + requisite.country + ', ' + requisite.city + ', ' + requisite.address;
+  }
+
+  prepareEditCustomer(customer: User){
+    this.tempCustomer = customer;
+  }
+
+  updateCustomer(customer: User){
+    this.adminService.updateUser(customer)
+      .subscribe(
+        (res: Uiresponse) => {
+          if (res.success){
+            this.loadCustomers();
+            this.cd.detectChanges();
+          }
+        }
+      )
+  }
+
+  prepareDeleteCustomer(customer: User){
+    this.tempCustomer = customer;
+  }
+
+  deleteCustomer(customerId: number){
+    this.adminService.deleteCustomer(customerId)
+      .subscribe(
+        (res: Uiresponse) => {
+          this.isDeleted = res.success;
+          if (this.isDeleted){
+            this.loadCustomers();
+            this.cd.detectChanges();
+          }
+        }
+      )
+  }
+
+  prepareEditRequisite(customer: User){
+    this.tempCustomer = customer;
+  }
+
+  updateRequisite(requisite: Requisite){
+    this.adminService.updateRequisite(requisite)
+      .subscribe(
+        (res: Uiresponse) => {
+          if (res.success){
+            this.loadCustomers();
+            this.cd.detectChanges();
+          }
+        }
+      )
+  }
+
+  getSex(user: User){
+    if (user.sex){
+      return 'checked';
+    }
+    return '';
+  }
+
+  selected(first: any, second: any){
+    if (first === second){
+      return 'selected';
+    }
+  }
+
+  close(){
+    this.success = false;
   }
 }

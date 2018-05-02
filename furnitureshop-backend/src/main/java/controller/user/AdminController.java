@@ -6,6 +6,8 @@ import domain.shop.Order;
 import domain.user.AuthorizationData;
 import domain.user.Role;
 import domain.user.User;
+import dto.product.ProductDTO;
+import dto.shop.OrderDTO;
 import dto.shop.RequisiteDTO;
 import dto.user.UserDTO;
 import exception.UserExistsException;
@@ -53,7 +55,7 @@ public class AdminController {
      * A method that returns all customers
      * @return list of customers
      */
-    @GetMapping("customers")
+    @GetMapping("customer/all")
     public UIResponse<List<UserDTO>> getAllCustomers(){
         List<User> customers = userService.getAllCustomers();
         if (customers != null){
@@ -71,7 +73,23 @@ public class AdminController {
         return new UIResponse<>(new UserNotFoundException());
     }
 
-    @PostMapping("addCustomer")
+    @PatchMapping("user/update")
+    public UIResponse<Void> updateCustomer(@RequestBody UserDTO userDTO){
+        if (userService.isUserExists(userDTO.getId())){
+            User dbUser = userService.getUserById(userDTO.getId());
+            dbUser.setFullName(userDTO.getFullName());
+            dbUser.setLogin(userDTO.getLogin());
+            dbUser.setPassword(userDTO.getPassword());
+            dbUser.setEmail(userDTO.getEmail());
+            dbUser.setBirthday(userDTO.getBirthday());
+            dbUser.setSex(userDTO.getSex());
+            userService.updateUser(dbUser);
+            return new UIResponse<>(true);
+        }
+        return new UIResponse<>(new UserNotFoundException());
+    }
+
+    @PostMapping("customer/add")
     public UIResponse<Void> addCustomer(@RequestBody AuthorizationData data){
         User newUser;
         if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
@@ -84,21 +102,36 @@ public class AdminController {
         return new UIResponse<>(new UserExistsException());
     }
 
-    @GetMapping("managers")
-    public ResponseEntity<List<User>> getAllManagers(){
-        return new ResponseEntity<>(userService.getAllManagers(), HttpStatus.OK);
+    @GetMapping("manager/all")
+    public UIResponse<List<UserDTO>> getAllManagers(){
+        return new UIResponse<>(true, userService.getAllManagers().stream()
+                .map(user -> mapper.map(user, UserDTO.class))
+                .collect(Collectors.toList())
+        );
     }
 
-    @GetMapping("orders")
-    public ResponseEntity<List<Order>> getAllOrders(){
-        return new ResponseEntity<>(orderService.getAll(), HttpStatus.OK);
+    @GetMapping("order/all")
+    public UIResponse<List<OrderDTO>> getAllOrders(){
+        return new UIResponse<>(true, orderService.getAll().stream()
+                .map(order -> mapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList())
+        );
     }
 
-    @GetMapping("products")
-    public ResponseEntity<List<Product>> getAllProducts(){
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    @GetMapping("product/all")
+    public UIResponse<List<ProductDTO>> getAllProducts(){
+        return new UIResponse<>(true, productService.getAllProducts().stream()
+                .map(product -> mapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList())
+        );
     }
 
-
-
+    @PostMapping("manager/add")
+    public UIResponse<UserDTO> addManager(@RequestBody UserDTO managerDTO){
+        Role role = roleService.getRoleByTitle("ROLE_MANAGER");
+        User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getPassword(),
+                managerDTO.getEmail(), role);
+        manager = userService.addUser(manager);
+        return new UIResponse<>(true, mapper.map(manager, UserDTO.class));
+    }
 }

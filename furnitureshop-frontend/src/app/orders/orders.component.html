@@ -71,10 +71,10 @@
           <button type="button" class="btn btn-primary" (click)="openOrderDetails(order)">ORD{{order.id}}</button>
         </td>
         <td>
-          <select class="status-select" size="1" [(ngModel)]="order.status">
-            <option [value]="IN_PROC" [selected]="selected(order.status, IN_PROC)">{{'orders.select.1'|translate}}</option>
-            <option [value]="ACCEPT" [selected]="selected(order.status, ACCEPT)">{{'orders.select.2'|translate}}</option>
-            <option [value]="SENT" [selected]="selected(order.status, SENT)">{{'orders.select.3'|translate}}</option>
+          <select class="status-select" size="1" [(ngModel)]="order.status" [ngModelOptions]="{standalone: true}">
+            <option *ngFor="let status of statusList" [value]="status" [selected]="selected(order.status.id, status.id)">
+              {{order.status.title|translate}}
+            </option>
           </select>
         </td>
         <td>

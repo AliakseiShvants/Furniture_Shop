@@ -1,11 +1,7 @@
- import {Component, OnInit, Output} from '@angular/core';
- import {TranslateService} from '@ngx-translate/core';
- import {Role} from '../domain/user/role';
- import {User} from '../domain/user/user';
- import {AppService} from '../service/app.service';
- import {CustomerService} from '../service/customer.service';
- import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
- import {AuthorizationService} from '../service/authorization.service';
+import {Component, OnInit} from '@angular/core';
+import {TranslateService} from '@ngx-translate/core';
+import {User} from '../domain/user/user';
+import {Role} from '../domain/user/role';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +9,8 @@
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+
+  user = new User();
 
   constructor(private translate: TranslateService) {
     translate.setDefaultLang('ru');
@@ -23,6 +21,7 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.user.role = new Role(0, "ROLE_GUEST");
   }
 
 }

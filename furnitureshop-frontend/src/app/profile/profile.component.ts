@@ -4,6 +4,7 @@ import {Requisite} from '../../domain/shop/requisite';
 import {Uiresponse} from '../../domain/uiresponse';
 import {CustomerService} from '../../service/customer.service';
 import {Router} from '@angular/router';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-profile',
@@ -26,17 +27,20 @@ export class ProfileComponent implements OnInit {
   showForm = 'profile';
 
   constructor(private customerService: CustomerService,
+              private app: AppComponent,
               private route: Router,
               private cd: ChangeDetectorRef) {
 
     setInterval(() => {
-      this.user = this.customerService.getUser();
+      // this.user = this.customerService.getUser();
+      this.user = app.user;
       this.cd.detectChanges();
     }, 1000);
   }
 
   ngOnInit() {
-    this.user = this.customerService.getUser();
+    // this.user = this.customerService.getUser();
+    this.user = this.app.user;
   }
 
   updateProfile() {
@@ -88,8 +92,8 @@ export class ProfileComponent implements OnInit {
     this.showForm = form;
   }
 
-  getSex(){
-    if (this.user.sex){
+  getSex(user: User){
+    if (user.sex){
       return 'checked';
     }
     return '';

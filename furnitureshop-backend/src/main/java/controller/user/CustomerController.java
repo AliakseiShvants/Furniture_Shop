@@ -111,7 +111,7 @@ public class CustomerController {
      * @param requisite requisite entity
      * @return new requisite entity binding with concrete user
      */
-    @PostMapping("{id}/addRequisite")
+    @PostMapping("{id}/requisite/add")
     public UIResponse<RequisiteDTO> addRequisite(@PathVariable Long id, @RequestBody RequisiteDTO requisite){
         User user = userService.getUserById(id);
         if (user != null){
@@ -131,17 +131,16 @@ public class CustomerController {
     /**
      * A method that update requisite of specified user
      * @param customerId
-     * @param requisiteId
-     * @param dto
+     * @param requisiteDTO
      * @return
      */
-    @PatchMapping("{customerId}/requisite/{requisiteId}/update")
-    public UIResponse<RequisiteDTO> updateRequisite(@PathVariable Long customerId, @PathVariable Long requisiteId,
-                                             @RequestBody RequisiteDTO dto){
+    @PatchMapping("{customerId}/requisite/update")
+    public UIResponse<RequisiteDTO> updateRequisite(@PathVariable Long customerId,
+                                                    @RequestBody RequisiteDTO requisiteDTO){
         if (userService.isUserExists(customerId)){
-            if (requisiteService.isRequisiteExist(requisiteId)){
-                Requisite requisite = new Requisite(requisiteId, dto.getZip(), dto.getCountry(), dto.getCity(),
-                        dto.getAddress());
+            if (requisiteService.isRequisiteExist(requisiteDTO.getId())){
+                Requisite requisite = new Requisite(requisiteDTO.getId(), requisiteDTO.getZip(),
+                        requisiteDTO.getCountry(), requisiteDTO.getCity(), requisiteDTO.getAddress());
                 requisite = requisiteService.updateRequisite(requisite);
                 return new UIResponse<>(true,  mapper.map(requisite, RequisiteDTO.class));
             }
@@ -173,7 +172,7 @@ public class CustomerController {
      * @param id a user id
      * @return list of orders
      */
-    @GetMapping("{id}/orders/all")
+    @GetMapping("{id}/order/all")
     public UIResponse<List<OrderDTO>> getAllUserOrders(@PathVariable Long id){
         if (userService.isUserExists(id)){
             List<OrderDTO> userOrdersDto = orderService.getCustomerOrders(id).stream()
@@ -190,7 +189,7 @@ public class CustomerController {
      * @param orderId
      * @return
      */
-    @GetMapping("{customerId}/orders/{orderId}")
+    @GetMapping("{customerId}/order/{orderId}")
     public UIResponse<List<OrderItemDTO>> getOrderInfo(@PathVariable Long customerId, @PathVariable Long orderId){
         if (userService.isUserExists(customerId)){
             if (orderService.isOrderExists(orderId)){
@@ -271,7 +270,7 @@ public class CustomerController {
         return new UIResponse<>(new UserExistsException());
     }
 
-    @PostMapping("{customerId}/basket/order")
+    @PostMapping("{customerId}/basket/book")
     public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketItemDTO> basketItemsDtos){
         if (userService.isUserExists(customerId)){
             List<BasketItem> basketItems = basketItemsDtos.stream()

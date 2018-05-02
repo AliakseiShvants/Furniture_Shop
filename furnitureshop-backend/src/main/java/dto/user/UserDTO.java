@@ -1,5 +1,6 @@
 package dto.user;
 
+import domain.user.Role;
 import dto.shop.RequisiteDTO;
 
 import java.time.LocalDate;
@@ -8,13 +9,31 @@ public class UserDTO {
 
     private Long id;
     private String fullName;
+    private String login;
+    private String password;
     private String email;
     private LocalDate birthday;
     private RequisiteDTO requisite;
     private Boolean sex;
-    private String role;
+    private Role role;
 
     public UserDTO() {
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public RequisiteDTO getRequisite() {
@@ -65,11 +84,11 @@ public class UserDTO {
         this.sex = sex;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 }

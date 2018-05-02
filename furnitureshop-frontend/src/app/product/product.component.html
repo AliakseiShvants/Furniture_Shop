@@ -20,7 +20,7 @@
           <th>{{'product.imageUrl'|translate}}</th>
           <th>{{'product.desc'|translate}}</th>
           <th colspan="2">
-            <button type="button" class="btn btn-primary" (click)="openModal()">
+            <button type="button" class="btn btn-primary" (click)="openAddProductModal()">
               {{'product.addProduct'|translate}}
             </button>
           </th>
@@ -38,14 +38,14 @@
         <td>{{item.url}}</td>
         <td>{{item.description}}</td>
         <td>
-          <button type="button" class="btn btn-primary" (click)="update(item)">
+          <button type="button" class="btn btn-primary" (click)="openUpdateProductModal(item)">
             <i class="fa fa-pencil"></i>
           </button>
         </td>
         <td>
-          <button type="button" class="btn btn-danger" (click)="delete(item)">
+          <a href="#deleteProductModal" class="btn btn-danger" (click)="prepareDeleteProduct(item)">
             <i class="fa fa-trash-o"></i>
-          </button>
+          </a>
         </td>
       </tr>
       </tbody>
@@ -55,7 +55,8 @@
 
 <ng-template #productModal>
   <div class="modal-header">
-    <h3 class="modal-title ml-auto">{{'product.addProduct'|translate}}</h3>
+    <h3 *ngIf="!isProductExists(product)" class="modal-title ml-auto">{{'product.addProduct'|translate}}</h3>
+    <h3 *ngIf="isProductExists(product)" class="modal-title ml-auto">{{'product.updateProduct'|translate}}</h3>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -74,7 +75,10 @@
           <label for="category" class="floatLabel">{{ 'product.category' | translate }}</label>
           <select id="category" class="status-select" size="1" [(ngModel)]="product.category"
                   [ngModelOptions]="{standalone: true}">
-            <option *ngFor="let category of categoryList" [ngValue]="category">{{category.title|translate}}</option>
+            <option *ngFor="let category of categoryList" [ngValue]="category"
+                    [selected]="selected(category.title, product.category.title)">
+              {{category.title|translate}}
+            </option>
           </select>
         </div>
 
@@ -82,7 +86,8 @@
           <label for="manufacturer" class="floatLabel">{{ 'product.manufacturer' | translate }}</label>
           <select id="manufacturer" class="status-select" size="1" [(ngModel)]="product.manufacturer"
                   [ngModelOptions]="{standalone: true}">
-            <option *ngFor="let manufacturer of manufacturerList" [ngValue]="manufacturer">
+            <option *ngFor="let manufacturer of manufacturerList" [ngValue]="manufacturer"
+                    [selected]="selected(manufacturer.id, product.manufacturer.id)">
               {{manufacturer.title|translate}}
             </option>
           </select>
@@ -108,7 +113,30 @@
           </button>
         </div>
       </form>
-      <alert id="success" *ngIf="isProductAdded" type="success">{{'product.alert.success'|translate}}</alert>
+      <alert id="success" *ngIf="isAdded" type="success">{{'product.alert.success'|translate}}</alert>
     </div>
   </div>
 </ng-template>
+
+<div id="deleteProductModal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form>
+        <div class="modal-header">
+          <h4 class="modal-title">{{'product.delete.title'|translate}}</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p>{{'product.delete.text'|translate}}</p>
+          <p class="text-warning"><small>{{'customer.delete.warning'|translate}}</small></p>
+        </div>
+        <div class="modal-footer">
+          <a class="btn btn-primary" data-dismiss="modal">{{'button.close'|translate}}</a>
+          <button type="submit" class="btn btn-danger" (click)="deleteProduct(product)">
+            {{'button.delete'|translate}}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

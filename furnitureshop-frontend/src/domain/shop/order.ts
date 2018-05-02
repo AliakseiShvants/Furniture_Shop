@@ -1,7 +1,9 @@
+import {Status} from './status';
+
 export class Order {
   id: number;
   manager: string;
-  status: string;
+  status: Status;
   creatingDate: string;
   completionDate: string;
 }

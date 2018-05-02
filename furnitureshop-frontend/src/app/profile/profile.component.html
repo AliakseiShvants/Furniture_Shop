@@ -51,19 +51,19 @@
 
           <div class="form-check mx-4">
             <input class="form-check-input" name="group100" type="radio" id="male" [(ngModel)]="user.sex" [value]="true"
-                   [checked]="getSex()">
+                   [checked]="getSex(user)">
             <label class="form-check-label" for="male">{{'profile.edit.sex.male'|translate}}</label>
           </div>
 
           <div class="form-check mx-4">
             <input class="form-check-input" name="group100" type="radio" id="female" [(ngModel)]="user.sex" [value]="false"
-                   [checked]="!getSex()" >
+                   [checked]="!getSex(user)" >
             <label class="form-check-label" for="female">{{'profile.edit.sex.female'|translate}}</label>
           </div>
         </div>
 
         <div class="form-footer my-4">
-          <alert id="updateUser" type="success" *ngIf="isUpdated">{{ 'profile.submit' | translate }}</alert>
+          <alert id="updateUser" type="success" *ngIf="isUpdated">{{ 'change.submit' | translate }}</alert>
           <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
         </div>
@@ -97,7 +97,7 @@
         </div>
 
         <div class="form-footer my-4">
-          <alert id="updateRequisiteSuccess" type="success" *ngIf="isAdded">{{ 'profile.submit' | translate }}</alert>
+          <alert id="updateRequisiteSuccess" type="success" *ngIf="isAdded">{{ 'change.submit' | translate }}</alert>
           <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
         </div>
@@ -136,7 +136,7 @@
         </div>
 
         <div class="form-footer my-4">
-          <alert id="updateRequisite" type="success" *ngIf="isUpdated">{{ 'profile.submit' | translate }}</alert>
+          <alert id="updateRequisite" type="success" *ngIf="isUpdated">{{ 'change.submit' | translate }}</alert>
           <button type="submit" class="btn btn-primary">{{'button.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'button.clean'|translate}}</button>
         </div>
@@ -155,7 +155,7 @@
         <!--<button type="reset" class="btn btn-primary" routerLink="/profile">{{'button.clean'|translate}}</button>-->
       </div>
     </div>
-    <alert id="success" *ngIf="isDeleted" type="success">{{'alert.login.success'|translate}}</alert>
+    <alert id="success" *ngIf="isDeleted" type="success">{{'alert.success'|translate}}</alert>
   </div>
 
 </div>

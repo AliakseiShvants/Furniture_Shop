@@ -6,24 +6,26 @@ import {User} from '../domain/user/user';
 import {Requisite} from '../domain/shop/requisite';
 import {BasketItem} from '../domain/shop/basket-item';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class CustomerService {
 
   private _user = new User();
 
-  private addCustomer = 'api/admin/addCustomer';
-  private customers = 'api/admin/customers';
-  private customer = 'api/customer/';
-  private delete = '/delete';
-
-  private requisite = '/requisite/';
-  private update = '/update';
-  private _addRequisite = '/addRequisite';
+  private base = 'api/customer/';
+  private requisite = '/requisite';
   private basket = '/basket/';
+  private order = '/order/';
+
+  private delete = '/delete';
+  private update = '/update';
   private add = '/add';
   private all = 'all';
-  private orders = '/orders/';
-  private order = 'order';
+  private book = 'book';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -36,55 +38,47 @@ export class CustomerService {
     this._user = value;
   }
 
-  addNewCustomer(data: AuthorizationData) {
-    return this.httpClient.post(this.addCustomer, data);
-  }
-
-  getAllCustomers() {
-    return this.httpClient.get(this.customers);
-  }
-
   updateProfile(user: User) {
-    return this.httpClient.patch(this.customer + this.update, user);
+    return this.httpClient.patch(this.base + this.update, user);
   }
 
   getRequisite(customerId: number) {
-    return this.httpClient.get(this.customer + customerId + this.requisite);
+    return this.httpClient.get(this.base + customerId + this.requisite);
   }
 
   addRequisite(customerId: number, requisite: Requisite) {
-    return this.httpClient.post(this.customer + customerId + this._addRequisite, requisite);
+    return this.httpClient.post(this.base + customerId + this.requisite + this.add, requisite);
   }
 
   updateRequisite(customerId: number, requisite: Requisite) {
-    return this.httpClient.patch(this.customer + customerId + this.requisite + requisite.id + this.update, requisite);
+    return this.httpClient.patch(this.base + customerId + this.requisite + this.update, requisite);
   }
 
   deleteCustomer(customerId: number) {
-    return this.httpClient.delete(this.customer + customerId + this.delete);
+    return this.httpClient.delete(this.base + customerId + this.delete);
   }
 
   addProductToBasket(customerId: number, productId: number){
-    return this.httpClient.get(this.customer + customerId + this.basket + productId + this.add);
+    return this.httpClient.get(this.base + customerId + this.basket + productId + this.add);
   }
 
   getAllBasketItems(customerId: number){
-    return this.httpClient.get(this.customer + customerId + this.basket + this.all);
+    return this.httpClient.get(this.base + customerId + this.basket + this.all);
   }
 
   deleteBasketItem(customerId: number, productId: number) {
-    return this.httpClient.delete(this.customer + customerId + this.basket + productId + this.delete);
+    return this.httpClient.delete(this.base + customerId + this.basket + productId + this.delete);
   }
 
   getAllCustomerOrders(customerId: number) {
-    return this.httpClient.get(this.customer + customerId + this.orders + this.all);
+    return this.httpClient.get(this.base + customerId + this.order + this.all);
   }
 
-  getOrderInfo(customerId: number, productId: number){
-    return this.httpClient.get(this.customer + customerId + this.orders + productId);
+  getOrderInfo(customerId: number, orderId: number){
+    return this.httpClient.get(this.base + customerId + this.order + orderId);
   }
 
   makeOrder(customerId: number, basketItems: BasketItem[]){
-    return this.httpClient.post(this.customer + customerId + this.basket + this.order, basketItems);
+    return this.httpClient.post(this.base + customerId + this.basket + this.book, basketItems);
   }
 }

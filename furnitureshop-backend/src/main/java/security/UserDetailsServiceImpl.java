@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import service.user.UserService;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -21,13 +23,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) {
-        User user = userService.getCustomerByLogin(login);
+        User user = userService.getUserByLogin(login);
         if (user != null){
-            List<GrantedAuthority> authorities = new ArrayList<>();
+            Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(user.getRole().getTitle()));
-            return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), authorities);
+            return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(),
+                    authorities);
         }
         throw new UsernameNotFoundException("User '" + login + "' not found");
-
     }
 }

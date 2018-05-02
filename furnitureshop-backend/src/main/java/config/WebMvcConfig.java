@@ -4,12 +4,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
+import security.UserDetailsServiceImpl;
 import util.Constants;
 
 import java.util.Locale;
@@ -28,6 +30,11 @@ import static util.Constants.*;
 })
 @EnableJpaRepositories(REPOSITORIES)
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
+
+    @Bean
+    public UserDetailsService userDetailsService(){
+        return new UserDetailsServiceImpl();
+    }
 
     /**
      *<p>Retrieving and saving the user's local settings.

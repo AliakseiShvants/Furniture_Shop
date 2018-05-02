@@ -13,7 +13,7 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public User getCustomerByLogin(String login){
+    public User getUserByLogin(String login){
         return userRepo.findUserByLogin(login);
     }
 

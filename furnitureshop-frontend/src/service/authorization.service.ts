@@ -1,23 +1,32 @@
-import {EventEmitter, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AuthorizationData} from '../domain/user/authorization-data';
-import {CustomerService} from './customer.service';
-import {Uiresponse} from '../domain/uiresponse';
-import {User} from '../domain/user/user';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthorizationService {
 
-  private loginUrl = 'api/login';
-  private registerUrl = 'api/register';
+  private LOGIN = 'api/login';
+  private REGISTER = 'api/register';
+  private LOGOUT = 'api/logout';
 
   constructor(private http: HttpClient) { }
 
   register(data: AuthorizationData) {
-    return this.http.post(this.registerUrl, data);
+    return this.http.post(this.REGISTER, data);
   }
 
   login(data: AuthorizationData) {
-    return this.http.post(this.loginUrl, data);
+
+    // let requestHeaders = new HttpHeaders({
+    //   'Accept': 'application/json',
+    //   'Content-Type': 'application/x-www-form-urlencoded'
+    // });
+
+    return this.http.post(this.LOGIN, data);
+  }
+
+  logout() {
+    // this.http.get(this.LOGOUT);
   }
 }

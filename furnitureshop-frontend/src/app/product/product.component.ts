@@ -9,6 +9,9 @@ import {ProductService} from '../../service/product.service';
 import {Uiresponse} from '../../domain/uiresponse';
 import {Category} from '../../domain/product/category';
 import {Manufacturer} from '../../domain/product/manufacturer';
+import {AppService} from '../../service/app.service';
+import {AppComponent} from '../app.component';
+import {isNumber} from 'util';
 
 @Component({
   selector: 'app-product',
@@ -28,10 +31,12 @@ export class ProductComponent implements OnInit {
   public categoryList: Category[];
   public manufacturerList: Manufacturer[];
   public modalRef: BsModalRef;
-  public isProductAdded= false;
+  public isAdded= false;
+  public isDeleted = false;
 
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
+              private app: AppComponent,
               private managerService: ManagerService,
               private productService: ProductService,
               private modalService: BsModalService,
@@ -40,7 +45,7 @@ export class ProductComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.customerService.getUser();
+    this.user = this.app.user;
     this.userId = this.route.snapshot.params['id'];
     this.loadCategories();
     this.loadManufacturers();
@@ -76,7 +81,12 @@ export class ProductComponent implements OnInit {
       );
   }
 
-  openModal(){
+  openAddProductModal(){
+    this.modalRef = this.modalService.show(this.productTemplate);
+  }
+
+  openUpdateProductModal(product: Product){
+    this.product = product;
     this.modalRef = this.modalService.show(this.productTemplate);
   }
 
@@ -93,24 +103,54 @@ export class ProductComponent implements OnInit {
       .subscribe()
   }
 
-  addProduct(){
-    this.managerService.addProduct(this.userId, this.product)
+  addProduct(managerId: number, product: Product){
+    this.managerService.addProduct(managerId, product)
       .subscribe(
         (res: Uiresponse) => {
-          this.isProductAdded = res.success;
+          this.isAdded = res.success;
           this.product = res.body;
-          this.productList.push(this.product);
+          this.productList.push(product);
         }
       );
   }
 
-  update(item: Product){
-
+  updateProduct(product: Product){
+    this.managerService.updateProduct(this.userId, product)
+      .subscribe(
+        (res: Uiresponse) => {
+          if (res.success){
+            this.loadProducts(this.userId);
+            this.cd.detectChanges();
+          }
+        }
+      )
   }
 
-  delete(item: Product){
-
+  prepareDeleteProduct(product: Product){
+    this.product = product;
   }
 
+  deleteProduct(productId: number){
+    this.managerService.deleteProduct(this.userId, productId)
+      .subscribe(
+        (res: Uiresponse) => {
+          this.isDeleted = res.success;
+          if (this.isDeleted){
+            this.loadProducts(this.userId);
+            this.cd.detectChanges();
+          }
+        }
+      )
+  }
+
+  selected(first: any, second: any){
+    if (first === second){
+      return 'selected';
+    }
+  }
+
+  isProductExists(product: Product){
+    return isNumber(product.id);
+  }
 
 }

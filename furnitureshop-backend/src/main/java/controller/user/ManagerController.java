@@ -1,6 +1,7 @@
 package controller.user;
 
 import domain.UIResponse;
+import domain.product.Category;
 import domain.product.Image;
 import domain.product.Manufacturer;
 import domain.product.Product;
@@ -105,16 +106,14 @@ public class ManagerController {
     /**
      * A method that updates order
      * @param managerId a mamanger id. Manager is responsible for this order.
-     * @param orderId order id
      * @param orderDTO order data transfer object
      * @return updated order entity
      */
-    @PatchMapping("{managerId}/order/{orderId}/update")
-    public UIResponse<OrderDTO> updateOrder(@PathVariable Long managerId, @PathVariable Long orderId,
-                                            @RequestBody OrderDTO orderDTO) {
+    @PatchMapping("{managerId}/order/update")
+    public UIResponse<OrderDTO> updateOrder(@PathVariable Long managerId, @RequestBody OrderDTO orderDTO) {
         if (userService.isUserExists(managerId)){
-            if (orderService.isOrderExists(orderId)){
-                Order updateOrder = orderService.getOrderById(orderId);
+            if (orderService.isOrderExists(orderDTO.getId())){
+                Order updateOrder = orderService.getOrderById(orderDTO.getId());
                 Status status = statusService.getStatus(orderDTO.getStatus());
                 updateOrder.setStatus(status);
 
@@ -174,6 +173,26 @@ public class ManagerController {
         return new UIResponse<>(new UserNotFoundException());
     }
 
+    @PatchMapping("{managerId}/product/update")
+    public UIResponse<ProductDTO> updateProduct(@PathVariable Long managerId, @RequestBody ProductDTO productDTO) {
+        if (userService.isUserExists(managerId)){
+            if (productService.isProductExists(productDTO.getId())){
+                Product updateProduct = productService.getProductById(productDTO.getId());
+
+                updateProduct.setCategory(productDTO.getCategory());
+                updateProduct.setName(productDTO.getName());
+                updateProduct.setDescription(updateProduct.getDescription());
+                updateProduct.setManufacturer(productDTO.getManufacturer());
+
+                updateProduct = productService.update(updateProduct);
+
+                return new UIResponse<>(true, mapper.map(updateProduct, ProductDTO.class));
+            }
+            return new UIResponse<>(new OrderExistsException());
+        }
+        return new UIResponse<>(new UserNotFoundException());
+    }
+
     /**
      * A method that returns list of storage items related by manager
      * @param managerId manager id
@@ -189,5 +208,6 @@ public class ManagerController {
         }
         return new UIResponse<>(new UserNotFoundException());
     }
+
 
 }

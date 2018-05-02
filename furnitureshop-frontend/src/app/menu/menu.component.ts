@@ -1,15 +1,17 @@
-import {Component, Input, OnChanges, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {User} from '../../domain/user/user';
-import {Role} from '../../domain/user/role';
 import {CustomerService} from '../../service/customer.service';
-import {ActivatedRoute, NavigationEnd, Params, Router} from '@angular/router';
-import {Subscription} from 'rxjs/Subscription';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {AuthorizationData} from '../../domain/user/authorization-data';
 import {Uiresponse} from '../../domain/uiresponse';
 import {AuthorizationService} from '../../service/authorization.service';
 import {Category} from '../../domain/product/category';
 import {ProductService} from '../../service/product.service';
+import {Subscription} from 'rxjs/Subscription';
+import {AppComponent} from '../app.component';
+import {Role} from '../../domain/user/role';
+import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-menu',
@@ -19,33 +21,29 @@ import {ProductService} from '../../service/product.service';
 export class MenuComponent implements OnInit {
 
   user = new User();
-  public categoryList: Category[];
+  categoryList: Category[];
+  roleList: Role[];
 
   fullName: string;
   login: string;
   password: string;
   email: string;
   confirmPassword: string;
-
-  isLogged = false;
-  isRegistered = false;
-  isExist = false;
-  isNotExist = false;
   isShortLogin = false;
   isShortPass = false;
+  isRegistered = false;
+  isExist = false;
+  notEqual = false;
   isShortName = false;
   isIncorrectEmail = false;
-  notEqual = false;
 
-
+  private subscription: Subscription;
   private CUSTOMER = 'ROLE_USER';
   private ADMIN = 'ROLE_ADMIN';
   private MANAGER = 'ROLE_MANAGER';
+  private GUEST = 'ROLE_GUEST';
 
   modalRef: BsModalRef;
-
-  @ViewChild('loginModal')
-  private loginTemplate: TemplateRef<any>;
 
   @ViewChild('registerModal')
   private registerTemplate: TemplateRef<any>;
@@ -53,13 +51,33 @@ export class MenuComponent implements OnInit {
   constructor(private modalService: BsModalService,
               private customerService: CustomerService,
               private productService: ProductService,
-              private route: Router,
-              private authService: AuthorizationService) {
+              private router: Router,
+              private route: ActivatedRoute,
+              private authService: AuthorizationService,
+              private app: AppComponent,
+              private utilService: UtilService) {
+
+
+    setInterval(() => {
+      this.user = this.app.user;
+    }, 2000)
   }
 
   ngOnInit(): void {
+    // this.user = this.customerService.getUser();
+    this.user = this.app.user;
     this.loadCategories();
+    // this.loadRoles();
   }
+
+  // private loadRoles() {
+  //   this.utilService.getAllRoles()
+  //     .subscribe(
+  //       (res: Uiresponse) => {
+  //         this.roleList = res.body;
+  //       }
+  //     )
+  // }
 
   private loadCategories() {
     this.productService.getCategories()
@@ -67,13 +85,7 @@ export class MenuComponent implements OnInit {
         (res: Uiresponse) => {
           this.categoryList = res.body;
         }
-      )
-  }
-
-  openLogin() {
-    this.isLogged = false;
-    this.isNotExist = false;
-    this.modalRef = this.modalService.show(this.loginTemplate);
+      );
   }
 
   openRegister() {
@@ -83,65 +95,36 @@ export class MenuComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return this.user.role === this.ADMIN;
+    if (this.user.role !== null){
+      return this.user.role.title === this.ADMIN;
+    }
+    return false;
   }
 
   isManager(): boolean {
-    return this.user.role === this.MANAGER;
+    if (this.user.role !== null){
+      return this.user.role.title === this.MANAGER;
+    }
+    return false;
   }
 
   isCustomer(): boolean {
-    return this.user.role === this.CUSTOMER;
+    return this.user.role.title === this.CUSTOMER;
   }
 
-  isGuest() {
-    return this.user.role === undefined;
-  }
-
-  submitLogin() {
-    this.isLogged = false;
-    // if (this.validateInput(this.login, this.password)) {
-    //
-    //
-    // }
-    this.authService.login(new AuthorizationData(null, this.login, this.password, null))
-      .subscribe(
-        (response: Uiresponse) => {
-          this.isLogged = response.success;
-          this.isNotExist = !response.success;
-
-          this.customerService.setUser(response.body);
-          this.user = response.body;
-          this.modalRef.hide();
-          this.route.navigate(['/about']);
-        },
-        error2 => {
-          this.isNotExist = true;
-        }
-      );
+  isGuest(): boolean {
+    return this.user.role.title === this.GUEST;
   }
 
   logout() {
+    this.authService.logout();
     this.user = null;
     this.customerService.setUser(null);
-    this.route.navigate(['']);
-  }
-
-  validateLogin(_login: string, _pass: string): boolean {
-    this.isShortLogin = this.isShortPass = this.notEqual = false;
-    let flag = true;
-    if (_login.length > 1) {
-      this.isShortLogin = true;
-      flag = false;
-    }
-    if (_pass.length > 1) {
-      this.isShortPass = true;
-      flag = false;
-    }
-    return flag;
+    this.router.navigate(['']);
   }
 
   submitRegister() {
+
     this.authService.register(new AuthorizationData(this.fullName, this.login, this.password, this.email))
       .subscribe(
         (data: Uiresponse) => {
@@ -149,7 +132,7 @@ export class MenuComponent implements OnInit {
           this.isExist = !data.success;
           this.customerService.setUser(data.body);
           this.modalRef.hide();
-          this.route.navigate(['/about']);
+          this.router.navigate(['/about']);
         },
         error2 => {
           this.isExist = true;

@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnChanges, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {ProductService} from '../../service/product.service';
 import {Storage} from '../../domain/shop/storage';
 import {Uiresponse} from '../../domain/uiresponse';
@@ -12,11 +12,10 @@ import {Subscription} from 'rxjs/Subscription';
   selector: 'app-viewer',
   templateUrl: './viewer.component.html',
   styleUrls: ['./viewer.component.css'],
-  changeDetection: ChangeDetectionStrategy.Default
 })
-export class ViewerComponent implements  OnInit  {
+export class ViewerComponent implements  OnInit {
 
-  user: User;
+  user = new User();
   addedProductId: number;
 
   storageItems: Storage[];
@@ -26,27 +25,33 @@ export class ViewerComponent implements  OnInit  {
   isAdded = false;
 
   private subscription: Subscription;
+  private CUSTOMER = 'ROLE_USER';
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private productService: ProductService,
-              private customerService: CustomerService,
-              private cd: ChangeDetectorRef) {
+              private customerService: CustomerService) {
 
     this.subscription = this.route.params
       .subscribe(
         params => this.categoryTitle = params['category']
       );
-    // this.getStorageItems();
 
-    setInterval(() => {
-      this.getStorageItems();
-      // this.cd.detectChanges();
-    }, 1000);
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+
+    router.events.subscribe(
+      (evt) => {
+        if (evt instanceof NavigationEnd){
+          this.router.navigated = false;
+        }
+      }
+    )
   }
 
   ngOnInit() {
     this.user = this.customerService.getUser();
-    // this.categoryTitle = this.route.snapshot.params['category'];
     this.getStorageItems();
   }
 
@@ -71,6 +76,10 @@ export class ViewerComponent implements  OnInit  {
 
   showSuccessAlert(id: number) {
     return this.isAdded && this.addedProductId === id;
+  }
+
+  isCustomer(): boolean {
+    return this.user.role === this.CUSTOMER;
   }
 
 }

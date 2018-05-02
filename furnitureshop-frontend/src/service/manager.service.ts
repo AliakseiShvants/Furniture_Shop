@@ -9,11 +9,13 @@ export class ManagerService {
   private manager = 'api/manager/';
   private order = '/order/';
   private product = '/product/';
+  private storage = '/storage';
+
   private all = 'all';
   private add = 'add';
   private delet = '/delete';
-  private update = '/update';
-  private storage = '/storage';
+  private update = 'update';
+
 
   constructor(private httpClient: HttpClient) { }
 
@@ -26,7 +28,7 @@ export class ManagerService {
   }
 
   updateOrder(userId: number, order: Order) {
-    return this.httpClient.patch(this.manager + userId + this.order + order.id + this.update, order);
+    return this.httpClient.patch(this.manager + userId + this.order + this.update, order);
   }
 
   getManagerProducts(userId: number) {
@@ -40,4 +42,14 @@ export class ManagerService {
   addProduct(userId: number, product: Product) {
     return this.httpClient.post(this.manager + userId + this.product + this.add, product);
   }
+
+  updateProduct(userId: number, item: Product) {
+    return this.httpClient.post(this.manager + userId + this.product + this.update, item);
+  }
+
+  deleteProduct(userId: number, productId: number) {
+    return this.httpClient.delete(this.manager + userId + this.product + productId + this.delet);
+  }
+
+
 }

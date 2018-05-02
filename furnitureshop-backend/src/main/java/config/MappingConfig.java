@@ -29,8 +29,7 @@ public class MappingConfig {
             @Override
             protected void configure() {
                 mapping(Role.class, RoleDTO.class);
-                mapping(User.class, UserDTO.class)
-                        .fields("role.title", "role");
+                mapping(User.class, UserDTO.class);
                 mapping(Requisite.class, RequisiteDTO.class);
                 mapping(Order.class, OrderDTO.class)
                         .fields("manager.fullName", "manager")

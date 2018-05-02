@@ -51,4 +51,8 @@ public class ProductService {
     public Product addProduct(Product newProduct) {
         return productRepo.save(newProduct);
     }
+
+    public Product update(Product updateProduct) {
+        return productRepo.saveAndFlush(updateProduct);
+    }
 }

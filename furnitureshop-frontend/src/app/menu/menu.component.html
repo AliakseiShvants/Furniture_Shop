@@ -3,11 +3,11 @@
 
     <ul class="nav nav-tabs mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/about" >{{'menu.navitem.about'|translate}}</a>
+        <a class="nav-link" routerLink="/about" >{{'navitem.about'|translate}}</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">{{'menu.navitem.goods'|translate}}
+           aria-expanded="true">{{'navitem.goods'|translate}}
         </a>
         <div class="dropdown-menu bg-light">
           <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/viewer', category.title]">
@@ -24,10 +24,10 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/customers">{{'menu.navitem.admin.customers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/managers">{{'menu.navitem.admin.managers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/products">{{'menu.navitem.admin.products'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'menu.navitem.admin.orders'|translate}}</a>
+          <a class="dropdown-item" routerLink="/customers">{{'navitem.admin.customers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/managers">{{'navitem.admin.managers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/products">{{'navitem.admin.products'|translate}}</a>
+          <a class="dropdown-item" routerLink="/orders">{{'navitem.admin.orders'|translate}}</a>
         </div>
       </li>
 
@@ -38,9 +38,9 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'menu.navitem.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'menu.navitem.manager.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'menu.navitem.manager.products'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'navitem.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'navitem.manager.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'navitem.manager.products'|translate}}</a>
         </div>
       </li>
 
@@ -51,9 +51,9 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'menu.navitem.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'menu.navitem.customer.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'menu.navitem.customer.basket'|translate}}
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'navitem.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'navitem.customer.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'navitem.customer.basket'|translate}}
             <span class="fa fa-shopping-cart"></span>
           </a>
         </div>
@@ -62,63 +62,25 @@
       <li class="nav-item" [hidden]="isGuest()">
         <a href="/">
           <button class="btn btn-outline-warning btn-lg" (click)="logout()" type="button">
-            {{'menu.button.logout'|translate}}
+            {{'button.logout'|translate}}
+            <span class="fa fa-sign-out"></span>
           </button>
         </a>
       </li>
       <li class="nav-item" [hidden]="!isGuest()">
-        <button class="btn btn-outline-primary btn-lg" (click)="openLogin()" type="button">
-          {{'menu.button.login'|translate}}
+        <button class="btn btn-outline-primary btn-lg" routerLink="/login" type="button">
+          {{'button.login'|translate}}
+          <span class="fa fa-sign-in"></span>
         </button>
       </li>
       <li class="nav-item" [hidden]="!isGuest()">
         <button class="btn btn-outline-secondary btn-lg" (click)="openRegister()" type="button">
-          {{'menu.button.register'|translate}}
+          {{'button.register'|translate}}
         </button>
       </li>
     </ul>
   </div>
 </nav>
-
-<ng-template #loginModal>
-  <div class="modal-header">
-    <h4 class="modal-title modal-title-center">{{'login.title'|translate}}</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <form action="#" method="post" (submit)="submitLogin()" [hidden]="isLogged">
-
-        <div class="form-group">
-          <label for="logLogin" class="floatLabel">{{'login.login'|translate}}</label>
-          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
-                 required minlength="4">
-          <small id="logLogHelp" class="form-text text-muted">{{'login.login.help'|translate}}</small>
-        </div>
-
-        <div class="form-group">
-          <label for="logPassword" class="floatLabel">{{'login.password'|translate}}</label>
-          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password"
-                 aria-describedby="passHelp" required minlength="5">
-          <small id="logPassHelp" class="form-text text-muted">{{'login.password.help'|translate}}</small>
-        </div>
-
-        <div class="form-footer">
-          <button class="btn btn-primary" type="submit" >{{'button.submit'|translate}}</button>
-          <button class="btn btn-secondary" type="reset" >{{'button.clean'|translate}}</button>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()">
-            {{'button.close'|translate}}
-          </button>
-        </div>
-      </form>
-      <alert id="logDanger" *ngIf="isNotExist" type="danger" dismissOnTimeout="5000">
-        {{ 'alert.login.danger' | translate }}
-      </alert>
-    </div>
-  </div>
-</ng-template>
 
 <ng-template #registerModal>
   <div class="modal-header">
@@ -178,16 +140,8 @@
           </button>
         </div>
       </form>
-      <alert id="success" *ngIf="isRegistered" type="success">
-        {{ 'alert.register.success.part1' | translate }}
-        {{ fullName }}
-        {{ 'alert.register.success.part2' | translate }}
-      </alert>
-      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">
-        {{ 'alert.register.danger.part1' | translate }}
-        {{ login }}
-        {{ 'alert.register.danger.part2' | translate }}
-      </alert>
+      <alert id="success" *ngIf="isRegistered" type="success">{{'alert.success'|translate}}</alert>
+      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">{{'alert.register.danger'|translate}}</alert>
     </div>
   </div>
 </ng-template>
