@@ -13,7 +13,8 @@
           <p class="card-text font-weight-bold d-inline">
             {{'viewer.price'|translate}}{{storageItem.price}}{{'viewer.currency'|translate}}
           </p>
-          <button *ngIf="isCustomer()" type="button" class="btn btn-primary d-inline float-right" (click)="addToBasket(storageItem.product.id)">
+          <button *ngIf="isCustomer()" type="button" class="btn btn-primary d-inline float-right"
+                  (click)="addToBasket(storageItem.product.id)">
             {{'viewer.basket'|translate}}
           </button>
         </div>

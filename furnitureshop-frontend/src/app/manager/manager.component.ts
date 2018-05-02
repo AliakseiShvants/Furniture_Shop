@@ -22,6 +22,7 @@ export class ManagerComponent implements OnInit {
   managers: User[];
   tempManager = new User();
   role: Role;
+  roleList: Role[];
   success = false;
   isDeleted = false;
   MANAGER = 'ROLE_MANAGER';
@@ -47,7 +48,6 @@ export class ManagerComponent implements OnInit {
   }
 
   private loadAllManagers() {
-
     this.adminService.getAllManagers()
       .subscribe(
         (data: Uiresponse) => {

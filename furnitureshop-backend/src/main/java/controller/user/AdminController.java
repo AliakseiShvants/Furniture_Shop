@@ -27,7 +27,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>Controller class for {@link User} entity with 'ADMIN' role.
+ * <p>Controller class for {@link User} entity with 'ROLE_ADMIN' role.
  */
 @RestController
 @RequestMapping("api/admin/")
@@ -52,7 +52,7 @@ public class AdminController {
     private RequisiteService requisiteService;
 
     /**
-     * A method that returns all customers
+     * A method that returns all {@link User} entity with 'ROLE_USER' role.
      * @return list of customers
      */
     @GetMapping("customer/all")
@@ -73,8 +73,13 @@ public class AdminController {
         return new UIResponse<>(new UserNotFoundException());
     }
 
+    /**
+     * A method that updates {@link User} entity
+     * @param userDTO 
+     * @return
+     */
     @PatchMapping("user/update")
-    public UIResponse<Void> updateCustomer(@RequestBody UserDTO userDTO){
+    public UIResponse<Void> updateUser(@RequestBody UserDTO userDTO){
         if (userService.isUserExists(userDTO.getId())){
             User dbUser = userService.getUserById(userDTO.getId());
             dbUser.setFullName(userDTO.getFullName());
@@ -89,6 +94,11 @@ public class AdminController {
         return new UIResponse<>(new UserNotFoundException());
     }
 
+    /**
+     * A method that adds new {@link User} entity with 'ROLE_USER' role.
+     * @param data
+     * @return
+     */
     @PostMapping("customer/add")
     public UIResponse<Void> addCustomer(@RequestBody AuthorizationData data){
         User newUser;
@@ -102,6 +112,10 @@ public class AdminController {
         return new UIResponse<>(new UserExistsException());
     }
 
+    /**
+     * A method that returns all {@link User} entity with 'ROLE_MANAGER' role.
+     * @return list of {@link UserDTO} entities.
+     */
     @GetMapping("manager/all")
     public UIResponse<List<UserDTO>> getAllManagers(){
         return new UIResponse<>(true, userService.getAllManagers().stream()
@@ -110,22 +124,11 @@ public class AdminController {
         );
     }
 
-    @GetMapping("order/all")
-    public UIResponse<List<OrderDTO>> getAllOrders(){
-        return new UIResponse<>(true, orderService.getAll().stream()
-                .map(order -> mapper.map(order, OrderDTO.class))
-                .collect(Collectors.toList())
-        );
-    }
-
-    @GetMapping("product/all")
-    public UIResponse<List<ProductDTO>> getAllProducts(){
-        return new UIResponse<>(true, productService.getAllProducts().stream()
-                .map(product -> mapper.map(product, ProductDTO.class))
-                .collect(Collectors.toList())
-        );
-    }
-
+    /**
+     * A method that adds new {@link User} entity with 'ROLE_MANAGER' role.
+     * @param managerDTO a {@link UserDTO} entity
+     * @return new {@link UserDTO} entity
+     */
     @PostMapping("manager/add")
     public UIResponse<UserDTO> addManager(@RequestBody UserDTO managerDTO){
         Role role = roleService.getRoleByTitle("ROLE_MANAGER");
@@ -134,4 +137,30 @@ public class AdminController {
         manager = userService.addUser(manager);
         return new UIResponse<>(true, mapper.map(manager, UserDTO.class));
     }
+
+    /**
+     * A method that returns all {@link OrderDTO} entities
+     * @return list of {@link OrderDTO} entities
+     */
+    @GetMapping("order/all")
+    public UIResponse<List<OrderDTO>> getAllOrders(){
+        return new UIResponse<>(true, orderService.getAll().stream()
+                .map(order -> mapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList())
+        );
+    }
+
+    /**
+     * A method that returns all {@link ProductDTO} entities
+     * @return list of {@link ProductDTO} entities
+     */
+    @GetMapping("product/all")
+    public UIResponse<List<ProductDTO>> getAllProducts(){
+        return new UIResponse<>(true, productService.getAllProducts().stream()
+                .map(product -> mapper.map(product, ProductDTO.class))
+                .collect(Collectors.toList())
+        );
+    }
+
+
 }

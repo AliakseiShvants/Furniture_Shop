@@ -20,6 +20,11 @@ import org.springframework.context.annotation.Configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A Java Bean mapper that recursively copies data from one object to another.
+ * Supports simple property mapping, complex type mapping, bi-directional mapping, implicit-explicit mapping, as
+ * well as recursive mapping. This includes mapping collection attributes that also need mapping at the element level.
+ */
 @Configuration
 public class MappingConfig {
 
@@ -40,7 +45,6 @@ public class MappingConfig {
                 mapping(BasketItem.class, BasketItemDTO.class);
                 mapping(Image.class, ImageDTO.class);
                 mapping(Storage.class, StorageItemDTO.class);
-
             }
         };
     }
@@ -56,6 +60,4 @@ public class MappingConfig {
 
         return dozerBeanMapper;
     }
-
-
 }

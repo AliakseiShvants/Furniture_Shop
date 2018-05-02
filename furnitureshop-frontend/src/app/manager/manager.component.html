@@ -101,35 +101,35 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="editFullName" class="floatLabel">{{ 'profile.edit.name'|translate }}</label>
-            <input class="form-control" id="editFullName" name="fullName" type="text" [(ngModel)]="tempCustomer.fullName"
+            <input class="form-control" id="editFullName" name="fullName" type="text" [(ngModel)]="tempManager.fullName"
                    aria-describedby="editName" required minlength="4">
             <small id="editName" class="form-text text-muted">{{'register.name.help'|translate}}</small>
           </div>
 
           <div class="form-group">
             <label for="editLogin" class="floatLabel">{{ 'register.login'|translate }}</label>
-            <input class="form-control" id="editLogin" name="fullName" type="text" [(ngModel)]="tempCustomer.login"
+            <input class="form-control" id="editLogin" name="fullName" type="text" [(ngModel)]="tempManager.login"
                    aria-describedby="nameHelp" required minlength="4">
             <small id="nameHelp" class="form-text text-muted">{{'register.login.help'|translate}}</small>
           </div>
 
           <div class="form-group">
             <label for="editPass" class="floatLabel">{{'register.password'|translate}}</label>
-            <input class="form-control" id="editPass" name="fullName" type="text" [(ngModel)]="tempCustomer.password"
+            <input class="form-control" id="editPass" name="fullName" type="text" [(ngModel)]="tempManager.password"
                    aria-describedby="editPassHelp" required minlength="4">
             <small id="editPassHelp" class="form-text text-muted">{{'register.password.help'|translate}}</small>
           </div>
 
           <div class="form-group">
             <label for="editEmail">{{'profile.edit.email'|translate}}</label>
-            <input type="email" class="form-control" id="editEmail" [(ngModel)]="tempCustomer.email"
+            <input type="email" class="form-control" id="editEmail" [(ngModel)]="tempManager.email"
                    [ngModelOptions]="{standalone: true}">
           </div>
 
           <div class="form-group">
             <label for="birthday">{{'profile.edit.birthday'|translate}}</label>
-            <input type="date" class="form-control" id="birthday" [(ngModel)]="tempCustomer.birthday"
-                   [value]="tempCustomer.birthday | date:'dd/MM/yyyy'" [ngModelOptions]="{standalone: true}">
+            <input type="date" class="form-control" id="birthday" [(ngModel)]="tempManager.birthday"
+                   [value]="tempManager.birthday | date:'dd/MM/yyyy'" [ngModelOptions]="{standalone: true}">
             <small id="birthdayHelp" class="form-text text-muted">{{ 'register.birthday.help' | translate }}</small>
           </div>
 
@@ -137,35 +137,35 @@
             <label class="form-check-label" for="check-group">{{'profile.edit.sex'|translate}}</label>
 
             <div class="form-check mx-4">
-              <input class="form-check-input" name="sex" type="radio" id="male" [(ngModel)]="tempCustomer.sex"
-                     [value]="true" [checked]="getSex(tempCustomer)">
+              <input class="form-check-input" name="sex" type="radio" id="male" [(ngModel)]="tempManager.sex"
+                     [value]="true" [checked]="getSex(tempManager)">
               <label class="form-check-label" for="male">{{'profile.edit.sex.male'|translate}}</label>
             </div>
 
             <div class="form-check mx-4">
-              <input class="form-check-input" name="sex" type="radio" id="female" [(ngModel)]="tempCustomer.sex"
+              <input class="form-check-input" name="sex" type="radio" id="female" [(ngModel)]="tempManager.sex"
                      [value]="false" [checked]="!getSex(tempCustomer)" >
               <label class="form-check-label" for="female">{{'profile.edit.sex.female'|translate}}</label>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="role-select" class="floatLabel">{{'role'|translate}}</label>
-            <select id="role-select" class="status-select" size="1" [(ngModel)]="tempCustomer.role"
-                    [ngModelOptions]="{standalone: true}">
-              <option id="role" *ngFor="let role of roleList" [value]="role"
-                      [selected]="selected(role.title, tempCustomer.role.title)">
-                {{role.title|translate}}
-              </option>
-            </select>
-          </div>
+          <!--<div class="form-group">-->
+            <!--<label for="role-select" class="floatLabel">{{'role'|translate}}</label>-->
+            <!--<select id="role-select" class="status-select" size="1" [(ngModel)]="tempManager.role"-->
+                    <!--[ngModelOptions]="{standalone: true}">-->
+              <!--<option id="role" *ngFor="let role of roleList" [value]="role"-->
+                      <!--[selected]="selected(role.title, tempManager.role.title)">-->
+                <!--{{role.title|translate}}-->
+              <!--</option>-->
+            <!--</select>-->
+          <!--</div>-->
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">
             {{'button.close'|translate}}
           </button>
-          <button type="submit" class="btn btn-info" (click)="updateCustomer(tempCustomer)">
+          <button type="submit" class="btn btn-info" (click)="updateManager(tempManager)">
             {{'button.save'|translate}}
           </button>
         </div>
@@ -189,7 +189,7 @@
         </div>
         <div class="modal-footer">
           <a class="btn btn-primary" data-dismiss="modal" (click)="close()">{{'button.close'|translate}}</a>
-          <button type="submit" class="btn btn-danger" (click)="deleteCustomer(tempCustomer)">
+          <button type="submit" class="btn btn-danger" (click)="deleteManager(tempManager.id)">
             {{'button.delete'|translate}}
           </button>
         </div>

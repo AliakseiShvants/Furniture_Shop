@@ -7,6 +7,7 @@ import {User} from '../../domain/user/user';
 import {CustomerService} from '../../service/customer.service';
 import {Category} from '../../domain/product/category';
 import {Subscription} from 'rxjs/Subscription';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-viewer',
@@ -30,7 +31,8 @@ export class ViewerComponent implements  OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private productService: ProductService,
-              private customerService: CustomerService) {
+              private customerService: CustomerService,
+              private app: AppComponent) {
 
     this.subscription = this.route.params
       .subscribe(
@@ -51,7 +53,7 @@ export class ViewerComponent implements  OnInit {
   }
 
   ngOnInit() {
-    this.user = this.customerService.getUser();
+    this.user = this.app.user;
     this.getStorageItems();
   }
 
@@ -79,7 +81,7 @@ export class ViewerComponent implements  OnInit {
   }
 
   isCustomer(): boolean {
-    return this.user.role === this.CUSTOMER;
+    return this.user.role.title === this.CUSTOMER;
   }
 
 }

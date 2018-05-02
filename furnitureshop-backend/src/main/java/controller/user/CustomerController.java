@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * <p>Controller class for {@link User} entity.
+ * <p>Controller class for {@link User} entity with 'ROLE_USER' role.
  */
 @RestController
 @RequestMapping("api/customer/")

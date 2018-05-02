@@ -25,6 +25,9 @@ import service.shop.StorageService;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * <p>Controller class for {@link Product} entity.
+ */
 @RestController
 @RequestMapping("api/product/")
 public class ProductController {
@@ -114,10 +117,10 @@ public class ProductController {
     }
 
     /**
-     *
-     * @param productId
-     * @param manufacturerDTO
-     * @return
+     * A method that adds new manufacturer to product.
+     * @param productId product id
+     * @param manufacturerDTO a manufacturer dto object
+     * @return new manufacturer dto object
      */
     @PostMapping("{productId}/manufacturer/add")
     public UIResponse<ManufacturerDTO> addManufacturer(@PathVariable Long productId,
@@ -134,6 +137,10 @@ public class ProductController {
         return new UIResponse<>(new ProductExistsException());
     }
 
+    /**
+     * A method that returns all manufacturers.
+     * @return list of manufacturers
+     */
     @GetMapping("manufacturer/all")
     public UIResponse<List<Manufacturer>> getAllManufacturers(){
         List<Manufacturer> manufacturerList = manufacturerService.getAll();
