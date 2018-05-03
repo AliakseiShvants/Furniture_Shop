@@ -1,7 +1,6 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {AboutComponent} from '../about/about.component';
 import {ViewerComponent} from '../viewer/viewer.component';
 import {ProfileComponent} from '../profile/profile.component';
 import {OrdersComponent} from '../orders/orders.component';
@@ -11,9 +10,10 @@ import {StorageComponent} from '../storage/storage.component';
 import {ProductComponent} from '../product/product.component';
 import {LoginComponent} from '../login/login.component';
 import {ManagerComponent} from '../manager/manager.component';
+import {GoodPriceComponent} from '../good-price/good-price.component';
 
 export const appRoutes: Routes = [
-  {path: 'about', component: AboutComponent},
+  {path: 'good-price', component: GoodPriceComponent},
   {path: 'login', component: LoginComponent},
 
   {path: 'viewer/:category', component: ViewerComponent},

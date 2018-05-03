@@ -11,7 +11,6 @@ import {Category} from '../../domain/product/category';
 import {Manufacturer} from '../../domain/product/manufacturer';
 import {AppService} from '../../service/app.service';
 import {AppComponent} from '../app.component';
-import {isNumber} from 'util';
 
 @Component({
   selector: 'app-product',
@@ -150,7 +149,7 @@ export class ProductComponent implements OnInit {
   }
 
   isProductExists(product: Product){
-    return isNumber(product.id);
+    return product.id > 0;
   }
 
 }

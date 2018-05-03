@@ -5,7 +5,6 @@ import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
 import {RoutingModule} from './routing/routing.module';
 import {MenuComponent} from './menu/menu.component';
-import {AboutComponent} from './about/about.component';
 import {ViewerComponent} from './viewer/viewer.component';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {AlertModule, ModalModule} from 'ngx-bootstrap';
@@ -26,6 +25,7 @@ import { LoginComponent } from './login/login.component';
 import { ManagerComponent } from './manager/manager.component';
 import {AdminService} from '../service/admin.service';
 import {UtilService} from '../service/util.service';
+import { GoodPriceComponent } from './good-price/good-price.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,6 @@ import {UtilService} from '../service/util.service';
     FooterComponent,
     HeaderComponent,
     MenuComponent,
-    AboutComponent,
     ViewerComponent,
     ProfileComponent,
     OrdersComponent,
@@ -43,6 +42,7 @@ import {UtilService} from '../service/util.service';
     StorageComponent,
     LoginComponent,
     ManagerComponent,
+    GoodPriceComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class ViewerComponent implements  OnInit {
   user = new User();
   addedProductId: number;
 
-  storageItems: Storage[];
+  storageList: Storage[];
   categoryTitle: string;
   category: Category;
 
@@ -61,7 +61,7 @@ export class ViewerComponent implements  OnInit {
     this.productService.getStorageItemsByProductCategory(this.categoryTitle)
       .subscribe(
         (res: Uiresponse) => {
-          this.storageItems = res.body;
+          this.storageList = res.body;
         }
       )
   }

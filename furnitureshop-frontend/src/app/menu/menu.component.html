@@ -2,12 +2,14 @@
   <div class="collapse navbar-collapse">
 
     <ul class="nav nav-tabs mr-auto">
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/about" >{{'navitem.about'|translate}}</a>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/good-price" >{{'NAV.good-price'|translate}}</a>
       </li>
-      <li class="nav-item dropdown">
+
+      
+      <li class="nav-item dropdown bg-light">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">{{'navitem.goods'|translate}}
+           aria-expanded="true">{{'NAV.goods'|translate}}
         </a>
         <div class="dropdown-menu bg-light">
           <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/viewer', category.title]">
@@ -24,10 +26,10 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/customers">{{'navitem.admin.customers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/managers">{{'navitem.admin.managers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/products">{{'navitem.admin.products'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'navitem.admin.orders'|translate}}</a>
+          <a class="dropdown-item" routerLink="/customers">{{'NAV.admin.customers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/managers">{{'NAV.admin.managers'|translate}}</a>
+          <a class="dropdown-item" routerLink="/products">{{'NAV.admin.products'|translate}}</a>
+          <a class="dropdown-item" routerLink="/orders">{{'NAV.admin.orders'|translate}}</a>
         </div>
       </li>
 
@@ -38,9 +40,9 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'navitem.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'navitem.manager.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'navitem.manager.products'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'NAV.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'NAV.manager.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'NAV.manager.products'|translate}}</a>
         </div>
       </li>
 
@@ -51,9 +53,9 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'navitem.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'navitem.customer.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'navitem.customer.basket'|translate}}
+          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'NAV.customer.profile'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'NAV.customer.orders'|translate}}</a>
+          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'NAV.customer.basket'|translate}}
             <span class="fa fa-shopping-cart"></span>
           </a>
         </div>
@@ -61,18 +63,20 @@
 
       <li class="nav-item" [hidden]="isGuest()">
         <a href="/">
-          <button class="btn btn-outline-warning btn-lg" (click)="logout()" type="button">
+          <button class="btn btn-outline-secondary" (click)="logout()" type="button">
             {{'button.logout'|translate}}
             <span class="fa fa-sign-out"></span>
           </button>
         </a>
       </li>
+
       <li class="nav-item" [hidden]="!isGuest()">
         <button class="btn btn-outline-primary btn-lg" routerLink="/login" type="button">
           {{'button.login'|translate}}
           <span class="fa fa-sign-in"></span>
         </button>
       </li>
+
       <li class="nav-item" [hidden]="!isGuest()">
         <button class="btn btn-outline-secondary btn-lg" (click)="openRegister()" type="button">
           {{'button.register'|translate}}
