@@ -155,6 +155,7 @@ export class OrdersComponent implements OnInit {
     if(first === second){
       return 'selected';
     }
+    return '';
   }
 
   isEmpty(list: any[]){

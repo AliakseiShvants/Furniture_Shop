@@ -54,7 +54,7 @@ public class MappingConfig {
         DozerBeanMapper dozerBeanMapper = new DozerBeanMapper();
         dozerBeanMapper.addMapping(beanMappingBuilder());
 
-        List<String> customConverters = new ArrayList();
+        List<String> customConverters = new ArrayList<>();
         customConverters.add("dozerJdk8Converters.xml");
         dozerBeanMapper.setMappingFiles(customConverters);
 
