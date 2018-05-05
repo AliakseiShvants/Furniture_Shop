@@ -3,7 +3,7 @@ import {User} from '../../domain/user/user';
 import {Requisite} from '../../domain/shop/requisite';
 import {Uiresponse} from '../../domain/uiresponse';
 import {CustomerService} from '../../service/customer.service';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppComponent} from '../app.component';
 
 @Component({
@@ -28,19 +28,19 @@ export class ProfileComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
               private app: AppComponent,
-              private route: Router,
+              private router: Router,
+              private route: ActivatedRoute,
               private cd: ChangeDetectorRef) {
 
     setInterval(() => {
-      // this.user = this.customerService.getUser();
       this.user = app.user;
       this.cd.detectChanges();
     }, 1000);
   }
 
   ngOnInit() {
-    // this.user = this.customerService.getUser();
     this.user = this.app.user;
+    this.showForm = this.route.snapshot.params['form'];
   }
 
   updateProfile() {
@@ -81,7 +81,7 @@ export class ProfileComponent implements OnInit {
         (data: Uiresponse) => {
           this.isDeleted = data.success;
           this.customerService.setUser(null);
-          this.route.navigate(['']);
+          this.router.navigate(['']);
         }
       );
   }

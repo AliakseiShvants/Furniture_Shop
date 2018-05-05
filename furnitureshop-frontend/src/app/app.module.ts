@@ -26,6 +26,8 @@ import { ManagerComponent } from './manager/manager.component';
 import {AdminService} from '../service/admin.service';
 import {UtilService} from '../service/util.service';
 import { GoodPriceComponent } from './good-price/good-price.component';
+import { RegisterComponent } from './register/register.component';
+import {StorageService} from '../service/storage.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { GoodPriceComponent } from './good-price/good-price.component';
     LoginComponent,
     ManagerComponent,
     GoodPriceComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,6 +64,7 @@ import { GoodPriceComponent } from './good-price/good-price.component';
   ],
   providers: [
     ProductService,
+    StorageService,
     CustomerService,
     ManagerService,
     AdminService,

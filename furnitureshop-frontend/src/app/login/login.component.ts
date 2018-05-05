@@ -22,9 +22,6 @@ export class LoginComponent implements OnInit {
   password: string;
   isNotExist = false;
   isLogged = false;
-  isShortLogin = false;
-  isShortPass = false;
-  notEqual = false;
 
   public modalRef: BsModalRef;
 
@@ -49,9 +46,7 @@ export class LoginComponent implements OnInit {
 
   submit() {
     this.isLogged = false;
-    if (this.validate(this.login, this.password)) {
-      this.log_in();
-    }
+    this.log_in();
   }
 
   private log_in() {
@@ -60,7 +55,6 @@ export class LoginComponent implements OnInit {
         (response: Uiresponse) => {
           this.isLogged = response.success;
           this.isNotExist = !response.success;
-          // this.customerService.setUser(response.body);
           this.app.user = response.body;
           this.modalRef.hide();
           this.router.navigate(['/']);
@@ -69,20 +63,6 @@ export class LoginComponent implements OnInit {
           this.isNotExist = true;
         }
       );
-  }
-
-  validate(_login: string, _pass: string): boolean {
-    this.isShortLogin = this.isShortPass = this.notEqual = false;
-    let flag = true;
-    if (_login.length < 1) {
-      this.isShortLogin = true;
-      flag = false;
-    }
-    if (_pass.length < 1) {
-      this.isShortPass = true;
-      flag = false;
-    }
-    return flag;
   }
 
   close(){

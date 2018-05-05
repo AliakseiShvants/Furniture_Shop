@@ -24,36 +24,15 @@ export class MenuComponent implements OnInit {
   categoryList: Category[];
   roleList: Role[];
 
-  fullName: string;
-  login: string;
-  password: string;
-  email: string;
-  confirmPassword: string;
-  isShortLogin = false;
-  isShortPass = false;
-  isRegistered = false;
-  isExist = false;
-  notEqual = false;
-  isShortName = false;
-  isIncorrectEmail = false;
-
-  private subscription: Subscription;
   private CUSTOMER = 'ROLE_USER';
   private ADMIN = 'ROLE_ADMIN';
   private MANAGER = 'ROLE_MANAGER';
   private GUEST = 'ROLE_GUEST';
 
-  modalRef: BsModalRef;
-
-  @ViewChild('registerModal')
-  private registerTemplate: TemplateRef<any>;
-
-  constructor(private modalService: BsModalService,
-              private customerService: CustomerService,
+  constructor(private customerService: CustomerService,
               private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute,
-              private authService: AuthorizationService,
               private app: AppComponent,
               private utilService: UtilService) {
 
@@ -64,20 +43,9 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.user = this.customerService.getUser();
     this.user = this.app.user;
     this.loadCategories();
-    // this.loadRoles();
   }
-
-  // private loadRoles() {
-  //   this.utilService.getAllRoles()
-  //     .subscribe(
-  //       (res: Uiresponse) => {
-  //         this.roleList = res.body;
-  //       }
-  //     )
-  // }
 
   private loadCategories() {
     this.productService.getCategories()
@@ -86,12 +54,6 @@ export class MenuComponent implements OnInit {
           this.categoryList = res.body;
         }
       );
-  }
-
-  openRegister() {
-    this.isRegistered = false;
-    this.isExist = false;
-    this.modalRef = this.modalService.show(this.registerTemplate);
   }
 
   isAdmin(): boolean {
@@ -117,52 +79,8 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    this.authService.logout();
     this.user = null;
     this.customerService.setUser(null);
     this.router.navigate(['']);
-  }
-
-  submitRegister() {
-
-    this.authService.register(new AuthorizationData(this.fullName, this.login, this.password, this.email))
-      .subscribe(
-        (data: Uiresponse) => {
-          this.isRegistered = data.success;
-          this.isExist = !data.success;
-          this.customerService.setUser(data.body);
-          this.modalRef.hide();
-          this.router.navigate(['/about']);
-        },
-        error2 => {
-          this.isExist = true;
-        }
-      );
-  }
-
-  validateRegister(_name: string, _email: string, _login: string, _pass: string, _confirm: string): boolean {
-    this.isShortName = this.isShortLogin = this.isShortPass = this.isIncorrectEmail = this.notEqual = false;
-    let flag = true;
-    if (_name.length < 4) {
-      this.isShortName = true;
-      flag = false;
-    }
-    if (!_email.includes('@')) {
-      this.isIncorrectEmail = true;
-      flag = false;
-    }
-    if (_login.length < 4) {
-      this.isShortLogin = true;
-      flag = false;
-    }
-    if (_pass.length < 4) {
-      this.isShortPass = true;
-      flag = false;
-    }
-    if (_pass !== _confirm) {
-      this.notEqual = true;
-      flag = false;
-    }
-    return flag;
   }
 }

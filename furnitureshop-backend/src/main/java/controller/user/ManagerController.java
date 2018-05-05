@@ -1,16 +1,14 @@
 package controller.user;
 
-import domain.UIResponse;
-import domain.product.Category;
-import domain.product.Image;
-import domain.product.Manufacturer;
-import domain.product.Product;
-import domain.shop.Order;
-import domain.shop.Status;
-import domain.user.User;
+import entity.UIResponse;
+import entity.product.Image;
+import entity.product.Product;
+import entity.shop.Order;
+import entity.shop.Status;
+import entity.user.User;
 import dto.product.ProductDTO;
 import dto.shop.OrderDTO;
-import dto.shop.StorageItemDTO;
+import dto.shop.StorageDTO;
 import exception.OrderExistsException;
 import exception.UserNotFoundException;
 import org.dozer.DozerBeanMapper;
@@ -143,7 +141,7 @@ public class ManagerController {
     @GetMapping("{managerId}/product/all")
     public UIResponse<List<ProductDTO>> managerItems(@PathVariable Long managerId){
         if (userService.isUserExists(managerId)){
-            List<ProductDTO> products = productService.getProductsByManagerId(managerId).stream()
+            List<ProductDTO> products = productService.findProductsByManagerId(managerId).stream()
                     .map(product -> mapper.map(product, ProductDTO.class))
                     .collect(Collectors.toList());
             return new UIResponse<>(true, products);
@@ -177,7 +175,7 @@ public class ManagerController {
     public UIResponse<ProductDTO> updateProduct(@PathVariable Long managerId, @RequestBody ProductDTO productDTO) {
         if (userService.isUserExists(managerId)){
             if (productService.isProductExists(productDTO.getId())){
-                Product updateProduct = productService.getProductById(productDTO.getId());
+                Product updateProduct = productService.findProductById(productDTO.getId());
 
                 updateProduct.setCategory(productDTO.getCategory());
                 updateProduct.setName(productDTO.getName());
@@ -199,10 +197,10 @@ public class ManagerController {
      * @return a list of storage items
      */
     @GetMapping("{managerId}/storage")
-    public UIResponse<List<StorageItemDTO>> getManagerStorage(@PathVariable Long managerId){
+    public UIResponse<List<StorageDTO>> getManagerStorage(@PathVariable Long managerId){
         if (userService.isUserExists(managerId)){
-            List<StorageItemDTO> storage = storageService.getStorageItemsByManager(managerId).stream()
-                    .map(storageItem -> mapper.map(storageItem, StorageItemDTO.class))
+            List<StorageDTO> storage = storageService.getStorageItemsByManager(managerId).stream()
+                    .map(storageItem -> mapper.map(storageItem, StorageDTO.class))
                     .collect(Collectors.toList());
             return new UIResponse<>(true, storage);
         }

@@ -1,26 +1,26 @@
 package dto.shop;
 
 import dto.product.ProductDTO;
-import dto.user.UserDTO;
 
-public class StorageItemDTO {
+/**
+ * A class that represents a position in the basket sending to UI
+ */
+public class BasketDTO {
 
     private Long id;
     private ProductDTO product;
-    private UserDTO manager;
-    private String code;
-    private Double price;
     private Integer quantity;
+    private Double price;
 
-    public StorageItemDTO() {
+    public BasketDTO() {
     }
 
-    public UserDTO getManager() {
-        return manager;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setManager(UserDTO manager) {
-        this.manager = manager;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     public Long getId() {
@@ -37,22 +37,6 @@ public class StorageItemDTO {
 
     public void setProduct(ProductDTO product) {
         this.product = product;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Integer getQuantity() {

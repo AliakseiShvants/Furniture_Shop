@@ -1,8 +1,6 @@
 package service.shop;
 
-import domain.UIResponse;
-import domain.shop.BasketItem;
-import dto.shop.BasketItemDTO;
+import entity.shop.Basket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,11 +16,11 @@ public class BasketService {
     private BasketRepo basketRepo;
 
 
-    public void addBasketItem(BasketItem basketItem) {
+    public void addBasketItem(Basket basketItem) {
         basketRepo.save(basketItem);
     }
 
-    public List<BasketItem> getBasketItemsByUserId(Long customerId) {
+    public List<Basket> getBasketItemsByUserId(Long customerId) {
         return basketRepo.findAllByCustomer_Id(customerId);
     }
 

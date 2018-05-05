@@ -149,13 +149,13 @@
     <div class="col-5 m-auto bg-white" [hidden]="isDeleted">
       <h3>{{'profile.delete.title'|translate}}</h3>
       <div class="my-4">
-        <button type="submit" class="btn btn-danger" (click)="delete()" routerLink="/about">
+        <button type="submit" class="btn btn-danger" (click)="delete()" routerLink="/">
           {{'button.delete'|translate}}
         </button>
         <!--<button type="reset" class="btn btn-primary" routerLink="/profile">{{'button.clean'|translate}}</button>-->
       </div>
     </div>
-    <alert id="success" *ngIf="isDeleted" type="success">{{'alert.success'|translate}}</alert>
+    <alert id="success" *ngIf="isDeleted" type="success">{{'ALERT.success'|translate}}</alert>
   </div>
 
 </div>

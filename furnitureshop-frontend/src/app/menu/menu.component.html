@@ -6,15 +6,8 @@
         <a class="nav-link" routerLink="/good-price" >{{'NAV.good-price'|translate}}</a>
       </li>
 
-      
-      <li class="nav-item dropdown bg-light">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">{{'NAV.goods'|translate}}
-        </a>
-        <div class="dropdown-menu bg-light">
-          <a *ngFor="let category of categoryList" class="dropdown-item" [routerLink]="['/viewer', category.title]">
-            {{category.title|translate}}</a>
-        </div>
+      <li class="nav-item" *ngFor="let category of categoryList">
+        <a class="nav-link" [routerLink]="['/viewer', category.title]" >{{category.title|translate}}</a>
       </li>
     </ul>
 
@@ -53,99 +46,36 @@
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'NAV.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'NAV.customer.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/basket', user.id]">{{'NAV.customer.basket'|translate}}
-            <span class="fa fa-shopping-cart"></span>
-          </a>
+          <a class="dropdown-item" routerLink="/profile">{{'NAV.customer.profile'|translate}}</a>
+          <a class="dropdown-item" routerLink="/orders">{{'NAV.customer.orders'|translate}}</a>
+          <a class="dropdown-item" routerLink="/basket">{{'NAV.customer.basket'|translate}}</a>
         </div>
       </li>
 
       <li class="nav-item" [hidden]="isGuest()">
         <a href="/">
-          <button class="btn btn-outline-secondary" (click)="logout()" type="button">
-            {{'button.logout'|translate}}
+          <button class="btn btn-outline-secondary btn-lg" (click)="logout()" type="button">
+            {{'BUTTON.logout'|translate}}
             <span class="fa fa-sign-out"></span>
           </button>
         </a>
       </li>
 
-      <li class="nav-item" [hidden]="!isGuest()">
-        <button class="btn btn-outline-primary btn-lg" routerLink="/login" type="button">
-          {{'button.login'|translate}}
-          <span class="fa fa-sign-in"></span>
+      <li class="nav-item">
+        <button type="button" class="btn btn-primary btn-lg" routerLink="/basket">
+          <span class="fa fa-shopping-cart"></span>
+          {{'BUTTON.basket'|translate}}
         </button>
       </li>
 
       <li class="nav-item" [hidden]="!isGuest()">
-        <button class="btn btn-outline-secondary btn-lg" (click)="openRegister()" type="button">
-          {{'button.register'|translate}}
+        <button type="button" class="btn btn-outline-primary btn-lg" routerLink="/login">
+          {{'BUTTON.login'|translate}}
+          <span class="fa fa-sign-in"></span>
         </button>
       </li>
     </ul>
   </div>
 </nav>
 
-<ng-template #registerModal>
-  <div class="modal-header">
-    <h4 id="modal-title" class="modal-title text-center">{{ 'register.title' | translate }}</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"
-            routerLink="/about">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="container-fluid">
-      <form action="#" method="post" (submit)="submitRegister()" [hidden]="isRegistered">
 
-        <div class="form-group">
-          <label for="fullName" class="floatLabel">{{ 'register.name' | translate }}</label>
-          <input class="form-control" id="fullName" name="fullName" type="text" [(ngModel)]="fullName"
-                 aria-describedby="nameHelp" required minlength="4">
-          <small id="nameHelp" class="form-text text-muted">{{ 'register.name.help' | translate }}</small>
-          <alert id="nameAlert" class="danger" *ngIf="isShortName">{{ 'register.alert.length' | translate }}</alert>
-        </div>
-
-        <div class="form-group">
-          <label for="login" class="floatLabel">{{ 'register.login' | translate }}</label>
-          <input class="form-control" id="login" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
-                 required minlength="4">
-          <small id="logHelp" class="form-text text-muted">{{ 'register.login.help' | translate }}</small>
-          <alert id="logAlert" class="danger" *ngIf="isShortLogin">{{ 'register.alert.length' | translate }}</alert>
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="floatLabel">{{ 'register.email' | translate }}</label>
-          <input class="form-control" id="email" name="email" type="text" [(ngModel)]="email" required>
-          <alert id="emailAlert" class="danger" *ngIf="isIncorrectEmail">{{ 'register.alert.email' | translate }}</alert>
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="floatLabel">{{ 'register.password' | translate }}</label>
-          <input class="form-control" id="password" name="password" type="password" [(ngModel)]="password"
-                 aria-describedby="passHelp" required minlength="5">
-          <small id="passHelp" class="form-text text-muted">{{ 'register.password.help' | translate }}</small>
-          <alert id="passAlert" class="danger" *ngIf="isShortPass">{{ 'register.alert.length' | translate }}</alert>
-        </div>
-
-        <div class="form-group">
-          <label for="confirmPassword" class="floatLabel">{{ 'register.confirmPassword' | translate }}</label>
-          <input class="form-control" id="confirmPassword" name="confirmPassword" type="password"
-                 [(ngModel)]="confirmPassword" required minlength="5">
-          <alert id="equalAlert" class="danger" *ngIf="notEqual">{{ 'register.alert.notEqual' | translate }}</alert>
-        </div>
-
-        <div class="form-footer">
-          <button id="submit" class="btn btn-primary" type="submit">{{ 'button.submit' | translate }}</button>
-          <button id="reset" class="btn btn-secondary" type="reset">{{ 'button.clean' | translate }}</button>
-          <button id="close" class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()"
-                  routerLink="/about">
-            {{ 'button.close' | translate }}
-          </button>
-        </div>
-      </form>
-      <alert id="success" *ngIf="isRegistered" type="success">{{'alert.success'|translate}}</alert>
-      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">{{'alert.register.danger'|translate}}</alert>
-    </div>
-  </div>
-</ng-template>

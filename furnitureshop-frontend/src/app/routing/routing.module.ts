@@ -11,24 +11,29 @@ import {ProductComponent} from '../product/product.component';
 import {LoginComponent} from '../login/login.component';
 import {ManagerComponent} from '../manager/manager.component';
 import {GoodPriceComponent} from '../good-price/good-price.component';
+import {RegisterComponent} from '../register/register.component';
 
 export const appRoutes: Routes = [
   {path: 'good-price', component: GoodPriceComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
 
   {path: 'viewer/:category', component: ViewerComponent},
 
   {path: 'customers', component: CustomerComponent},
   {path: 'managers', component: ManagerComponent},
 
-  {path: 'profile/:id', component: ProfileComponent},
-  {path: 'orders/:id', component: OrdersComponent},
-  {path: 'storage/:id', component: StorageComponent},
-  {path: 'products/:id', component: ProductComponent},
-  {path: 'basket/:id', component: BasketComponent},
+  {path: 'profile', component: ProfileComponent},
+  {path: 'profile/:form', component: ProfileComponent},
+
+  {path: 'orders', component: OrdersComponent},
+  {path: 'storage', component: StorageComponent},
+  {path: 'products', component: ProductComponent},
+
+  {path: 'basket', component: BasketComponent},
 
 
-  { path: '',   redirectTo: '/about', pathMatch: 'full' },
+  { path: '',   redirectTo: '/good-price', pathMatch: 'full' },
 ];
 
 @NgModule({

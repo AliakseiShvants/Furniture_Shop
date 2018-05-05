@@ -1,11 +1,9 @@
 package controller.user;
 
-import domain.UIResponse;
-import domain.product.Product;
-import domain.shop.Order;
-import domain.user.AuthorizationData;
-import domain.user.Role;
-import domain.user.User;
+import entity.UIResponse;
+import entity.user.AuthorizationData;
+import entity.user.Role;
+import entity.user.User;
 import dto.product.ProductDTO;
 import dto.shop.OrderDTO;
 import dto.shop.RequisiteDTO;
@@ -14,8 +12,6 @@ import exception.UserExistsException;
 import exception.UserNotFoundException;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.product.ProductService;
 import service.shop.OrderService;
@@ -29,6 +25,7 @@ import java.util.stream.Collectors;
 /**
  * <p>Controller class for {@link User} entity with 'ROLE_ADMIN' role.
  */
+@Deprecated
 @RestController
 @RequestMapping("api/admin/")
 public class AdminController {
@@ -156,7 +153,7 @@ public class AdminController {
      */
     @GetMapping("product/all")
     public UIResponse<List<ProductDTO>> getAllProducts(){
-        return new UIResponse<>(true, productService.getAllProducts().stream()
+        return new UIResponse<>(true, productService.findAllProducts().stream()
                 .map(product -> mapper.map(product, ProductDTO.class))
                 .collect(Collectors.toList())
         );

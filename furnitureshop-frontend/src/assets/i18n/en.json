@@ -4,6 +4,9 @@
   "ALERT":{
     "login.danger": "User with such login and password does not exist!",
     "register.danger": "User with such login and password does already exist!",
+    "register.length": "Invalid field length",
+    "register.email": "Incorrect email format",
+    "register.notEqual": "''Password' and 'Confirm password' must be equal",
     "success": "Success!"
   },
 
@@ -17,18 +20,18 @@
   "basket.value": "Value",
   "basket.alert": "Your order is successfully formed",
 
-  "bed": "Beds",
-  "button.register": "Register",
-  "button.login": "Log in",
-  "button.logout": "Log out",
-  "button.submit": "Submit",
-  "button.save": "Save",
-  "button.clean": "Clean",
-  "button.close": "Close",
-  "button.delete": "Yes, I accept",
+  "BUTTON":{
+    "basket": "Basket",
+    "register": "Register",
+    "login": "Log in",
+    "logout": "Log out",
+    "submit": "Submit",
+    "save": "Save",
+    "clean": "Clean",
+    "close": "Close",
+    "delete": "Yes, I accept"
+  },
 
-
-  "chair": "Chairs",
   "change.submit": "The changes are saved",
   "customer.title": "List of customers",
   "customer.address": "Shipping Address",
@@ -38,11 +41,14 @@
   "customer.delete.text": "Are you sure you want to delete these Records?",
   "customer.delete.warning": "This action cannot be undone.",
 
-  "door": "Doors",
-  "dresser": "Dressers",
-
   "footer.author.p1": "Made with",
   "footer.author.p2": "by A.Shvants",
+
+  "bed": "Beds",
+  "chair": "Chairs",
+  "door": "Doors",
+  "dresser": "Dressers",
+  "table": "Tables",
 
   "HEADER": {
     "title": "12 CHAIRS",
@@ -55,11 +61,16 @@
   "IN_PROCESSING": "IN PROCESSING",
 
   "list.empty": "No items",
-  "login.title": "Authorization",
-  "login.login": "Login",
-  "login.login.help": "Login must be at least 4 symbols",
-  "login.password": "Password",
-  "login.password.help": "Password must be at least 5 symbols",
+
+  "LOGIN":{
+    "title": "Authorization",
+    "login": "Login",
+    "help": "Login must be at least 4 symbols",
+    "password": "Password",
+    "password.help": "Password must be at least 5 symbols",
+    "message": "Don't have a account - ",
+    "register": "register"
+  },
 
   "manager.title": "List of managers",
   "manager.add.title": "Add New Manager",
@@ -134,21 +145,21 @@
   "product.addRequisite": "Add requisite",
   "product.alert.success": "Product added",
 
+  "REGISTER":{
+    "title": "New user register",
+    "name": "Full name",
+    "name.help": "Full name must be at least 4 symbols",
+    "email": "Email",
+    "login": "Login",
+    "login.help": "Login must be at least 4 symbols",
+    "birthday.help": "Date format dd/mm/yyyy",
+    "password": "Password",
+    "password.help": "Password must be at least 5 symbols",
+    "confirmPassword": "Confirm password"
+  },
 
-  "register.title": "New user register",
-  "register.name": "Full name",
-  "register.name.help": "Full name must be at least 4 symbols",
-  "register.email": "Email",
-  "register.login": "Login",
-  "register.login.help": "Login must be at least 4 symbols",
-  "register.birthday.help": "Date format dd/mm/yyyy",
-  "register.password": "Password",
-  "register.password.help": "Password must be at least 5 symbols",
-  "register.confirmPassword": "Confirm password",
-  "register.alert.length": "Invalid field length",
-  "register.alert.email": "Incorrect email format",
-  "register.alert.notEqual": "''Password' and 'Confirm password' must be equal",
   "requisite.edit.title": "Edit requisite",
+
   "role": "Role",
   "ROLE_ADMIN": "admin",
   "ROLE_MANAGER": "manager",
@@ -163,9 +174,11 @@
     "desc": "Description: ",
     "price": "Price: ",
     "currency": " BYN",
-    "stock": "In stock ",
+    "notAvailable": "Not in stock",
+    "stock": "Available: ",
     "it": " it.",
-    "basket": "To basket",
+    "ToBasket": "To basket",
+    "InBasket": "In basket",
     "delete": "Delete",
     "addToBasket": "Added to basket"
   }

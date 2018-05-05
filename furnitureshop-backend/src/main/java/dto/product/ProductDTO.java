@@ -1,9 +1,7 @@
 package dto.product;
 
-import domain.product.Category;
-import domain.product.Manufacturer;
-
-import static util.Constants.COMMA;
+import entity.product.Category;
+import entity.product.Manufacturer;
 
 public class ProductDTO {
 

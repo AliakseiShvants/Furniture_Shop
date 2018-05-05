@@ -1,8 +1,8 @@
 package service.shop;
 
-import domain.product.Product;
-import domain.shop.Storage;
-import domain.user.User;
+import entity.product.Product;
+import entity.shop.Storage;
+import entity.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +28,7 @@ public class StorageService {
         return storageRepo.findByProduct_Id(productId).getQuantity() >= quantity;
     }
 
-    public List<Storage> getStorageItemsByCategory(String category) {
+    public List<Storage> findStorageListByCategory(String category) {
         return storageRepo.findAllByCategory(category);
     }
 

@@ -1,58 +1,40 @@
 package service.product;
 
-import domain.UIResponse;
-import domain.product.Category;
-import domain.product.Product;
-import dto.product.ProductDTO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import repo.product.ProductRepo;
+import entity.product.Category;
+import entity.product.Product;
 
 import java.util.List;
 
 /**
- * <p>Service class for {@link Product} entity for working with repository interface
+ * A service interface for {@link Product} entity for working with repository interface.
  */
-@Service
-@Transactional
-public class ProductService {
+public interface ProductService {
 
-    @Autowired
-    private ProductRepo productRepo;
+    /**
+     * A method that returns all {@link Product} entities.
+     * @return a list of {@link Product} entities
+     */
+    List<Product> findAllProducts();
 
-    public List<Product> getAllProducts(){
-        return productRepo.findAll();
-    }
+    /**
+     * A method that returns all {@link Product} entities with {@link Category} title equals @param.
+     * @param title a title field of {@link Category} entity
+     * @return a list of {@link Product} entities
+     */
+    List<Product> findProductsByCategory(String title);
 
-    public List<Product> getProductsByCategory(String title) {
-        return productRepo.findAllByCategory_Title(title);
-    }
+    /**
+     * A method that checks if this {@link Product} entity exists in database.
+     * @param id id field of {@link Product} entity
+     * @return true if such {@link Product} entity exists and false otherwise
+     */
+    boolean isProductExists(Long id);
 
-    public boolean isCategoryExists(String category) {
-        return productRepo.findAllByCategory_Title(category) != null;
-    }
+    Product findProductById(Long id);
 
-    public boolean isProductExists(Long id) {
-        return productRepo.existsById(id);
-    }
+    List<Product> findProductsByManagerId(Long id);
 
-    public Product getProductById(Long id) {
-        if (productRepo.existsById(id)){
-            return productRepo.findById(id).get();
-        }
-        return null;
-    }
+    Product addProduct(Product newProduct);
 
-    public List<Product> getProductsByManagerId(Long id) {
-        return productRepo.findAllByManager_Id(id);
-    }
-
-    public Product addProduct(Product newProduct) {
-        return productRepo.save(newProduct);
-    }
-
-    public Product update(Product updateProduct) {
-        return productRepo.saveAndFlush(updateProduct);
-    }
+    Product update(Product updateProduct);
 }

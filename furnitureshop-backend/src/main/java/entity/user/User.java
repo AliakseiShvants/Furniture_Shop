@@ -1,7 +1,7 @@
-package domain.user;
+package entity.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import domain.shop.Requisite;
+import entity.shop.Requisite;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 

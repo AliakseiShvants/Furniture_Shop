@@ -1,11 +1,11 @@
 package config;
 
-import domain.product.Image;
-import domain.product.Manufacturer;
-import domain.product.Product;
-import domain.shop.*;
-import domain.user.Role;
-import domain.user.User;
+import entity.product.Image;
+import entity.product.Manufacturer;
+import entity.product.Product;
+import entity.shop.*;
+import entity.user.Role;
+import entity.user.User;
 import dto.product.ImageDTO;
 import dto.product.ManufacturerDTO;
 import dto.product.ProductDTO;
@@ -42,9 +42,9 @@ public class MappingConfig {
                 mapping(OrderItem.class, OrderItemDTO.class);
                 mapping(Manufacturer.class, ManufacturerDTO.class);
                 mapping(Product.class, ProductDTO.class);
-                mapping(BasketItem.class, BasketItemDTO.class);
+                mapping(Basket.class, BasketDTO.class);
                 mapping(Image.class, ImageDTO.class);
-                mapping(Storage.class, StorageItemDTO.class);
+                mapping(Storage.class, StorageDTO.class);
             }
         };
     }

@@ -106,14 +106,14 @@
         </div>
 
         <div class="form-footer">
-          <button id="submit" class="btn btn-primary" type="submit">{{ 'button.submit' | translate }}</button>
-          <button id="reset" class="btn btn-secondary" type="reset">{{ 'button.clean' | translate }}</button>
+          <button id="submit" class="btn btn-primary" type="submit">{{ 'BUTTON.submit' | translate }}</button>
+          <button id="reset" class="btn btn-secondary" type="reset">{{ 'BUTTON.clean' | translate }}</button>
           <button id="close" class="btn btn-secondary" type="button" data-dismiss="modal" (click)="modalRef.hide()">
-            {{ 'button.close' | translate }}
+            {{ 'BUTTON.close' | translate }}
           </button>
         </div>
       </form>
-      <alert id="success" *ngIf="isAdded" type="success">{{'product.alert.success'|translate}}</alert>
+      <alert id="success" *ngIf="isAdded" type="success">{{'ALERT.success'|translate}}</alert>
     </div>
   </div>
 </ng-template>
@@ -131,7 +131,7 @@
           <p class="text-warning"><small>{{'customer.delete.warning'|translate}}</small></p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-primary" data-dismiss="modal">{{'button.close'|translate}}</a>
+          <a class="btn btn-primary" data-dismiss="modal">{{'BUTTON.close'|translate}}</a>
           <button type="submit" class="btn btn-danger" (click)="deleteProduct(product)">
             {{'button.delete'|translate}}
           </button>

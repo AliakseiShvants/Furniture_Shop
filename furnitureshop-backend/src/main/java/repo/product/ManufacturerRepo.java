@@ -1,6 +1,6 @@
 package repo.product;
 
-import domain.product.Manufacturer;
+import entity.product.Manufacturer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

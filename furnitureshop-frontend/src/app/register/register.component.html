@@ -1,0 +1,59 @@
+<ng-template #registerModal>
+  <div class="modal-header">
+    <h4 id="modal-title" class="modal-title text-center">{{ 'REGISTER.title'|translate}}</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"
+            routerLink="/">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="container-fluid">
+      <form action="#" method="post" (submit)="submitRegister()" [hidden]="isRegistered">
+
+        <div class="form-group">
+          <label for="fullName" class="floatLabel">{{'REGISTER.name' | translate }}</label>
+          <input class="form-control" id="fullName" name="fullName" type="text" [(ngModel)]="fullName"
+                 aria-describedby="nameHelp" required minlength="4">
+          <small id="nameHelp" class="form-text text-muted">{{ 'REGISTER.name.help'|translate}}</small>
+          <alert id="nameAlert" class="danger" *ngIf="isShortName">{{ 'ALERT.register.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="login" class="floatLabel">{{ 'REGISTER.login' | translate }}</label>
+          <input class="form-control" id="login" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
+                 required minlength="4">
+          <small id="logHelp" class="form-text text-muted">{{ 'REGISTER.login.help' | translate }}</small>
+          <alert id="logAlert" class="danger" *ngIf="isShortLogin">{{ 'ALERT.register.length' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="floatLabel">{{ 'REGISTER.email' | translate }}</label>
+          <input class="form-control" id="email" name="email" type="text" [(ngModel)]="email" required>
+          <alert id="emailAlert" class="danger" *ngIf="isIncorrectEmail">{{ 'ALERT.register.email' | translate }}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="floatLabel">{{ 'REGISTER.password' | translate }}</label>
+          <input class="form-control" id="password" name="password" type="password" [(ngModel)]="password"
+                 aria-describedby="passHelp" required minlength="5">
+          <small id="passHelp" class="form-text text-muted">{{'REGISTER.password.help'|translate}}</small>
+          <alert id="passAlert" class="danger" *ngIf="isShortPass">{{'ALERT.register.length'|translate}}</alert>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword" class="floatLabel">{{ 'REGISTER.confirmPassword' | translate }}</label>
+          <input class="form-control" id="confirmPassword" name="confirmPassword" type="password"
+                 [(ngModel)]="confirmPassword" required minlength="5">
+          <alert id="equalAlert" class="danger" *ngIf="notEqual">{{ 'ALERT.register.notEqual' | translate }}</alert>
+        </div>
+
+        <div class="form-footer">
+          <button id="submit" class="btn btn-primary" type="submit">{{'BUTTON.submit'|translate}}</button>
+          <button id="reset" class="btn btn-secondary" type="reset" (click)="clean()">{{'BUTTON.clean'|translate}}</button>
+        </div>
+      </form>
+      <alert id="success" *ngIf="isRegistered" type="success">{{'ALERT.success'|translate}}</alert>
+      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">{{'ALERT.register.danger'|translate}}</alert>
+    </div>
+  </div>
+</ng-template>

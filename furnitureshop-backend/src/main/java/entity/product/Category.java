@@ -1,28 +1,27 @@
-package domain.shop;
+package entity.product;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+/**
+ * A object that represents concrete art of product.
+ */
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "ORDER_STATUS")
-public class Status {
+@Table(name = "CATEGORY")
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_STATUS_ID")
+    @Column(name = "CATEGORY_ID")
     private Long id;
 
-    @Column(name = "STATUS")
-    private String status;
+    @Column(name = "TITLE")
+    private String title;
 
-    public Status() {
-    }
-
-    public Status(String status) {
-        this.status = status;
+    public Category() {
     }
 
     public Long getId() {
@@ -33,11 +32,11 @@ public class Status {
         this.id = id;
     }
 
-    public String getStatus() {
-        return status;
+    public String getTitle() {
+        return title;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

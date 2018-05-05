@@ -1,6 +1,6 @@
 package repo.product;
 
-import domain.product.Image;
+import entity.product.Image;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

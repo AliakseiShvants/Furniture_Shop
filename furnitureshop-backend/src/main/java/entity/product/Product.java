@@ -1,14 +1,10 @@
-package domain.product;
+package entity.product;
 
-import domain.user.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.List;
-import java.util.Set;
 
 /**
  * A object that represents a product in the shop

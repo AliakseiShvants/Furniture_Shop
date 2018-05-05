@@ -1,8 +1,8 @@
 package controller;
 
-import domain.UIResponse;
-import domain.shop.Status;
-import domain.user.Role;
+import entity.UIResponse;
+import entity.shop.Status;
+import entity.user.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +13,9 @@ import service.user.RoleService;
 
 import java.util.List;
 
+/**
+ * A controller for working with a {@link Role} and {@link Status} entities.
+ */
 @RestController
 @RequestMapping("api/util/")
 public class UtilController {
@@ -23,9 +26,14 @@ public class UtilController {
     @Autowired
     private StatusService statusService;
 
-    @GetMapping("role/{role}")
-    public UIResponse<Role> getRole(@PathVariable String role){
-        return new UIResponse<>(true, roleService.getRoleByTitle(role));
+    /**
+     * A method that returns a {@link Role} by it title.
+     * @param title a
+     * @return
+     */
+    @GetMapping("role/{title}")
+    public UIResponse<Role> getRole(@PathVariable String title){
+        return new UIResponse<>(true, roleService.getRoleByTitle(title));
     }
 
     @GetMapping("role/all")

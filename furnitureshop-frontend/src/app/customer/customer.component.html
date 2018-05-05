@@ -86,12 +86,12 @@
 
         <div class="modal-footer">
           <button id="close" class="btn btn-secondary" type="button" data-dismiss="modal" (click)="close()">
-            {{'button.close'|translate}}
+            {{'BUTTON.close'|translate}}
           </button>
-          <button id="submit" class="btn btn-primary" type="submit">{{'button.submit'|translate}}</button>
+          <button id="submit" class="btn btn-primary" type="submit">{{'BUTTON.submit'|translate}}</button>
         </div>
       </form>
-      <alert id="success" *ngIf="success" type="success">{{'alert.success'|translate}}</alert>
+      <alert id="success" *ngIf="success" type="success">{{'ALERT.success'|translate}}</alert>
     </div>
   </div>
 </div>
@@ -133,14 +133,14 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">
-            {{'button.close'|translate}}
+            {{'BUTTON.close'|translate}}
           </button>
           <button type="submit" class="btn btn-info" (click)="updateCustomer(tempCustomer)">
-            {{'button.save'|translate}}
+            {{'BUTTON.save'|translate}}
           </button>
         </div>
       </form>
-      <alert *ngIf="success" type="success">{{'alert.success'|translate}}</alert>
+      <alert *ngIf="success" type="success">{{'ALERT.success'|translate}}</alert>
     </div>
   </div>
 </div>
@@ -219,14 +219,14 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">
-            {{'button.close'|translate}}
+            {{'BUTTON.close'|translate}}
           </button>
           <button type="submit" class="btn btn-info" (click)="updateCustomer(tempCustomer)">
-            {{'button.save'|translate}}
+            {{'BUTTON.save'|translate}}
           </button>
         </div>
       </form>
-      <alert *ngIf="success" type="success">{{'alert.success'|translate}}</alert>
+      <alert *ngIf="success" type="success">{{'ALERT.success'|translate}}</alert>
     </div>
   </div>
 </div>
@@ -244,9 +244,9 @@
           <p class="text-warning"><small>{{'customer.delete.warning'|translate}}</small></p>
         </div>
         <div class="modal-footer">
-          <a class="btn btn-primary" data-dismiss="modal" (click)="close()">{{'button.close'|translate}}</a>
+          <a class="btn btn-primary" data-dismiss="modal" (click)="close()">{{'BUTTON.close'|translate}}</a>
           <button type="submit" class="btn btn-danger" (click)="deleteCustomer(tempCustomer)">
-            {{'button.delete'|translate}}
+            {{'BUTTON.delete'|translate}}
           </button>
         </div>
       </form>

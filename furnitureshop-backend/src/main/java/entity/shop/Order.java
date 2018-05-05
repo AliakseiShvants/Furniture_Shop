@@ -1,6 +1,6 @@
-package domain.shop;
+package entity.shop;
 
-import domain.user.User;
+import entity.user.User;
 import org.springframework.context.annotation.Scope;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;

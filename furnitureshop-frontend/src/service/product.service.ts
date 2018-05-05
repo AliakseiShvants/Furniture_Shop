@@ -14,10 +14,6 @@ export class ProductService {
 
   constructor(private http: HttpClient) { }
 
-  getStorageItemsByProductCategory(category: string){
-    return this.http.get(this.product + category);
-  }
-
   getCategories() {
     return this.http.get(this.product + this.categories);
   }

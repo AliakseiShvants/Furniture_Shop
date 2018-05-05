@@ -1,21 +1,24 @@
-package domain.shop;
+package entity.shop;
 
-import domain.product.Product;
-import domain.user.User;
+import entity.user.User;
+import entity.product.Product;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
+/**
+ * A object that represents customer basket.
+ */
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "STORAGE")
-public class Storage {
+@Table(name = "BASKET")
+public class Basket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "STORAGE_ID")
+    @Column(name = "BASKET_ID")
     private Long id;
 
     @OneToOne(optional = false)
@@ -23,32 +26,27 @@ public class Storage {
     private Product product;
 
     @OneToOne(optional = false)
-    @JoinColumn(name = "MANAGER_ID", nullable = false)
-    private User manager;
-
-    @Column(name = "CODE")
-    private String code;
-
-    @Column(name = "PRICE")
-    private Double price;
+    @JoinColumn(name = "CUSTOMER_ID", nullable = false, updatable = false)
+    private User customer;
 
     @Column(name = "QUANTITY")
     private Integer quantity;
 
-    public Storage() {
+    public Basket() {
     }
 
-    public Storage(Product product, User manager) {
+    public Basket(User customer, Product product, Integer quantity) {
+        this.customer = customer;
         this.product = product;
-        this.manager = manager;
+        this.quantity = quantity;
     }
 
-    public User getManager() {
-        return manager;
+    public User getCustomer() {
+        return customer;
     }
 
-    public void setManager(User manager) {
-        this.manager = manager;
+    public void setCustomer(User customer) {
+        this.customer = customer;
     }
 
     public Long getId() {
@@ -65,22 +63,6 @@ public class Storage {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
     }
 
     public Integer getQuantity() {

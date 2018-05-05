@@ -1,4 +1,4 @@
-package domain.product;
+package entity.user;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -6,22 +6,23 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 
 /**
- * A object that represents concrete art of product.
+ * A simple JavaBean object that represents a role of {@link User} entity.
  */
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "CATEGORY")
-public class Category {
+@Table(name = "ROLE")
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CATEGORY_ID")
+    @Column(name = "ROLE_ID")
     private Long id;
 
     @Column(name = "TITLE")
     private String title;
 
-    public Category() {
+    public Role() {
     }
 
     public Long getId() {
@@ -39,4 +40,6 @@ public class Category {
     public void setTitle(String title) {
         this.title = title;
     }
+
+
 }

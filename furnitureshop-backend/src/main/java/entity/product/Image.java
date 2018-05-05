@@ -1,4 +1,4 @@
-package domain.product;
+package entity.product;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;

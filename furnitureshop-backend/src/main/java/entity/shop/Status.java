@@ -1,28 +1,28 @@
-package domain.user;
+package entity.shop;
 
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 
-/**
- * A simple JavaBean object that represents a role of {@link User} entity.
- */
 @Component
 @Scope("prototype")
 @Entity
-@Table(name = "ROLE")
-public class Role {
-
+@Table(name = "ORDER_STATUS")
+public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ROLE_ID")
+    @Column(name = "ORDER_STATUS_ID")
     private Long id;
 
-    @Column(name = "TITLE")
-    private String title;
+    @Column(name = "STATUS")
+    private String status;
 
-    public Role() {
+    public Status() {
+    }
+
+    public Status(String status) {
+        this.status = status;
     }
 
     public Long getId() {
@@ -33,13 +33,11 @@ public class Role {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getStatus() {
+        return status;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setStatus(String status) {
+        this.status = status;
     }
-
-
 }

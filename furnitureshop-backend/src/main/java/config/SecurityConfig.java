@@ -63,23 +63,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
+        http
                 .authorizeRequests()
                 .anyRequest()
                 .permitAll()
                 .and()
                 .httpBasic();
+//        http.formLogin()
+//                .loginPage("/api/login")
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/api/customer/**").authenticated()
+//                .and()
+//                .oauth2Login();
+//                .formLogin()
+//                .loginPage(API_LOGIN)
+
+//                .authorizeRequests()
+//                .antMatchers("/**").permitAll();
+
 //        http.csrf()
 //                .disable()
 //                .authorizeRequests()
-//                .antMatchers("/api/about", "/api/viewer/**", API_LOGIN, API_REGISTER).permitAll()
-//                .antMatchers("/api/admin/**").hasRole(Roles.ADMIN.name())
-//                .antMatchers("/api/manager/**").hasRole(Roles.MANAGER.name())
-//                .antMatchers("/api/product/**").access("hasRole('ADMIN') and hasRole('MANAGER')")
+//                .antMatchers("/api/util/**", API_LOGIN, API_REGISTER).permitAll()
+////                .antMatchers("/api/admin/**").hasRole(Roles.ADMIN.name())
+////                .antMatchers("/api/manager/**").hasRole(Roles.MANAGER.name())
+////                .antMatchers("/api/product/**").access("hasRole('ADMIN') and hasRole('MANAGER')")
 //                .antMatchers("/api/customer/**").hasRole(Roles.USER.name())
 //                .anyRequest()
 //                .authenticated()
 //                .and()
+//                .formLogin()
+//                    .loginPage(API_LOGIN)
+//                    .permitAll();
 //                .exceptionHandling()
 //                .authenticationEntryPoint(unauthorizedHandler)
 //                .and()
@@ -89,10 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //
 //        http.addFilterBefore(authenticationTokenFilterBean())
 
-//        http.formLogin()
-//                .loginPage(API_LOGIN)
-//                .permitAll()
-//                .and()
+
 //        .logout()
 //                .permitAll()
 //                .logoutUrl(API_LOGOUT)

@@ -1,14 +1,13 @@
 package service.product;
 
-import domain.product.Image;
-import domain.product.Product;
+import entity.product.Image;
+import entity.product.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repo.product.ImageRepo;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional

@@ -1,6 +1,6 @@
 package service.shop;
 
-import domain.shop.Status;
+import entity.shop.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repo.shop.StatusRepo;

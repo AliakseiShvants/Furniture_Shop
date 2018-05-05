@@ -1,6 +1,6 @@
 <ng-template #loginModal>
   <div class="modal-header">
-    <h4 class="modal-title m-auto">{{'login.title'|translate}}</h4>
+    <h4 class="modal-title m-auto">{{'LOGIN.title'|translate}}</h4>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -10,32 +10,27 @@
       <form action="#" method="post" (submit)="submit()" [hidden]="isLogged">
 
         <div class="form-group">
-          <label for="logLogin" class="floatLabel">{{'login.login'|translate}}</label>
-          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login" aria-describedby="logHelp"
-                 required minlength="4">
-          <small id="logLogHelp" class="form-text text-muted">{{'login.login.help'|translate}}</small>
+          <label for="logLogin" class="floatLabel">{{'LOGIN.login'|translate}}</label>
+          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login">
         </div>
 
         <div class="form-group">
-          <label for="logPassword" class="floatLabel">{{'login.password'|translate}}</label>
-          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password"
-                 aria-describedby="passHelp" required minlength="5">
-          <small id="logPassHelp" class="form-text text-muted">{{'login.password.help'|translate}}</small>
+          <label for="logPassword" class="floatLabel">{{'LOGIN.password'|translate}}</label>
+          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password">
         </div>
 
         <div class="form-footer">
-          <button class="btn btn-primary" type="submit" >
-            {{'button.submit'|translate}}
-            <span class="fa fa-key"></span>
-          </button>
-          <button class="btn btn-secondary" type="reset" >{{'button.clean'|translate}}</button>
-          <button class="btn btn-secondary" type="button" data-dismiss="modal" (click)="close()">
-            {{'button.close'|translate}}
-          </button>
+          <h6 class="mx-4 my-4">
+            {{'LOGIN.message'|translate}}
+            <a routerLink="/register" (click)="this.modalRef.hide()">
+            {{'LOGIN.register'|translate}}
+            </a>
+          </h6>
+          <button type="submit" class="btn btn-primary btn-block">{{'BUTTON.submit'|translate}}</button>
         </div>
       </form>
       <alert id="logDanger" *ngIf="isNotExist" type="danger" dismissOnTimeout="5000">
-        {{ 'alert.login.danger' | translate }}
+        {{'ALERT.login.danger'|translate}}
       </alert>
     </div>
   </div>

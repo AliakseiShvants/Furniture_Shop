@@ -1,4 +1,4 @@
-package domain.user;
+package entity.user;
 
 public class AuthorizationData {
     private Long id;

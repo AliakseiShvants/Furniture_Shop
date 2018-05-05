@@ -1,10 +1,10 @@
 package controller.user;
 
-import domain.UIResponse;
-import domain.product.Product;
-import domain.shop.*;
-import domain.user.User;
-import dto.shop.BasketItemDTO;
+import entity.UIResponse;
+import entity.product.Product;
+import entity.shop.*;
+import entity.user.User;
+import dto.shop.BasketDTO;
 import dto.shop.OrderDTO;
 import dto.shop.OrderItemDTO;
 import dto.shop.RequisiteDTO;
@@ -226,8 +226,8 @@ public class CustomerController {
             if (productService.isProductExists(productId)){
                 if (storageService.isItemExists(productId) && storageService.isItemAvailable(productId, 1)){
                     User customer = userService.getUserById(customerId);
-                    Product product = productService.getProductById(productId);
-                    BasketItem basketItem = new BasketItem(customer, product, 1);
+                    Product product = productService.findProductById(productId);
+                    Basket basketItem = new Basket(customer, product, 1);
                     basketService.addBasketItem(basketItem);
                     return new UIResponse<>(true);
                 }
@@ -253,10 +253,10 @@ public class CustomerController {
      * @return a list of products in the basket.
      */
     @GetMapping("{customerId}/basket/all")
-    public UIResponse<List<BasketItemDTO>> getAllBasketItems(@PathVariable Long customerId){
+    public UIResponse<List<BasketDTO>> getAllBasketItems(@PathVariable Long customerId){
         if (userService.isUserExists(customerId)){
-            List<BasketItemDTO> basketItemDTOS = basketService.getBasketItemsByUserId(customerId).stream()
-                    .map(basketItem -> mapper.map(basketItem, BasketItemDTO.class))
+            List<BasketDTO> basketItemDTOS = basketService.getBasketItemsByUserId(customerId).stream()
+                    .map(basketItem -> mapper.map(basketItem, BasketDTO.class))
                     .peek(
                             basketItemDTO -> basketItemDTO.setPrice(
                                                 storageService.getStorageItemByProductId(
@@ -271,20 +271,20 @@ public class CustomerController {
     }
 
     @PostMapping("{customerId}/basket/book")
-    public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketItemDTO> basketItemsDtos){
+    public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketDTO> basketItemsDtos){
         if (userService.isUserExists(customerId)){
-            List<BasketItem> basketItems = basketItemsDtos.stream()
-                    .map(basketItemDTO -> mapper.map(basketItemDTO, BasketItem.class))
+            List<Basket> basketList = basketItemsDtos.stream()
+                    .map(basketItemDTO -> mapper.map(basketItemDTO, Basket.class))
                     .collect(Collectors.toList());
 
-            if (basketItems != null){
+            if (basketList != null){
                 User customer = userService.getUserById(customerId);
                 User manager = userService.getFreeManager();
                 Status status = statusService.getStatus("IN_PROCESSING");
                 Order newOrder = orderService.addOrder(new Order(customer, manager, LocalDateTime.now(), status));
 
                 List<OrderItem> orderItems = new ArrayList<>();
-                basketItems.forEach(basketItem -> orderItems.add(
+                basketList.forEach(basketItem -> orderItems.add(
                         orderItemService.addItem(
                                 new OrderItem(
                                         newOrder,

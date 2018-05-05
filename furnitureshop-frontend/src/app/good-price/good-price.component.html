@@ -1,1 +1,49 @@
+<div class="row mx-1 my-4">
+  <div *ngFor="let storageItem of cheapStorageList" class="col-3" >
+    <div class="card mx-2 my-4">
+      <img class="card-img-top" src="{{storageItem.product.url}}" alt="No image" height="300" width="300">
+
+      <div class="card-body">
+        <h6 class="card-title">{{'VIEWER.code'|translate}}{{storageItem.code}}</h6>
+
+        <h6 class="card-title" [hidden]="!available(storageItem)">
+          {{'VIEWER.stock'|translate}}
+          {{storageItem.quantity}}
+          {{'VIEWER.it'|translate}}
+        </h6>
+
+        <h6 *ngIf="!available(storageItem)" class="card-title">
+          {{'VIEWER.stock'|translate}}
+          <i>{{'VIEWER.notAvailable'|translate}}</i>
+        </h6>
+
+        <h6 class="card-title">{{'VIEWER.title'|translate}}{{storageItem.product.name}}</h6>
+
+        <h6 class="card-title">{{'VIEWER.manufacturer'|translate}}{{storageItem.product.manufacturer.title}}</h6>
+
+        <p class="card-text">{{'VIEWER.desc'|translate}}{{storageItem.product.description}}.</p>
+
+        <div class="footer ">
+          <alert *ngIf="isAdded(storageItem)" type="success" dismissOnTimeout="3000">
+            {{'VIEWER.addToBasket'|translate}}
+          </alert>
+
+          <p class="card-text font-weight-bold d-inline">
+            {{'VIEWER.price'|translate}}{{storageItem.price}}{{'VIEWER.currency'|translate}}
+          </p>
+
+          <button type="button" class="btn btn-primary d-inline float-right" [hidden]="isAdded(storageItem)"
+                  [disabled]="disabled(storageItem)" (click)="addToBasket(storageItem)">
+            {{'VIEWER.ToBasket'|translate}}
+          </button>
+
+          <button type="button" class="btn btn-primary btn-link d-inline float-right" *ngIf="isAdded(storageItem)"
+                  routerLink="/basket">
+            {{'VIEWER.InBasket'|translate}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 

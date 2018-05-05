@@ -1,8 +1,6 @@
 package service.product;
 
-import domain.UIResponse;
-import domain.product.Manufacturer;
-import dto.product.ManufacturerDTO;
+import entity.product.Manufacturer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

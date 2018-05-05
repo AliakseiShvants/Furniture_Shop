@@ -1,8 +1,6 @@
 package repo.product;
 
-import domain.product.Category;
-import domain.product.Product;
-import dto.product.ProductDTO;
+import entity.product.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

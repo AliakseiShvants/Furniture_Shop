@@ -1,9 +1,9 @@
 package controller.user;
 
-import domain.UIResponse;
-import domain.user.AuthorizationData;
-import domain.user.Role;
-import domain.user.User;
+import entity.UIResponse;
+import entity.user.AuthorizationData;
+import entity.user.Role;
+import entity.user.User;
 import dto.user.UserDTO;
 import exception.UserExistsException;
 import exception.UserNotFoundException;

@@ -1,6 +1,6 @@
 package dto.user;
 
-import domain.user.Role;
+import entity.user.Role;
 import dto.shop.RequisiteDTO;
 
 import java.time.LocalDate;

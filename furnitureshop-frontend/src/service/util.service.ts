@@ -7,6 +7,7 @@ export class UtilService {
   private base = 'api/util/';
   private role = 'role/';
   private status = 'status/';
+  private product = 'product/';
 
   private all = 'all';
 

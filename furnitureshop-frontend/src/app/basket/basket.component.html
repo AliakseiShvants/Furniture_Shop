@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<div class="container-fluid mx-4 my-4" [hidden]="isOrderFormed||isEmpty()">
+<div class="container-fluid mx-4 my-4" [hidden]="isOrderFormed || isEmpty()">
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
@@ -33,7 +33,7 @@
         <td>{{basketItem.price}}</td>
         <td>{{basketItem.quantity * basketItem.price}}</td>
         <td>
-          <button type="button" class="btn btn-danger" (click)="delete(basketItem.product.id)">
+          <button type="button" class="btn btn-danger" (click)="delete(basketItem)">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>

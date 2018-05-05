@@ -8,6 +8,7 @@ import {CustomerService} from '../../service/customer.service';
 import {Category} from '../../domain/product/category';
 import {Subscription} from 'rxjs/Subscription';
 import {AppComponent} from '../app.component';
+import {StorageService} from '../../service/storage.service';
 
 @Component({
   selector: 'app-viewer',
@@ -23,14 +24,12 @@ export class ViewerComponent implements  OnInit {
   categoryTitle: string;
   category: Category;
 
-  isAdded = false;
-
   private subscription: Subscription;
   private CUSTOMER = 'ROLE_USER';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private productService: ProductService,
+              private storageService: StorageService,
               private customerService: CustomerService,
               private app: AppComponent) {
 
@@ -54,11 +53,11 @@ export class ViewerComponent implements  OnInit {
 
   ngOnInit() {
     this.user = this.app.user;
-    this.getStorageItems();
+    this.getStorageList();
   }
 
-  private getStorageItems() {
-    this.productService.getStorageItemsByProductCategory(this.categoryTitle)
+  private getStorageList() {
+    this.storageService.getStorageListByProductCategory(this.categoryTitle)
       .subscribe(
         (res: Uiresponse) => {
           this.storageList = res.body;
@@ -66,22 +65,36 @@ export class ViewerComponent implements  OnInit {
       )
   }
 
-  addToBasket(productId: number){
-    this.customerService.addProductToBasket(this.user.id, productId)
-      .subscribe(
-        (res: Uiresponse) => {
-          this.isAdded = res.success;
-          this.addedProductId = productId;
-        }
-      );
+  addToBasket(storageItem: Storage){
+    if (this.user.id !== 0){
+      this.customerService.addProductToBasket(this.user.id, storageItem.product.id)
+        .subscribe(
+          (res: Uiresponse) => {
+            this.addedProductId = storageItem.product.id;
+          }
+        );
+    } else {
+        this.app.guestBasket.push(storageItem);
+    }
   }
 
-  showSuccessAlert(id: number) {
-    return this.isAdded && this.addedProductId === id;
+  isAdded(storageItem: Storage) {
+    return this.app.guestBasket.some(item => item.product.id === storageItem.product.id);
   }
 
   isCustomer(): boolean {
     return this.user.role.title === this.CUSTOMER;
   }
 
+  private available(item: Storage){
+    return item.quantity > 0;
+  }
+
+  disabled(item: Storage){
+    if(!this.available(item)){
+      return 'disabled';
+    } else {
+      return '';
+    }
+  }
 }
