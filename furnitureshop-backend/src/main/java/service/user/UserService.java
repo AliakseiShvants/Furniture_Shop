@@ -7,52 +7,48 @@ import repo.user.UserRepo;
 
 import java.util.List;
 
-@Service
-public class UserService {
+/**
+ * A service interface for {@link User} entity for working with repository interface.
+ */
+public interface UserService {
 
-    @Autowired
-    private UserRepo userRepo;
+    /**
+     * A method that returns a {@link User} entity with id equals @param.
+     * @param id field of {@link User} entity
+     * @return a {@link User} entity
+     */
+    User findUserById(Long id);
 
-    public User getUserByLogin(String login){
-        return userRepo.findUserByLogin(login);
-    }
+    /**
+     * A method that returns a {@link User} entity with login equals @param.
+     * @param login field of {@link User} entity
+     * @return a {@link User} entity
+     */
+    User findUserByLogin(String login);
 
-    public User addUser(User newUser) {
-        return userRepo.save(newUser);
-    }
+    /**
+     * A method that adds a new {@link User} entity in the database.
+     * @param newUser a new {@link User} entity
+     * @return added {@link User} entity
+     */
+    User addUser(User newUser);
 
-    public User getUserById(Long id) {
-        if (userRepo.findById(id).isPresent()){
-            return userRepo.findById(id).get();
-        }
-        return null;
-    }
+    /**
+     *
+     * @param user
+     * @return
+     */
+    User updateUser(User user);
 
-    public User updateUser(User user){
-        return userRepo.saveAndFlush(user);
-    }
+    Boolean isUserExists(Long id);
 
-    public Boolean isUserExists(Long id){
-        return userRepo.existsById(id);
-    }
+    void deleteCustomerById(Long id);
 
-    public void deleteCustomerById(Long id) {
-        userRepo.deleteById(id);
-    }
+    User getCustomerByLoginAndPassword(String login, String password);
 
-    public User getCustomerByLoginAndPassword(String login, String password) {
-        return userRepo.findUserByLoginAndPassword(login, password);
-    }
+    List<User> getAllCustomers();
 
-    public List<User> getAllCustomers() {
-        return userRepo.findAllCustomers();
-    }
+    List<User> getAllManagers();
 
-    public List<User> getAllManagers() {
-        return userRepo.findAllManagers();
-    }
-
-    public User getFreeManager() {
-        return userRepo.findManagerByMinimalOrdersCount();
-    }
+    User getFreeManager();
 }

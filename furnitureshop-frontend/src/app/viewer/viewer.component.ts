@@ -9,6 +9,8 @@ import {Category} from '../../domain/product/category';
 import {Subscription} from 'rxjs/Subscription';
 import {AppComponent} from '../app.component';
 import {StorageService} from '../../service/storage.service';
+import {TranslateService} from '@ngx-translate/core';
+import {Basket} from '../../domain/shop/basket';
 
 @Component({
   selector: 'app-viewer',
@@ -17,7 +19,6 @@ import {StorageService} from '../../service/storage.service';
 })
 export class ViewerComponent implements  OnInit {
 
-  user = new User();
   addedProductId: number;
 
   storageList: Storage[];
@@ -25,10 +26,10 @@ export class ViewerComponent implements  OnInit {
   category: Category;
 
   private subscription: Subscription;
-  private CUSTOMER = 'ROLE_USER';
 
   constructor(private route: ActivatedRoute,
               private router: Router,
+              private translate: TranslateService,
               private storageService: StorageService,
               private customerService: CustomerService,
               private app: AppComponent) {
@@ -52,7 +53,6 @@ export class ViewerComponent implements  OnInit {
   }
 
   ngOnInit() {
-    this.user = this.app.user;
     this.getStorageList();
   }
 
@@ -65,36 +65,60 @@ export class ViewerComponent implements  OnInit {
       )
   }
 
+  /**
+   * A method that adds a {@link Product} item to the basket of registered user
+   * or adds the {@link Product} in the guest basket.
+   * @param {Storage} storageItem
+   */
   addToBasket(storageItem: Storage){
-    if (this.user.id !== 0){
-      this.customerService.addProductToBasket(this.user.id, storageItem.product.id)
+    if (this.app.user.id > 0){
+      this.customerService.addProductToBasket(this.app.user.id, storageItem.product.id)
         .subscribe(
           (res: Uiresponse) => {
             this.addedProductId = storageItem.product.id;
           }
         );
+      this.app.basketList.push(new Basket(storageItem.product, 1, storageItem.price));
     } else {
-        this.app.guestBasket.push(storageItem);
+      this.app.guestBasketList.push(new Basket(storageItem.product, 1, storageItem.price));
     }
   }
 
+  /**
+   * Checks if a product in the basket
+   * @param {Storage} storageItem
+   * @returns {boolean} true if a product in the basket and false otherwise
+   */
   isAdded(storageItem: Storage) {
-    return this.app.guestBasket.some(item => item.product.id === storageItem.product.id);
-  }
-
-  isCustomer(): boolean {
-    return this.user.role.title === this.CUSTOMER;
+    if (this.app.user.id > 0){
+      return this.app.basketList.some(item => item.product.id === storageItem.product.id);
+    } else {
+      return this.app.guestBasketList.some(item => item.product.id === storageItem.product.id);
+    }
   }
 
   private available(item: Storage){
     return item.quantity > 0;
   }
 
+  /**
+   * A method that disables a card with product if it already in the basket.
+   * @param {Storage} item
+   * @returns {string}
+   */
   disabled(item: Storage){
     if(!this.available(item)){
       return 'disabled';
     } else {
       return '';
     }
+  }
+
+  /**
+   * A method that returns a price value according current currency
+   * @param {number} price
+   * @returns {number | string}
+   */getPrice(price: number){
+    return this.translate.currentLang === this.app.RU ? price : (price / this.app.COURSE).toFixed(2);
   }
 }

@@ -11,12 +11,14 @@
 
         <div class="form-group">
           <label for="logLogin" class="floatLabel">{{'LOGIN.login'|translate}}</label>
-          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login">
+          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
           <label for="logPassword" class="floatLabel">{{'LOGIN.password'|translate}}</label>
-          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password">
+          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-footer">
@@ -29,9 +31,10 @@
           <button type="submit" class="btn btn-primary btn-block">{{'BUTTON.submit'|translate}}</button>
         </div>
       </form>
-      <alert id="logDanger" *ngIf="isNotExist" type="danger" dismissOnTimeout="5000">
-        {{'ALERT.login.danger'|translate}}
-      </alert>
+
+      <alert id="success" *ngIf="isLogged" type="success">{{ 'ALERT.success' | translate }}</alert>
+
+      <alert id="logDanger" *ngIf="isNotExist" type="danger">{{'ALERT.login.danger'|translate}}</alert>
     </div>
   </div>
 </ng-template>

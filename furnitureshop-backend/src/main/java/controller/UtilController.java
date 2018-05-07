@@ -27,24 +27,31 @@ public class UtilController {
     private StatusService statusService;
 
     /**
-     * A method that returns a {@link Role} by it title.
-     * @param title a
-     * @return
+     * A method that returns a {@link Role} entity by it title.
+     * @param title a title field of {@link Role} entity
+     * @return a {@link Role} entity
      */
     @GetMapping("role/{title}")
     public UIResponse<Role> getRole(@PathVariable String title){
-        return new UIResponse<>(true, roleService.getRoleByTitle(title));
+        return new UIResponse<>(true, roleService.findRoleByTitle(title));
     }
 
+    /**
+     * A method that returns all {@link Role} entities.
+     * @return a list of {@link Role} entities
+     */
     @GetMapping("role/all")
     public UIResponse<List<Role>> getAllRoles(){
-        return new UIResponse<>(true, roleService.getAll());
+        return new UIResponse<>(true, roleService.findAllRoles());
     }
 
+    /**
+     * A method that returns all {@link Status} entities.
+     * @return a list of {@link Status} entities
+     */
     @GetMapping("status/all")
     public UIResponse<List<Status>> getAllStatus(){
         List<Status> statusList = statusService.getAll();
         return new UIResponse<>(true, statusList);
     }
-
 }

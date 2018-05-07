@@ -161,7 +161,7 @@ public class ManagerController {
             Product newProduct = new Product(productDTO.getName(), productDTO.getCategory(), productDTO.getManufacturer(),
                     productDTO.getDescription());
             newProduct = productService.addProduct(newProduct);
-            User manager = userService.getUserById(managerId);
+            User manager = userService.findUserById(managerId);
             storageService.addStorageItem(manager, newProduct);
             Image image = imageService.addImage(newProduct, productDTO.getUrl());
             ProductDTO dto = mapper.map(newProduct, ProductDTO.class);

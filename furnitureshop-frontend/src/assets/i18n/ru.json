@@ -1,26 +1,34 @@
 {
+  "bed": "Кровать",
+  "chair": "Стул",
+  "door": "Дверь",
+  "dresser": "Шкаф",
+  "table": "Стол",
+
   "ACCEPT": "Принято",
 
   "ALERT": {
+    "length": "Недопустимая длина поля",
     "login.danger": "Пользователя с таким логином и паролем не существует!",
+    "changes": "Изменения сохранены",
     "register.danger": "Пользователь с таким логином и паролем уже существует!",
     "register.email": "Неверный формат эл.почты",
-    "register.length": "Недопустимая длина поля",
     "register.notEqual": "'Пароль' и 'Подтвердите пароль' должны совпадать",
     "success": "Принято!"
   },
 
-
-  "basket.title": "КОРЗИНА",
-  "basket.order": "Оформить заказ",
-  "basket.empty": "Корзина пуста",
-  "basket.name": "Наименование продукта",
-  "basket.manufacturer": "Производитель",
-  "basket.quantity": "Количество",
-  "basket.price": "Цена за шт.",
-  "basket.total": "Итого:",
-  "basket.value": "Сумма",
-  "basket.alert": "Ваш заказ успешно сформирован",
+  "BASKET":{
+    "alert": "Ваш заказ успешно сформирован",
+    "category": "Категория",
+    "empty": "Корзина пуста",
+    "manufacturer": "Производитель",
+    "name": "Наименование продукта",
+    "order": "Оформить заказ",
+    "quantity": "Количество",
+    "title": "КОРЗИНА",
+    "total": "Итоговая стоимость:",
+    "value": "Стоимость"
+  },
 
   "BUTTON":{
     "basket": "Корзина",
@@ -34,112 +42,112 @@
     "logout": "Выход"
   },
 
-  "customer.address": "Адрес доставки",
-  "change.submit": "Изменения сохранены",
-  "customer.title": "Список клиентов магазина",
-  "customer.add.title": "Добавить нового клиента",
-  "customer.edit.title": "Изменить клиента",
-  "customer.delete.title": "Удалить клиента",
-  "customer.delete.text": "Вы уверены, что хотите удалить запись?",
-  "customer.delete.warning": "Данное действие не модет быть отменено.",
+  "CURRENCY": " BYN",
 
-  "footer.author.p1": "Сделано с",
-  "footer.author.p2": "А.Шванц",
+  "CUSTOMER":{
+    "address": "Адрес доставки",
+    "add.title": "Добавить нового клиента",
+    "basket": "Корзина",
+    "delete.title": "Удалить клиента",
+    "delete.text": "Вы уверены, что хотите удалить запись?",
+    "delete.warning": "Данное действие не модет быть отменено.",
+    "edit.title": "Изменить клиента",
+    "profile": "Профиль",
+    "orders": "Заказы",
+    "title": "Список клиентов магазина"
+  },
 
-  "bed": "Кровати",
-  "chair": "Стулья",
-  "door": "Двери",
-  "dresser": "Шкафы",
-  "table": "Столы",
+  "FOOTER":{
+    "author.p1": "Сделано с",
+    "author.p2": "А.Шванц"
+  },
 
   "HEADER":{
-    "title": "12 СТУЛЬЕВ",
-    "shopName": "ИНТЕРНЕТ МАГАЗИН МЕБЕЛИ",
-    "form.search": "Поиск",
     "en": "EN",
-    "ru": "РУС"
+    "form.search": "Поиск",
+    "ru": "РУС",
+    "shopName": "ИНТЕРНЕТ МАГАЗИН МЕБЕЛИ",
+    "title": "12 СТУЛЬЕВ"
   },
 
   "IN_PROCESSING": "В обработке",
 
-
-  "list.empty": "Список пуст",
-
   "LOGIN":{
-    "title": "Авторизация",
-    "login": "Логин",
     "help": "Логин должен быть не менее 4 символов",
+    "login": "Логин",
     "password": "Пароль",
     "password.help": "Пароль должен быть не менее 5 символов",
     "message": "Нет аккаунта - ",
-    "register": "зарегистрируйтесь"
+    "register": "зарегистрируйтесь",
+    "title": "Авторизация"
   },
 
   "NAV":{
-    "good-price": "ВЫГОДНАЯ ЦЕНА!",
-    "goods": "Товары",
-
     "admin.customers": "Все клиеты",
     "admin.managers": "Все менеджеры",
     "admin.orders": "Все заказы",
     "admin.products": "Все продукты",
 
+    "good-price": "ВЫГОДНАЯ ЦЕНА!",
+    "goods": "Товары",
+
     "manager.products": "Мои продукты",
     "manager.orders": "Мои заказы",
 
-    "customer.profile": "Профиль",
-    "profile.edit": "Изменить профиль",
-    "profile.requisite": "Адрес доставки",
-    "profile.delete": "Удалить профиль",
-    "customer.orders": "Заказы",
-    "customer.basket": "Корзина"
+    "edit": "Изменить профиль",
+    "requisite": "Адрес доставки",
+    "delete": "Удалить профиль"
   },
 
+  "ORDER":{
+    "title": "ЗАКАЗЫ",
+    "date": "Дата создания",
+    "number": "Номер заказа",
+    "manager": "Менеджер",
+    "status": "Статус",
+    "data.start": "Принято",
+    "data.finish": "Выполнено",
+    "item.code": "Код",
+    "item.title": "Наименование товара",
+    "item.quantity": "Количество",
+    "item.sum": "Сумма"
+  },
 
-  "orders.title": "ЗАКАЗЫ",
-  "orders.date": "Дата создания",
-  "orders.number": "Номер заказа",
-  "orders.manager": "Менеджер",
-  "orders.status": "Статус",
-  "orders.data.start": "Принято",
-  "orders.data.finish": "Выполнено",
-  "orders.item.code": "Код",
-  "orders.item.title": "Наименование товара",
-  "orders.item.quantity": "Количество",
-  "orders.item.sum": "Сумма",
+  "PROFILE":{
+    "address.add": "Добавить адрес доставки",
+    "address.edit": "Изменить адрес доставки",
+    "address.title": "Адрес доставки",
+    "address.zip": "Индекс",
+    "address.country": "Страна",
+    "address.city": "Город",
+    "address.address": "Адрес",
 
+    "delete": "Удалить аккаунт",
+    "delete.title": "Вы действительно хотите удалить свой аккаунт?",
 
-  "profile.edit": "Изменить профиль",
-  "profile.edit.title": "Данные профиля",
-  "profile.edit.name": "Имя и фамилия",
-  "profile.edit.name.help": "Имя и фамилия должны быть не менее 4 символов",
-  "profile.edit.birthday": "Дата рождения",
-  "profile.edit.email": "Email",
-  "profile.edit.sex": "Пол",
-  "profile.edit.sex.male": "мужской",
-  "profile.edit.sex.female": "женский",
-  "profile.address.add": "Добавить адрес доставки",
-  "profile.address.edit": "Изменить адрес доставки",
-  "profile.address.title": "Адрес доставки",
-  "profile.address.zip": "Индекс",
-  "profile.address.country": "Страна",
-  "profile.address.city": "Город",
-  "profile.address.address": "Адрес",
-  "profile.delete": "Удалить аккаунт",
-  "profile.delete.title": "Вы действительно хотите удалить свой аккаунт?",
-  "product.title": "Мои добавленные продукты на складе",
-  "product.name": "Наименование продукта",
-  "product.category": "Категория",
-  "product.manufacturer": "Производитель",
-  "product.imageUrl": "Адрес картинки",
-  "product.desc": "Описание продукта",
-  "product.addProduct": "Добавить новый продукт",
-  "product.updateProduct": "Обновить продукт",
-  "product.addRequisite": "Добавить адрес",
-  "product.alert.success": "Продукт добавлен",
+    "edit": "Изменить профиль",
+    "edit.title": "Данные профиля",
+    "edit.name": "Имя и фамилия",
+    "edit.name.help": "Имя и фамилия должны быть не менее 4 символов",
+    "edit.birthday": "Дата рождения",
+    "edit.email": "Email",
+    "edit.sex": "Пол",
+    "edit.sex.male": "мужской",
+    "edit.sex.female": "женский"
+  },
 
-
-  "role": "Роль",
+  "PRODUCT":{
+    "title": "Мои добавленные продукты на складе",
+    "name": "Наименование продукта",
+    "category": "Категория",
+    "manufacturer": "Производитель",
+    "imageUrl": "Адрес картинки",
+    "desc": "Описание продукта",
+    "addProduct": "Добавить новый продукт",
+    "updateProduct": "Обновить продукт",
+    "addRequisite": "Добавить адрес",
+    "alert.success": "Продукт добавлен"
+  },
 
   "REGISTER":{
     "title": "Регистрация нового пользователя",
@@ -154,14 +162,12 @@
     "confirmPassword": "Подтвердите пароль"
   },
 
-  "requisite.edit.title": "Редактировать адрес доставки",
-
+  "role": "Роль",
   "ROLE_ADMIN": "администратор",
   "ROLE_MANAGER": "менеджер",
   "ROLE_USER": "клиент",
 
   "SENT": "Послано",
-
 
   "VIEWER":{
     "code": "Код: ",

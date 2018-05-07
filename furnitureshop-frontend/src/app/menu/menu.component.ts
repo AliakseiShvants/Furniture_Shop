@@ -1,17 +1,11 @@
-import {ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {User} from '../../domain/user/user';
 import {CustomerService} from '../../service/customer.service';
-import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
-import {AuthorizationData} from '../../domain/user/authorization-data';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Uiresponse} from '../../domain/uiresponse';
-import {AuthorizationService} from '../../service/authorization.service';
 import {Category} from '../../domain/product/category';
 import {ProductService} from '../../service/product.service';
-import {Subscription} from 'rxjs/Subscription';
 import {AppComponent} from '../app.component';
-import {Role} from '../../domain/user/role';
-import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-menu',
@@ -20,9 +14,9 @@ import {UtilService} from '../../service/util.service';
 })
 export class MenuComponent implements OnInit {
 
-  user = new User();
+  @Input()
+  user: User;
   categoryList: Category[];
-  roleList: Role[];
 
   private CUSTOMER = 'ROLE_USER';
   private ADMIN = 'ROLE_ADMIN';
@@ -33,18 +27,13 @@ export class MenuComponent implements OnInit {
               private productService: ProductService,
               private router: Router,
               private route: ActivatedRoute,
-              private app: AppComponent,
-              private utilService: UtilService) {
+              private app: AppComponent) {
 
-
-    setInterval(() => {
-      this.user = this.app.user;
-    }, 2000)
+    this.loadCategories();
   }
 
   ngOnInit(): void {
-    this.user = this.app.user;
-    this.loadCategories();
+    // this.loadCategories();
   }
 
   private loadCategories() {
@@ -79,8 +68,23 @@ export class MenuComponent implements OnInit {
   }
 
   logout() {
-    this.user = null;
-    this.customerService.setUser(null);
+    this.app.user = new User(0);
     this.router.navigate(['']);
+  }
+
+  showBasketCount(){
+    if (this.user.id > 0){
+      return this.app.basketList.length;
+    } else {
+      return this.app.guestBasketList.length;
+    }
+  }
+
+  isBasketEmpty() {
+    if (this.user.id > 0) {
+      return this.app.basketList.length === 0;
+    } else {
+      return this.app.guestBasketList.length === 0;
+    }
   }
 }

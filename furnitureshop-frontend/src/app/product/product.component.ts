@@ -9,7 +9,6 @@ import {ProductService} from '../../service/product.service';
 import {Uiresponse} from '../../domain/uiresponse';
 import {Category} from '../../domain/product/category';
 import {Manufacturer} from '../../domain/product/manufacturer';
-import {AppService} from '../../service/app.service';
 import {AppComponent} from '../app.component';
 
 @Component({

@@ -78,7 +78,7 @@ public class AdminController {
     @PatchMapping("user/update")
     public UIResponse<Void> updateUser(@RequestBody UserDTO userDTO){
         if (userService.isUserExists(userDTO.getId())){
-            User dbUser = userService.getUserById(userDTO.getId());
+            User dbUser = userService.findUserById(userDTO.getId());
             dbUser.setFullName(userDTO.getFullName());
             dbUser.setLogin(userDTO.getLogin());
             dbUser.setPassword(userDTO.getPassword());
@@ -100,7 +100,7 @@ public class AdminController {
     public UIResponse<Void> addCustomer(@RequestBody AuthorizationData data){
         User newUser;
         if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
-            Role role = roleService.getRoleByTitle("ROLE_USER");
+            Role role = roleService.findRoleByTitle("ROLE_USER");
             newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(),
                     data.getEmail(), role);
             userService.addUser(newUser);
@@ -128,7 +128,7 @@ public class AdminController {
      */
     @PostMapping("manager/add")
     public UIResponse<UserDTO> addManager(@RequestBody UserDTO managerDTO){
-        Role role = roleService.getRoleByTitle("ROLE_MANAGER");
+        Role role = roleService.findRoleByTitle("ROLE_MANAGER");
         User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getPassword(),
                 managerDTO.getEmail(), role);
         manager = userService.addUser(manager);

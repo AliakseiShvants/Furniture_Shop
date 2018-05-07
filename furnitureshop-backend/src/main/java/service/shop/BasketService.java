@@ -9,17 +9,18 @@ import repo.shop.BasketRepo;
 import java.util.List;
 
 @Service
-@Transactional
 public class BasketService {
 
     @Autowired
     private BasketRepo basketRepo;
 
 
+    @Transactional
     public void addBasketItem(Basket basketItem) {
         basketRepo.save(basketItem);
     }
 
+    @Transactional
     public List<Basket> getBasketItemsByUserId(Long customerId) {
         return basketRepo.findAllByCustomer_Id(customerId);
     }

@@ -1,6 +1,7 @@
 <ng-template #registerModal>
   <div class="modal-header">
-    <h4 id="modal-title" class="modal-title text-center">{{ 'REGISTER.title'|translate}}</h4>
+    <h4 id="modal-title" class="modal-title m-auto">{{ 'REGISTER.title'|translate}}</h4>
+
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()"
             routerLink="/">
       <span aria-hidden="true">&times;</span>
@@ -37,7 +38,7 @@
           <input class="form-control" id="password" name="password" type="password" [(ngModel)]="password"
                  aria-describedby="passHelp" required minlength="5">
           <small id="passHelp" class="form-text text-muted">{{'REGISTER.password.help'|translate}}</small>
-          <alert id="passAlert" class="danger" *ngIf="isShortPass">{{'ALERT.register.length'|translate}}</alert>
+          <alert id="passAlert" class="danger" *ngIf="isShortPass">{{'ALERT.length'|translate}}</alert>
         </div>
 
         <div class="form-group">
@@ -52,8 +53,12 @@
           <button id="reset" class="btn btn-secondary" type="reset" (click)="clean()">{{'BUTTON.clean'|translate}}</button>
         </div>
       </form>
-      <alert id="success" *ngIf="isRegistered" type="success">{{'ALERT.success'|translate}}</alert>
-      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">{{'ALERT.register.danger'|translate}}</alert>
+
+      <alert id="success" *ngIf="isRegistered" type="success">{{ 'ALERT.success' | translate }}</alert>
+
+      <alert id="danger" *ngIf="isExist" type="danger" dismissOnTimeout="5000">
+        {{ 'ALERT.register.danger' | translate }}
+      </alert>
     </div>
   </div>
 </ng-template>

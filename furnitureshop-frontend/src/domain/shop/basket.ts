@@ -1,12 +1,12 @@
 import {Product} from '../product/product';
 
-export class BasketItem {
+export class Basket {
   id: number;
   product: Product;
   quantity: number;
   price: number;
 
-  constructor(product: Product, quantity: number, price: number, id?: number,) {
+  constructor(product: Product, quantity: number, price: number, id?: number) {
     this.id = id;
     this.product = product;
     this.quantity = quantity;

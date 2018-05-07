@@ -18,14 +18,14 @@ public interface ProductService {
 
     /**
      * A method that returns all {@link Product} entities with {@link Category} title equals @param.
-     * @param title a title field of {@link Category} entity
+     * @param title field of {@link Category} entity
      * @return a list of {@link Product} entities
      */
     List<Product> findProductsByCategory(String title);
 
     /**
      * A method that checks if this {@link Product} entity exists in database.
-     * @param id id field of {@link Product} entity
+     * @param id field of {@link Product} entity
      * @return true if such {@link Product} entity exists and false otherwise
      */
     boolean isProductExists(Long id);

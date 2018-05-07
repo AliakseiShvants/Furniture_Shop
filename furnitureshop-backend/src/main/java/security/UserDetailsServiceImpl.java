@@ -21,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) {
-        User user = userService.getUserByLogin(login);
+        User user = userService.findUserByLogin(login);
         if (user != null){
             Set<GrantedAuthority> authorities = new HashSet<>();
             authorities.add(new SimpleGrantedAuthority(user.getRole().getTitle()));

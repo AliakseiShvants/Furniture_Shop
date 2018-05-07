@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
     this.openModal();
   }
 
-  openModal() {
+  private openModal() {
     this.modalRef = this.modalService.show(this.loginTemplate);
   }
 
@@ -55,12 +55,21 @@ export class LoginComponent implements OnInit {
         (response: Uiresponse) => {
           this.isLogged = response.success;
           this.isNotExist = !response.success;
-          this.app.user = response.body;
-          this.modalRef.hide();
-          this.router.navigate(['/']);
-        },
-        error2 => {
-          this.isNotExist = true;
+
+          if (this.isLogged){
+            this.app.user = response.body;
+            this.app.loadUserBasket(this.app.user.id);
+
+            setTimeout(() => {
+              this.modalRef.hide();
+
+              if (!this.app.isEmpty(this.app.basketList) || !this.app.isEmpty(this.app.guestBasketList)){
+                this.router.navigate(['/basket']);
+              } else {
+                this.router.navigate(['/']);
+              }
+            }, 2000);
+          }
         }
       );
   }

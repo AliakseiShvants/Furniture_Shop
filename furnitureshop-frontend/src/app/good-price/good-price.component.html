@@ -24,15 +24,11 @@
         <p class="card-text">{{'VIEWER.desc'|translate}}{{storageItem.product.description}}.</p>
 
         <div class="footer ">
-          <alert *ngIf="isAdded(storageItem)" type="success" dismissOnTimeout="3000">
-            {{'VIEWER.addToBasket'|translate}}
-          </alert>
-
           <p class="card-text font-weight-bold d-inline">
-            {{'VIEWER.price'|translate}}{{storageItem.price}}{{'VIEWER.currency'|translate}}
+            {{'VIEWER.price'|translate}}{{getPrice(storageItem.price)}}{{'CURRENCY'|translate}}
           </p>
 
-          <button type="button" class="btn btn-primary d-inline float-right" [hidden]="isAdded(storageItem)"
+          <button type="button" class="btn btn-primary d-inline float-right" *ngIf="!isAdded(storageItem)"
                   [disabled]="disabled(storageItem)" (click)="addToBasket(storageItem)">
             {{'VIEWER.ToBasket'|translate}}
           </button>

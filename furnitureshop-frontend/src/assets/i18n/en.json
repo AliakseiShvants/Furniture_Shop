@@ -1,24 +1,34 @@
 {
+  "bed": "Bed",
+  "chair": "Chair",
+  "door": "Door",
+  "dresser": "Dresser",
+  "table": "Table",
+
   "ACCEPT": "ACCEPT",
 
   "ALERT":{
+    "length": "Invalid field length",
     "login.danger": "User with such login and password does not exist!",
+    "changes": "The changes are saved",
     "register.danger": "User with such login and password does already exist!",
-    "register.length": "Invalid field length",
     "register.email": "Incorrect email format",
     "register.notEqual": "''Password' and 'Confirm password' must be equal",
     "success": "Success!"
   },
 
-  "basket.title": "BASKET",
-  "basket.order": "Place your order",
-  "basket.name": "Product name",
-  "basket.manufacturer": "Manufacturer",
-  "basket.quantity": "Quantity",
-  "basket.price": "Price",
-  "basket.total": "Total:",
-  "basket.value": "Value",
-  "basket.alert": "Your order is successfully formed",
+  "BASKET":{
+    "alert": "Your order is successfully formed",
+    "category": "Product category",
+    "empty": "Basket is empty",
+    "manufacturer": "Manufacturer",
+    "name": "Product name",
+    "order": "Place your order",
+    "quantity": "Quantity",
+    "title": "BASKET",
+    "total": "Total value:",
+    "value": "Value"
+  },
 
   "BUTTON":{
     "basket": "Basket",
@@ -32,23 +42,26 @@
     "delete": "Yes, I accept"
   },
 
-  "change.submit": "The changes are saved",
-  "customer.title": "List of customers",
-  "customer.address": "Shipping Address",
-  "customer.add.title": "Add New Customer",
-  "customer.edit.title": "Edit Customer",
-  "customer.delete.title": "Delete Customer",
-  "customer.delete.text": "Are you sure you want to delete these Records?",
-  "customer.delete.warning": "This action cannot be undone.",
+  "CURRENCY": " EUR",
 
-  "footer.author.p1": "Made with",
-  "footer.author.p2": "by A.Shvants",
+  "CUSTOMER":{
+    "address": "Shipping Address",
+    "add.title": "Add New Customer",
+    "basket": "Basket",
+    "delete.title": "Delete Customer",
+    "delete.text": "Are you sure you want to delete these Records?",
+    "delete.warning": "This action cannot be undone.",
+    "edit.title": "Edit Customer",
+    "profile": "Profile",
+    "orders": "Orders",
+    "title": "List of customers"
+  },
 
-  "bed": "Beds",
-  "chair": "Chairs",
-  "door": "Doors",
-  "dresser": "Dressers",
-  "table": "Tables",
+
+  "FOOTER":{
+    "author.p1": "Made with",
+    "author.p2": "by A.Shvants"
+  },
 
   "HEADER": {
     "title": "12 CHAIRS",
@@ -60,8 +73,6 @@
 
   "IN_PROCESSING": "IN PROCESSING",
 
-  "list.empty": "No items",
-
   "LOGIN":{
     "title": "Authorization",
     "login": "Login",
@@ -72,12 +83,16 @@
     "register": "register"
   },
 
-  "manager.title": "List of managers",
-  "manager.add.title": "Add New Manager",
-  "manager.edit.title": "Edit Manager",
-  "manager.delete.title": "Delete Manager",
-  "manager.delete.text": "Are you sure you want to delete these Records?",
-  "manager.delete.warning": "This action cannot be undone.",
+  "MANAGER":{
+    "title": "List of managers",
+    "add.title": "Add New Manager",
+    "edit.title": "Edit Manager",
+    "delete.title": "Delete Manager",
+    "delete.text": "Are you sure you want to delete these Records?",
+    "delete.warning": "This action cannot be undone.",
+    "products": "Products",
+    "orders": "Orders"
+  },
 
   "NAV":{
     "good-price": "GOOD PRICE!",
@@ -88,62 +103,60 @@
     "admin.orders": "All orders",
     "admin.products": "All products",
 
-    "customer.profile": "Profile",
-    "customer.orders": "Orders",
-    "customer.basket": "Basket",
-
-    "manager.products": "My products",
-    "manager.orders": "My orders",
-
-    "profile.edit": "Edit profile",
-    "profile.requisite": "Shipping address",
-    "profile.delete": "Delete profile"
+    "edit": "Edit profile",
+    "requisite": "Shipping address",
+    "delete": "Delete profile"
   },
 
-  "orders.title": "ORDERS",
-  "orders.date": "Creating date",
-  "orders.number": "Order number",
-  "orders.manager": "Manager",
-  "orders.status": "Status",
-  "orders.data.start": "Accept",
-  "orders.data.finish": "Sent",
-  "orders.item.code": "Code",
-  "orders.item.title": "Product name",
-  "orders.item.quantity": "Quantity",
-  "orders.item.sum": "Sum",
+  "ORDER":{
+    "title": "ORDERS",
+    "date": "Creating date",
+    "number": "Order number",
+    "manager": "Manager",
+    "status": "Status",
+    "data.start": "Accept",
+    "data.finish": "Sent",
+    "item.code": "Code",
+    "item.title": "Product name",
+    "item.quantity": "Quantity",
+    "item.sum": "Sum"
+  },
 
+  "PROFILE":{
+    "address.add": "Add shipping address",
+    "address.edit": "Edit shipping address",
+    "address.title": "Shipping address",
+    "address.zip": "Zip",
+    "address.country": "Country",
+    "address.city": "City",
+    "address.address": "Address",
 
-  "profile.address.add": "Add shipping address",
-  "profile.address.edit": "Edit shipping address",
-  "profile.address.title": "Shipping address",
-  "profile.address.zip": "Zip",
-  "profile.address.country": "Country",
-  "profile.address.city": "City",
-  "profile.address.address": "Address",
+    "delete": "Delete account",
+    "delete.title": "Do you really want to delete your account?",
 
-  "profile.delete": "Delete account",
-  "profile.delete.title": "Do you really want to delete your account?",
+    "edit": "Edit profile",
+    "edit.title": "Profile info",
+    "edit.name": "Full name",
+    "edit.name.help": "Full name must be at least 4 symbols",
+    "edit.birthday": "Birthday",
+    "edit.email": "Email",
+    "edit.sex": "Sex",
+    "edit.sex.male": "male",
+    "edit.sex.female": "female"
+  },
 
-  "profile.edit": "Edit profile",
-  "profile.edit.title": "Profile info",
-  "profile.edit.name": "Full name",
-  "profile.edit.name.help": "Full name must be at least 4 symbols",
-  "profile.edit.birthday": "Birthday",
-  "profile.edit.email": "Email",
-  "profile.edit.sex": "Sex",
-  "profile.edit.sex.male": "male",
-  "profile.edit.sex.female": "female",
-
-  "product.title": "My added products to storage",
-  "product.name": "Product name",
-  "product.category": "Category",
-  "product.manufacturer": "Manufacturer",
-  "product.imageUrl": "Image url",
-  "product.desc": "Product description",
-  "product.addProduct": "Add new product",
-  "product.updateProduct": "Update product",
-  "product.addRequisite": "Add requisite",
-  "product.alert.success": "Product added",
+  "PRODUCT":{
+    "title": "My added products to storage",
+    "name": "Product name",
+    "category": "Category",
+    "manufacturer": "Manufacturer",
+    "imageUrl": "Image url",
+    "desc": "Product description",
+    "addProduct": "Add new product",
+    "updateProduct": "Update product",
+    "addRequisite": "Add requisite",
+    "alert.success": "Product added"
+  },
 
   "REGISTER":{
     "title": "New user register",
@@ -157,9 +170,7 @@
     "password.help": "Password must be at least 5 symbols",
     "confirmPassword": "Confirm password"
   },
-
-  "requisite.edit.title": "Edit requisite",
-
+  
   "role": "Role",
   "ROLE_ADMIN": "admin",
   "ROLE_MANAGER": "manager",

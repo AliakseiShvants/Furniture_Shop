@@ -1,53 +1,52 @@
-<div class="row mx-4 my-4" *ngIf="isEmpty()">
+<div class="row mx-4 my-4" *ngIf="isBasketEmpty()">
   <div class="col-3 m-auto">
-    <h4>{{'basket.empty'|translate}}</h4>
+    <h4>{{'BASKET.empty'|translate}}</h4>
   </div>
 </div>
 
-<div class="container-fluid mx-4 my-4" [hidden]="isOrderFormed || isEmpty()">
+<div class="container-fluid mx-4 my-4" [hidden]="isOrderFormed || isBasketEmpty()">
   <div class="table-wrapper">
     <div class="table-title">
       <div class="row">
         <div class="col-6">
-          <h2 class="float-right">{{'basket.title'|translate}}</h2>
+          <h2 class="float-right">{{'BASKET.title'|translate}}</h2>
         </div>
       </div>
     </div>
-    <table class="col-10 table table-striped table-hover" *ngIf="basketItems?.length > 0">
+    <table class="col-10 table table-striped table-hover" *ngIf="basketList?.length > 0">
       <thead>
       <tr>
-        <th>{{'basket.name'|translate}}</th>
-        <th>{{'basket.manufacturer'|translate}}</th>
-        <th>{{'basket.quantity'|translate}}</th>
-        <th>{{'basket.price'|translate}}</th>
-        <th>{{'basket.value'|translate}}</th>
+        <th>{{'BASKET.name'|translate}}</th>
+        <th>{{'BASKET.manufacturer'|translate}}</th>
+        <th>{{'BASKET.quantity'|translate}}</th>
+        <th>{{'BASKET.value'|translate}}</th>
+        <th></th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let basketItem of basketItems">
-        <td>{{basketItem.product.name}}</td>
+      <tr *ngFor="let basketItem of basketList">
+        <td>{{basketItem.product.category.title | translate}} {{basketItem.product.name}}</td>
         <td>{{basketItem.product.manufacturer.title}}</td>
         <td>
           <input type="number" name="quantity" class="input-number" [(ngModel)]="basketItem.quantity" min="1" max="10">
         </td>
-        <td>{{basketItem.price}}</td>
-        <td>{{basketItem.quantity * basketItem.price}}</td>
+        <td>{{(basketItem.quantity * getPrice(basketItem.price)).toFixed(2)}} {{'CURRENCY'|translate}}</td>
         <td>
           <button type="button" class="btn btn-danger" (click)="delete(basketItem)">
             <i class="fa fa-trash-o"></i>
           </button>
         </td>
       </tr>
-      <tr>
-        <td colspan="3"></td>
-        <td class="font-weight-bold float-right">{{'basket.total'|translate}}</td>
-        <td>{{totalPrice()}}</td>
+      <tr class="total-price">
+        <td colspan="2"></td>
+        <td class="float-right">{{'BASKET.total'|translate}}</td>
+        <td>{{totalPrice().toFixed(2)}}{{'CURRENCY'|translate}}</td>
         <td></td>
       </tr>
       <tr>
         <td colspan="3"></td>
-        <td colspan="2">
-          <button type="button" class="col btn btn-success" (click)="makeOrder()">{{'basket.order'|translate}}</button>
+        <td>
+          <button type="button" class="btn btn-success" (click)="makeOrder()">{{'BASKET.order'|translate}}</button>
         </td>
         <td></td>
       </tr>
@@ -56,4 +55,4 @@
   </div>
 </div>
 
-<alert *ngIf="isOrderFormed" type="success" class="text-center" dismissOnTimeout="5000">{{'basket.alert'|translate}}</alert>
+<alert *ngIf="isOrderFormed" type="success" class="text-center" dismissOnTimeout="3000">{{'BASKET.alert'|translate}}</alert>

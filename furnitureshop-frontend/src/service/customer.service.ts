@@ -4,7 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {AuthorizationData} from '../domain/user/authorization-data';
 import {User} from '../domain/user/user';
 import {Requisite} from '../domain/shop/requisite';
-import {BasketItem} from '../domain/shop/basket-item';
+import {Basket} from '../domain/shop/basket';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -58,11 +58,17 @@ export class CustomerService {
     return this.httpClient.delete(this.base + customerId + this.delete);
   }
 
+  /**
+   * A method that adds {@link Product} entity to {@link User}'s basket.
+   * @param {number} customerId id field of {@link User}
+   * @param {number} productId id field of {@link Product}
+   * @returns {Observable<Object>} new {@link Product} entity in the basket
+   */
   addProductToBasket(customerId: number, productId: number){
     return this.httpClient.get(this.base + customerId + this.basket + productId + this.add);
   }
 
-  getAllBasketItems(customerId: number){
+  getBasketList(customerId: number){
     return this.httpClient.get(this.base + customerId + this.basket + this.all);
   }
 
@@ -78,7 +84,7 @@ export class CustomerService {
     return this.httpClient.get(this.base + customerId + this.order + orderId);
   }
 
-  makeOrder(customerId: number, basketItems: BasketItem[]){
+  makeOrder(customerId: number, basketItems: Basket[]){
     return this.httpClient.post(this.base + customerId + this.basket + this.book, basketItems);
   }
 }

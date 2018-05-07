@@ -32,8 +32,7 @@ export const appRoutes: Routes = [
 
   {path: 'basket', component: BasketComponent},
 
-
-  { path: '',   redirectTo: '/good-price', pathMatch: 'full' },
+  {path: '',   redirectTo: '/good-price', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -30,9 +30,9 @@ public class AuthorizationController {
     private RoleService roleService;
 
     /**
-     * A method for user's authorization.
+     * A method for {@link User} authorization.
      * @param data login and password
-     * @return special user entity
+     * @return a {UserDTO} entity
      */
     @PostMapping("login")
     public UIResponse<UserDTO> login(@RequestBody AuthorizationData data){
@@ -45,15 +45,15 @@ public class AuthorizationController {
     }
 
     /**
-     * A method for registration new user
+     * A method for registration new {@link User} entity.
      * @param data registration data
-     * @return special user entity
+     * @return a {UserDTO} entity
      */
     @PostMapping("register")
     public UIResponse<UserDTO> register(@RequestBody AuthorizationData data){
         User newUser;
         if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
-            Role role = roleService.getRoleByTitle("ROLE_USER");
+            Role role = roleService.findRoleByTitle("ROLE_USER");
             newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(),
                     data.getEmail(), role);
             newUser = userService.addUser(newUser);
