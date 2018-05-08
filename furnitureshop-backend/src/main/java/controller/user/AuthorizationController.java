@@ -1,5 +1,7 @@
 package controller.user;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.UIResponse;
 import entity.user.AuthorizationData;
 import entity.user.Role;
@@ -23,6 +25,9 @@ public class AuthorizationController {
     @Autowired
     private DozerBeanMapper mapper;
 
+//    @Autowired
+//    private ObjectMapper objectMapper;
+
     @Autowired
     private UserService userService;
 
@@ -43,6 +48,7 @@ public class AuthorizationController {
         }
         return new UIResponse<>(new UserNotFoundException());
     }
+
 
     /**
      * A method for registration new {@link User} entity.

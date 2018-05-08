@@ -13,8 +13,6 @@ const httpOptions = {
 @Injectable()
 export class CustomerService {
 
-  private _user = new User();
-
   private base = 'api/customer/';
   private requisite = '/requisite';
   private basket = '/basket/';
@@ -30,12 +28,8 @@ export class CustomerService {
   constructor(private httpClient: HttpClient) { }
 
 
-  getUser(): User {
-    return this._user;
-  }
-
-  setUser(value: User) {
-    this._user = value;
+  getUser(id: number) {
+    return this.httpClient.get(this.base + id);
   }
 
   updateProfile(user: User) {

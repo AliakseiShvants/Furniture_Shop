@@ -51,10 +51,11 @@ export class AppComponent implements OnInit {
    */
   loadUserBasket(id: number){
     if (!this.isEmpty(this.guestBasketList)){
-      this.guestBasketList.forEach(item => this.customerService.addProductToBasket(id, item.product.id).subscribe());
+      this.guestBasketList.forEach(item => this.customerService.addProductToBasket(id, item.product.id).subscribe(
+        () => this.getBasketByUserId(id)
+      ));
       this.guestBasketList = new Array(0);
     }
-    this.getBasketByUserId(id);
   }
 
   private getBasketByUserId(id: number){

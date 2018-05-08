@@ -5,6 +5,7 @@ import {Uiresponse} from '../../domain/uiresponse';
 import {CustomerService} from '../../service/customer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppComponent} from '../app.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -14,6 +15,7 @@ import {AppComponent} from '../app.component';
 export class ProfileComponent implements OnInit {
 
   user: User;
+  dateFormat = 'dd-MM-yyyy';
 
   zip:string;
   country:string;
@@ -30,12 +32,9 @@ export class ProfileComponent implements OnInit {
               private app: AppComponent,
               private router: Router,
               private route: ActivatedRoute,
+              private datePipe: DatePipe,
               private cd: ChangeDetectorRef) {
 
-    setInterval(() => {
-      this.user = app.user;
-      this.cd.detectChanges();
-    }, 1000);
   }
 
   ngOnInit() {
@@ -43,12 +42,17 @@ export class ProfileComponent implements OnInit {
     this.showForm = this.route.snapshot.params['form'];
   }
 
+  getBirthday(birthday: Date) {
+    return this.datePipe.transform(birthday, this.dateFormat);
+  }
+
   updateProfile() {
+    // this.user.birthday = new Date(Date.parse(this.birthday));
     this.customerService.updateProfile(this.user)
       .subscribe(
         (data: Uiresponse) => {
            this.isUpdated = data.success;
-          this.customerService.setUser(data.body);
+           this.app.user = this.user = data.body;
         }
       );
   }
@@ -58,8 +62,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         (data: Uiresponse) => {
           this.isAdded = data.success;
-          this.user.requisite = data.body;
-          this.customerService.setUser(this.user);
+          this.app.user.requisite = this.user.requisite = data.body;
         }
       );
   }
@@ -69,8 +72,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         (data: Uiresponse) => {
           this.isUpdated = data.success;
-          this.user.requisite = data.body;
-          this.customerService.setUser(this.user);
+          this.app.user.requisite = this.user.requisite = data.body;
         }
       );
   }
@@ -80,7 +82,7 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         (data: Uiresponse) => {
           this.isDeleted = data.success;
-          this.customerService.setUser(null);
+          this.app.user = new User();
           this.router.navigate(['']);
         }
       );

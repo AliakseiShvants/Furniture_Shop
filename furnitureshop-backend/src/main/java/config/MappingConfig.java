@@ -1,5 +1,6 @@
 package config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import entity.product.Image;
 import entity.product.Manufacturer;
 import entity.product.Product;
@@ -17,6 +18,7 @@ import org.dozer.loader.api.BeanMappingBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class MappingConfig {
 
     @Bean
     public BeanMappingBuilder beanMappingBuilder() {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return new BeanMappingBuilder() {
             @Override
             protected void configure() {
@@ -37,8 +40,8 @@ public class MappingConfig {
                 mapping(User.class, UserDTO.class);
                 mapping(Requisite.class, RequisiteDTO.class);
                 mapping(Order.class, OrderDTO.class)
-                        .fields("manager.fullName", "manager")
-                        .fields("status.status", "status");
+                        .fields("manager.fullName", "manager");
+//                        .fields("status.status", "status");
                 mapping(OrderItem.class, OrderItemDTO.class);
                 mapping(Manufacturer.class, ManufacturerDTO.class);
                 mapping(Product.class, ProductDTO.class);
@@ -60,4 +63,9 @@ public class MappingConfig {
 
         return dozerBeanMapper;
     }
+
+//    @Bean
+//    public ObjectMapper objectMapper() {
+//        return new ObjectMapper();
+//    }
 }

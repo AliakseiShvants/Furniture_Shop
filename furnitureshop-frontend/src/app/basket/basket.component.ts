@@ -25,11 +25,6 @@ export class BasketComponent implements OnInit {
               private customerService: CustomerService,
               private translate: TranslateService,
               private app: AppComponent) {
-
-    // setInterval(() => {
-    //   this.getBasketList(this.app.user.id);
-    //   this.cd.detectChanges();
-    // }, 1000);
   }
 
   ngOnInit() {
@@ -66,7 +61,6 @@ export class BasketComponent implements OnInit {
       );
     } else {
       this.app.guestBasketList = this.basketList = this.basketList.filter(item => item.product.id !== basketItem.product.id);
-      // this.app.guestBasketList = this.app.guestBasketList.filter(item => item.product.id !== basketItem.product.id);
     }
   }
 
@@ -95,14 +89,17 @@ export class BasketComponent implements OnInit {
       this.router.navigate(['/profile', 'addRequisite']);
     }
     else {
-      this.submitOrder();
       this.customerService.makeOrder(this.app.user.id, this.basketList)
         .subscribe(
           (res: Uiresponse) => {
             this.isOrderFormed = res.success;
+            this.app.basketList = new Array(0);
+
+            setTimeout(() => {
+              this.router.navigate(['']);
+            }, 3000);
           }
         );
-      this.app.basketList = new Array(0);
     }
   }
 
@@ -111,10 +108,6 @@ export class BasketComponent implements OnInit {
       return requisite.zip !== null && requisite.country !== null && requisite.city !== null && requisite.address !== null;
     }
     return false;
-  }
-
-  private submitOrder() {
-
   }
 
   /**

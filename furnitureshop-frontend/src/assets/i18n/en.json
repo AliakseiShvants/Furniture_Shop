@@ -47,16 +47,12 @@
   "CUSTOMER":{
     "address": "Shipping Address",
     "add.title": "Add New Customer",
-    "basket": "Basket",
     "delete.title": "Delete Customer",
     "delete.text": "Are you sure you want to delete these Records?",
     "delete.warning": "This action cannot be undone.",
     "edit.title": "Edit Customer",
-    "profile": "Profile",
-    "orders": "Orders",
     "title": "List of customers"
   },
-
 
   "FOOTER":{
     "author.p1": "Made with",
@@ -103,6 +99,10 @@
     "admin.orders": "All orders",
     "admin.products": "All products",
 
+    "customer.profile": "Profile",
+    "customer.orders": "Orders",
+    "customer.basket": "Basket",
+
     "edit": "Edit profile",
     "requisite": "Shipping address",
     "delete": "Delete profile"
@@ -130,6 +130,8 @@
     "address.country": "Country",
     "address.city": "City",
     "address.address": "Address",
+
+    "birthday.help": "Your current birthday is: ",
 
     "delete": "Delete account",
     "delete.title": "Do you really want to delete your account?",
@@ -170,7 +172,7 @@
     "password.help": "Password must be at least 5 symbols",
     "confirmPassword": "Confirm password"
   },
-  
+
   "role": "Role",
   "ROLE_ADMIN": "admin",
   "ROLE_MANAGER": "manager",

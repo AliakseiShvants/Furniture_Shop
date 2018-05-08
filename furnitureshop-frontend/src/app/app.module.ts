@@ -28,6 +28,7 @@ import {UtilService} from '../service/util.service';
 import { GoodPriceComponent } from './good-price/good-price.component';
 import { RegisterComponent } from './register/register.component';
 import {StorageService} from '../service/storage.service';
+import {DatePipe} from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import {StorageService} from '../service/storage.service';
     })
   ],
   providers: [
+    DatePipe,
     ProductService,
     StorageService,
     CustomerService,

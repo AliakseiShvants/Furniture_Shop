@@ -47,13 +47,10 @@
   "CUSTOMER":{
     "address": "Адрес доставки",
     "add.title": "Добавить нового клиента",
-    "basket": "Корзина",
     "delete.title": "Удалить клиента",
     "delete.text": "Вы уверены, что хотите удалить запись?",
     "delete.warning": "Данное действие не модет быть отменено.",
     "edit.title": "Изменить клиента",
-    "profile": "Профиль",
-    "orders": "Заказы",
     "title": "Список клиентов магазина"
   },
 
@@ -88,6 +85,10 @@
     "admin.orders": "Все заказы",
     "admin.products": "Все продукты",
 
+    "customer.basket": "Корзина",
+    "customer.profile": "Профиль",
+    "customer.orders": "Заказы",
+
     "good-price": "ВЫГОДНАЯ ЦЕНА!",
     "goods": "Товары",
 
@@ -121,6 +122,8 @@
     "address.country": "Страна",
     "address.city": "Город",
     "address.address": "Адрес",
+
+    "birthday.help": "Ваша текущая дата рождения: ",
 
     "delete": "Удалить аккаунт",
     "delete.title": "Вы действительно хотите удалить свой аккаунт?",
