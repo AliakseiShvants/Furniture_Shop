@@ -89,28 +89,22 @@ export class RegisterComponent implements OnInit {
    */
   validateRegister(_name: string, _email: string, _login: string, _pass: string, _confirm: string): boolean {
     this.isShortName = this.isShortLogin = this.isShortPass = this.isIncorrectEmail = this.notEqual = false;
-    let flag = true;
     if (_name.length < 4) {
       this.isShortName = true;
-      flag = false;
     }
     if (!_email.includes('@')) {
       this.isIncorrectEmail = true;
-      flag = false;
     }
     if (_login.length < 4) {
       this.isShortLogin = true;
-      flag = false;
     }
     if (_pass.length < 4) {
       this.isShortPass = true;
-      flag = false;
     }
     if (_pass !== _confirm) {
       this.notEqual = true;
-      flag = false;
     }
-    return flag;
+    return !(this.isShortName || this.isShortLogin || this.isShortPass || this.isIncorrectEmail || this.notEqual);
   }
 
   /**

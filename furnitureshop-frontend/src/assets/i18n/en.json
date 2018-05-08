@@ -123,13 +123,15 @@
   },
 
   "PROFILE":{
-    "address.add": "Add shipping address",
-    "address.edit": "Edit shipping address",
-    "address.title": "Shipping address",
-    "address.zip": "Zip",
-    "address.country": "Country",
-    "address.city": "City",
-    "address.address": "Address",
+    "requisite.add": "Add shipping address",
+    "requisite.edit": "Edit shipping address",
+    "requisite.title": "Shipping address",
+    "requisite.zip": "Zip",
+    "requisite.zip.example": "e.g. 123456",
+    "requisite.country": "Country",
+    "requisite.city": "City",
+    "requisite.address": "Address",
+    "requisite.address.example": "e.g: Labour st. 1-2",
 
     "birthday.help": "Your current birthday is: ",
 

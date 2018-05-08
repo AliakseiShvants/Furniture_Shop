@@ -5,6 +5,14 @@
   "dresser": "Шкаф",
   "table": "Стол",
 
+  "Belarus": "Беларусь",
+  "Russia": "Россия",
+
+  "Hrodna": "Гродно",
+  "Minsk": "Минск",
+  "Moscow": "Москва",
+  "St.Petersburg": "С.Петербург",
+
   "ACCEPT": "Принято",
 
   "ALERT": {
@@ -115,13 +123,15 @@
   },
 
   "PROFILE":{
-    "address.add": "Добавить адрес доставки",
-    "address.edit": "Изменить адрес доставки",
-    "address.title": "Адрес доставки",
-    "address.zip": "Индекс",
-    "address.country": "Страна",
-    "address.city": "Город",
-    "address.address": "Адрес",
+    "requisite.add": "Добавить адрес доставки",
+    "requisite.edit": "Изменить адрес доставки",
+    "requisite.title": "Адрес доставки",
+    "requisite.zip": "Индекс",
+    "requisite.zip.example": "Например: 123456",
+    "requisite.country": "Страна",
+    "requisite.city": "Город",
+    "requisite.address": "Адрес",
+    "requisite.address.example": "Например: ул. Трудовая 1-2",
 
     "birthday.help": "Ваша текущая дата рождения: ",
 

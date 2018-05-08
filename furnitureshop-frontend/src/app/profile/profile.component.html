@@ -6,10 +6,10 @@
         {{'PROFILE.edit'|translate}}
       </button>
       <button *ngIf="!requisiteExists()" type="button" class="btn btn-primary" (click)="switchForm('addRequisite')">
-        {{'PROFILE.address.add'|translate}}
+        {{'PROFILE.requisite.add'|translate}}
       </button>
       <button *ngIf="requisiteExists()" type="button" class="btn btn-secondary" (click)="switchForm('updateRequisite')">
-        {{'PROFILE.address.edit'|translate}}
+        {{'PROFILE.requisite.edit'|translate}}
       </button>
       <button type="button" class="btn btn-danger" (click)="switchForm('delete')">
         {{'PROFILE.delete'|translate}}
@@ -29,14 +29,17 @@
         <div class="form-group">
           <label for="fullName" class="floatLabel">{{ 'PROFILE.edit.name' | translate }}</label>
           <input class="form-control" id="fullName" name="fullName" type="text" [(ngModel)]="user.fullName"
-                 aria-describedby="nameHelp" required minlength="4">
+                 aria-describedby="nameHelp">
           <small id="nameHelp" class="form-text text-muted">{{ 'REGISTER.name.help' | translate }}</small>
+          <alert id="nameAlert" class="danger" *ngIf="isShortName">{{ 'ALERT.length' | translate }}</alert>
         </div>
 
         <div class="form-group">
           <label for="email">{{'PROFILE.edit.email'|translate}}</label>
-          <input type="email" class="form-control" id="email" [(ngModel)]="user.email"
+          <input type="email" class="form-control" id="email"
+                 [(ngModel)]="user.email"
                  [ngModelOptions]="{standalone: true}">
+          <alert id="emailAlert" class="danger" *ngIf="isNotEmail">{{ 'ALERT.register.email' | translate }}</alert>
         </div>
 
         <div class="form-group">
@@ -46,9 +49,6 @@
           </small>
           <input type="date" class="form-control" id="birthday" placeholder="getBirthday(user.birthday)"
           [(ngModel)]="user.birthday" [ngModelOptions]="{standalone: true}" aria-describedby="dateHelp">
-
-          <!--<input type="date" class="form-control" id="birthday"-->
-                 <!--[(ngModel)]="user.birthday" [ngModelOptions]="{standalone: true}">-->
         </div>
 
         <div class="form-check-group" id="check-group">
@@ -68,7 +68,9 @@
         </div>
 
         <div class="form-footer my-4">
-          <alert id="updateUser" type="success" *ngIf="isUpdated">{{ 'ALERT.changes' | translate }}</alert>
+          <alert id="updateUser" type="success" *ngIf="isUpdated" dismissOnTimeout="3000">
+            {{ 'ALERT.changes' | translate }}
+          </alert>
           <button type="submit" class="btn btn-primary">{{'BUTTON.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'BUTTON.clean'|translate}}</button>
         </div>
@@ -78,27 +80,35 @@
 
   <div *ngSwitchCase="'addRequisite'" class="row mx-4 my-4">
     <div class="col-5 m-auto bg-white">
-      <h4 class="ml-4 my-4">{{'PROFILE.address.title'|translate}}</h4>
+      <h4 class="ml-4 my-4">{{'PROFILE.requisite.title'|translate}}</h4>
       <form method="post" (submit)="addRequisite()">
 
         <div class="form-group">
-          <label for="addZip">{{'PROFILE.address.zip'|translate}}</label>
-          <input type="text" class="form-control" id="addZip" [(ngModel)]="zip" [ngModelOptions]="{standalone: true}">
+          <label for="addZip">{{'PROFILE.requisite.zip'|translate}}</label>
+          <input type="text" class="form-control" id="addZip" required="required"
+                 [(ngModel)]="zip"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
-          <label for="addCountry">{{'PROFILE.address.country'|translate}}</label>
-          <input type="text" class="form-control" id="addCountry" [(ngModel)]="country" [ngModelOptions]="{standalone: true}">
+          <label for="addCountry">{{'PROFILE.requisite.country'|translate}}</label>
+          <input type="text" class="form-control" id="addCountry" required="required"
+                 [(ngModel)]="country"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
-          <label for="addCity">{{'PROFILE.address.city'|translate}}</label>
-          <input type="text" class="form-control" id="addCity" [(ngModel)]="city" [ngModelOptions]="{standalone: true}">
+          <label for="addCity">{{'PROFILE.requisite.city'|translate}}</label>
+          <input type="text" class="form-control" id="addCity" required="required"
+                 [(ngModel)]="city"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-group">
-          <label for="addAddress">{{'PROFILE.address.address'|translate}}</label>
-          <input type="text" class="form-control" id="addAddress" [(ngModel)]="address" [ngModelOptions]="{standalone: true}">
+          <label for="addAddress">{{'PROFILE.requisite.address'|translate}}</label>
+          <input type="text" class="form-control" id="addAddress" required="required"
+                 [(ngModel)]="address"
+                 [ngModelOptions]="{standalone: true}">
         </div>
 
         <div class="form-footer my-4">
@@ -113,35 +123,55 @@
 
   <div *ngSwitchCase="'updateRequisite'" class="row mx-4 my-4">
     <div class="col-5 m-auto bg-white">
-      <h4 class="ml-4 my-4">{{'PROFILE.address.title'|translate}}</h4>
+      <h4 class="ml-4 my-4">{{'PROFILE.requisite.title'|translate}}</h4>
       <form method="post" (submit)="updateRequisite()">
 
         <div class="form-group">
-          <label for="zip">{{'PROFILE.address.zip'|translate}}</label>
-          <input type="text" class="form-control" id="zip" [(ngModel)]="user.requisite.zip"
+          <label for="zip">{{'PROFILE.requisite.zip'|translate}}</label>
+          <input type="text" class="form-control" id="zip" aria-describedby="zipHelp"
+                 [(ngModel)]="user.requisite.zip"
                  [ngModelOptions]="{standalone: true}">
+          <small id="zipHelp" class="form-text text-muted">{{ 'PROFILE.requisite.zip.example' | translate }}</small>
+          <alert id="zipAlert" class="danger" *ngIf="isZip">{{ 'ALERT.length' | translate }}</alert>
         </div>
 
         <div class="form-group">
-          <label for="country">{{'PROFILE.address.country'|translate}}</label>
-          <input type="text" class="form-control" id="country" [(ngModel)]="user.requisite.country"
-                 [ngModelOptions]="{standalone: true}">
+          <label for="country-select" class="floatLabel">{{'PROFILE.requisite.country'|translate}}</label>
+          <select id="country-select" class="form-control status-select" size="1"
+                  [(ngModel)]="user.requisite.country"
+                  [ngModelOptions]="{standalone: true}">
+          <option id="country" *ngFor="let country of getCountryList()" [value]="country"
+            [selected]="selected(country, user.requisite.country)">
+            {{country | translate}}
+          </option>
+        </select>
         </div>
 
         <div class="form-group">
-          <label for="city">{{'PROFILE.address.city'|translate}}</label>
-          <input type="text" class="form-control" id="city" [(ngModel)]="user.requisite.city"
-                 [ngModelOptions]="{standalone: true}">
+          <label for="city-select" class="floatLabel">{{'PROFILE.requisite.city'|translate}}</label>
+          <select id="city-select" class="form-control status-select" size="1"
+                  [(ngModel)]="user.requisite.city"
+                  [ngModelOptions]="{standalone: true}">
+            <option id="city" *ngFor="let city of getCityList()" [value]="city"
+                    [selected]="selected(city, user.requisite.city)">
+              {{city | translate}}
+            </option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label for="address">{{'PROFILE.address.address'|translate}}</label>
-          <input type="text" class="form-control" id="address" [(ngModel)]="user.requisite.address"
+          <label for="address">{{'PROFILE.requisite.address'|translate}}</label>
+          <input type="text" class="form-control" id="address" required
+                 [(ngModel)]="user.requisite.address"
                  [ngModelOptions]="{standalone: true}">
+          <small id="addressHelp" class="form-text text-muted">{{ 'PROFILE.requisite.address.example' | translate }}</small>
+          <alert id="addressAlert" class="danger" *ngIf="isAddress">{{ 'ALERT.length' | translate }}</alert>
         </div>
 
         <div class="form-footer my-4">
-          <alert id="updateRequisite" type="success" *ngIf="isUpdated">{{ 'ALERT.changes' | translate }}</alert>
+          <alert id="updateRequisite" type="success" *ngIf="isUpdated" dismissOnTimeout="3000">
+            {{ 'ALERT.changes' | translate }}
+          </alert>
           <button type="submit" class="btn btn-primary">{{'BUTTON.submit'|translate}}</button>
           <button type="reset" class="btn btn-secondary">{{'BUTTON.clean'|translate}}</button>
         </div>
