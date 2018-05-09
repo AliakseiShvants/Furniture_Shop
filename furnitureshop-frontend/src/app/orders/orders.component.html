@@ -1,38 +1,34 @@
 <div id="customer-orders" class="container-fluid mx-4 my-4" [hidden]="!isCustomer()">
   <div class="table-wrapper">
-    <div class="row mx-4 my-4" *ngIf="isEmpty(orderList)">
-      <div class="col-3 m-auto">
-        <h4>{{'list.empty'|translate}}</h4>
-      </div>
-    </div>
     <div class="table-title">
       <div class="row">
         <div class="col-6">
-          <h2 class="float-right">{{'orders.title'|translate}}</h2>
+          <h2 class="float-right" *ngIf="!isEmpty(orderList)">{{'ORDER.title'|translate}}</h2>
+          <h2 class="float-right" *ngIf="isEmpty(orderList)">{{'ORDER.empty'|translate}}</h2>
         </div>
       </div>
     </div>
     <table class="col-10 table table-striped table-hover" *ngIf="!isEmpty(orderList)">
       <thead>
       <tr>
-        <th>{{'orders.date'|translate}}</th>
-        <th>{{'orders.number'|translate}}</th>
-        <th>{{'orders.manager'|translate}}</th>
-        <th>{{'orders.status'|translate}}</th>
-        <th>{{'orders.data.start'|translate}}</th>
-        <th>{{'orders.data.finish'|translate}}</th>
+        <th>{{'ORDER.order'|translate}}</th>
+        <th>{{'ORDER.date'|translate}}</th>
+        <th>{{'ORDER.manager'|translate}}</th>
+        <th>{{'ORDER.status'|translate}}</th>
+        <th>{{'ORDER.date.start'|translate}}</th>
+        <th>{{'ORDER.date.finish'|translate}}</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let order of orderList">
-        <td>{{order.creatingDate | date:'dd/MM/yyyy'}}</td>
         <td>
-          <button type="button" class="btn btn-primary" (click)="openOrderDetails(order)">ORD{{order.id}}</button>
+          <button class="btn btn-outline-info" (click)="openOrderDetails(order)">ORD{{order.id}}</button>
         </td>
+        <td>{{order.creatingDate | date:'dd/MM/yyyy hh:mm'}}</td>
         <td>{{order.manager}}</td>
-        <td>{{order.status}}</td>
-        <td>{{order.completionDate}}</td>
-        <td>{{order.completionDate}}</td>
+        <td>{{order.status.status | translate}}</td>
+        <td>{{getFinishDate(order, 2) | date:'dd/MM/yyyy hh:mm'}}</td>
+        <td>{{getFinishDate(order, 3) | date:'dd/MM/yyyy hh:mm'}}</td>
       </tr>
       </tbody>
     </table>
@@ -41,39 +37,32 @@
 
 <div id="manager-orders" class="container-fluid mx-4 my-4" [hidden]="!isManager()">
   <div class="table-wrapper">
-    <div class="row mx-4 my-4" *ngIf="isEmpty(orderList)">
-      <div class="col-3 m-auto">
-        <h4>{{'basket.empty'|translate}}</h4>
-      </div>
-    </div>
     <div class="table-title">
       <div class="row">
         <div class="col-6">
-          <h2 class="float-right">{{'orders.title'|translate}}</h2>
+          <h2 class="float-right">{{'ORDER.title'|translate}}</h2>
         </div>
       </div>
     </div>
     <table class="col-10 table table-striped table-hover" *ngIf="!isEmpty(orderList)">
       <thead>
       <tr>
-        <th>{{'orders.date'|translate}}</th>
-        <th>{{'orders.number'|translate}}</th>
-        <th>{{'orders.status'|translate}}</th>
-        <th>{{'orders.data.finish'|translate}}</th>
+        <th>{{'ORDER.order'|translate}}</th>
+        <th>{{'ORDER.date'|translate}}</th>
+        <th>{{'ORDER.status'|translate}}</th>
+        <th>{{'ORDER.date.finish'|translate}}</th>
         <th></th>
         <th></th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let order of orderList">
+        <td><a (click)="openOrderDetails(order)">ORD{{order.id}}</a></td>
         <td>{{order.creatingDate | date:'dd/MM/yyyy'}}</td>
-        <td>
-          <button type="button" class="btn btn-primary" (click)="openOrderDetails(order)">ORD{{order.id}}</button>
-        </td>
         <td>
           <select class="status-select" size="1" [(ngModel)]="order.status" [ngModelOptions]="{standalone: true}">
             <option *ngFor="let status of statusList" [value]="status" [selected]="selected(order.status.id, status.id)">
-              {{order.status.title|translate}}
+              {{order.status.status|translate}}
             </option>
           </select>
         </td>
@@ -96,7 +85,7 @@
   </div>
 </div >
 
-<ng-template #orderModal>
+<ng-template #orderModal class="modal-lg">
    <div class="modal-header">
     <h3 class="modal-title ml-auto">ORD{{modalItem.id}}</h3>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="modalRef.hide()">
@@ -110,25 +99,23 @@
     <table class="table">
       <thead>
       <tr>
-        <th>{{'orders.item.code'|translate}}</th>
-        <th>{{'orders.item.title'|translate}}</th>
-        <th>{{'orders.item.quantity'|translate}}</th>
-        <th>{{'basket.price'|translate}}</th>
-        <th>{{'orders.item.sum'|translate}}</th>
+        <th>{{'ORDER.item.code'|translate}}</th>
+        <th>{{'ORDER.item.title'|translate}}</th>
+        <th>{{'ORDER.item.quantity'|translate}}</th>
+        <th>{{'ORDER.item.sum'|translate}}</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let orderItem of orderDetailsList">
         <td class="m-auto">{{orderItem.code}}</td>
         <td class="m-auto">{{orderItem.product.name}}</td>
-        <td class="m-auto">{{orderItem.quantity}}</td>
-        <td class="m-auto">{{orderItem.price}}</td>
-        <td class="m-auto">{{orderItem.quantity * orderItem.price}}</td>
+        <td class="m-auto">{{getPriceByLang(orderItem.quantity).toFixed(2)}}</td>
+        <td class="m-auto">{{getPriceByLang(orderItem.total).toFixed(2)}}</td>
       </tr>
       <tr>
-        <td colspan="3"></td>
-        <td class="float-right">{{'basket.total'|translate}}</td>
-        <td class="font-weight-bold">{{totalSum(orderDetailsList)}}{{'viewer.currency'|translate}}</td>
+        <td colspan="2"></td>
+        <td class="float-right">{{'BASKET.total'|translate}}</td>
+        <td class="font-weight-bold">{{getPriceByLang(getSum(orderDetailsList)).toFixed(2)}}{{'CURRENCY'|translate}}</td>
       </tr>
       </tbody>
     </table>

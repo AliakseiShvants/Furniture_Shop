@@ -112,7 +112,7 @@ public class ManagerController {
         if (userService.isUserExists(managerId)){
             if (orderService.isOrderExists(orderDTO.getId())){
                 Order updateOrder = orderService.getOrderById(orderDTO.getId());
-                Status status = statusService.getStatus(orderDTO.getStatus());
+                Status status = statusService.findById(orderDTO.getStatus().getId());
                 updateOrder.setStatus(status);
 
                 String date = orderDTO.getCompletionDate().split("[ T]")[0];

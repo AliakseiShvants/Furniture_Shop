@@ -89,7 +89,8 @@ export class BasketComponent implements OnInit {
       this.router.navigate(['/profile', 'addRequisite']);
     }
     else {
-      this.customerService.makeOrder(this.app.user.id, this.basketList)
+      let idList = this.basketList.map(item => item.id);
+      this.customerService.makeOrder(this.app.user.id, idList)
         .subscribe(
           (res: Uiresponse) => {
             this.isOrderFormed = res.success;

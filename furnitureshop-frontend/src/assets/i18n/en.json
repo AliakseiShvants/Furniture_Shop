@@ -5,7 +5,9 @@
   "dresser": "Dresser",
   "table": "Table",
 
+  "IN_PROCESSING": "IN PROCESSING",
   "ACCEPT": "ACCEPT",
+  "SENT": "SENT",
 
   "ALERT":{
     "length": "Invalid field length",
@@ -67,8 +69,6 @@
     "ru": "РУС"
   },
 
-  "IN_PROCESSING": "IN PROCESSING",
-
   "LOGIN":{
     "title": "Authorization",
     "login": "Login",
@@ -109,17 +109,18 @@
   },
 
   "ORDER":{
-    "title": "ORDERS",
     "date": "Creating date",
-    "number": "Order number",
+    "date.start": "Accept date",
+    "date.finish": "Sent date",
+    "empty": "No orders",
     "manager": "Manager",
-    "status": "Status",
-    "data.start": "Accept",
-    "data.finish": "Sent",
+    "order": "Order",
     "item.code": "Code",
     "item.title": "Product name",
     "item.quantity": "Quantity",
-    "item.sum": "Sum"
+    "item.sum": "Sum",
+    "status": "Status",
+    "title": "ORDERS"
   },
 
   "PROFILE":{
@@ -179,8 +180,6 @@
   "ROLE_ADMIN": "admin",
   "ROLE_MANAGER": "manager",
   "ROLE_USER": "client",
-
-  "SENT": "SENT",
 
   "VIEWER":{
     "code": "Code: ",

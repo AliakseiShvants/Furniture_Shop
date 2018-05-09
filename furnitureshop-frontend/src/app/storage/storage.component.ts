@@ -7,6 +7,7 @@ import {ManagerService} from '../../service/manager.service';
 import {BsModalService} from 'ngx-bootstrap';
 import {Storage} from '../../domain/shop/storage';
 import {Uiresponse} from '../../domain/uiresponse';
+import {AppComponent} from '../app.component';
 
 @Component({
   selector: 'app-storage',
@@ -24,12 +25,13 @@ export class StorageComponent implements OnInit {
               private managerService: ManagerService,
               private productService: ProductService,
               private modalService: BsModalService,
+              private app: AppComponent,
               private cd: ChangeDetectorRef) {
 
   }
 
   ngOnInit() {
-    this.user = this.customerService.getUser();
+    this.user = this.app.user;
     this.userId = this.route.snapshot.params['id'];
     this.loadStorage(this.userId);
   }

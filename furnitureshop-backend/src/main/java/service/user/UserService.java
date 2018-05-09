@@ -34,15 +34,24 @@ public interface UserService {
     User addUser(User newUser);
 
     /**
-     *
-     * @param user
-     * @return
+     * A method that updates a {@link User} entity
+     * @param user {@link User} entity with updated fields
+     * @return new {@link User} entity
      */
     User updateUser(User user);
 
+    /**
+     * A method that checks if a {@link User} entity exists in the database.
+     * @param id field of {@link User} entity
+     * @return true if {@link User} entity is deleted
+     */
     Boolean isUserExists(Long id);
 
-    void deleteCustomerById(Long id);
+    /**
+     * A method that deletes a {@link User} entity by it id field.
+     * @param id field of {@link User} entity
+     */
+    void deleteUserById(Long id);
 
     User getCustomerByLoginAndPassword(String login, String password);
 

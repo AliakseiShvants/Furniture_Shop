@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 import javax.persistence.*;
 import java.time.LocalDate;
 
+import static javax.persistence.CascadeType.ALL;
+
 /**
  * A object that represents a user in the shop.
  */
@@ -45,7 +47,7 @@ public class User {
     @JoinColumn(name = "ROLE_ID", nullable = false, updatable = false)
     private Role role;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = ALL)
     @JoinColumn(name = "REQUISITE_ID")
     private Requisite requisite;
 

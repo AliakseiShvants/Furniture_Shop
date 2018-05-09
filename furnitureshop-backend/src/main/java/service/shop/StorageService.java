@@ -40,4 +40,8 @@ public class StorageService {
         Storage storage = new Storage(product, manager);
         return storageRepo.save(storage);
     }
+
+    public Double findPriceByProductId(Long id) {
+        return storageRepo.findPriceByProduct_Id(id);
+    }
 }

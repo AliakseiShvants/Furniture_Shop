@@ -14,6 +14,8 @@
   "St.Petersburg": "С.Петербург",
 
   "ACCEPT": "Принято",
+  "IN_PROCESSING": "В обработке",
+  "SENT": "Послано",
 
   "ALERT": {
     "length": "Недопустимая длина поля",
@@ -75,8 +77,6 @@
     "title": "12 СТУЛЬЕВ"
   },
 
-  "IN_PROCESSING": "В обработке",
-
   "LOGIN":{
     "help": "Логин должен быть не менее 4 символов",
     "login": "Логин",
@@ -109,17 +109,18 @@
   },
 
   "ORDER":{
-    "title": "ЗАКАЗЫ",
     "date": "Дата создания",
-    "number": "Номер заказа",
+    "date.start": "Принято",
+    "date.finish": "Выполнено",
+    "empty": "Нет заказов",
     "manager": "Менеджер",
-    "status": "Статус",
-    "data.start": "Принято",
-    "data.finish": "Выполнено",
+    "order": "Заказ",
     "item.code": "Код",
     "item.title": "Наименование товара",
     "item.quantity": "Количество",
-    "item.sum": "Сумма"
+    "item.sum": "Сумма",
+    "status": "Статус",
+    "title": "ЗАКАЗЫ"
   },
 
   "PROFILE":{
@@ -179,8 +180,6 @@
   "ROLE_ADMIN": "администратор",
   "ROLE_MANAGER": "менеджер",
   "ROLE_USER": "клиент",
-
-  "SENT": "Послано",
 
   "VIEWER":{
     "code": "Код: ",

@@ -28,12 +28,10 @@ export class MenuComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute,
               private app: AppComponent) {
-
     this.loadCategories();
   }
 
   ngOnInit(): void {
-    // this.loadCategories();
   }
 
   private loadCategories() {

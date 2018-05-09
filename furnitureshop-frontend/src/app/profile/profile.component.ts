@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {User} from '../../domain/user/user';
 import {Requisite} from '../../domain/shop/requisite';
 import {Uiresponse} from '../../domain/uiresponse';
@@ -108,8 +108,8 @@ export class ProfileComponent implements OnInit {
       .subscribe(
         (data: Uiresponse) => {
           this.isDeleted = data.success;
-          this.app.user = new User();
-          this.router.navigate(['']);
+          this.app.user = this.user = new User(0);
+          this.router.navigate(['/']);
         }
       );
   }

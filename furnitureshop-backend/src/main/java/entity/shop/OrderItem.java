@@ -31,13 +31,25 @@ public class OrderItem {
     @Column(name = "QUANTITY")
     private Integer quantity;
 
+    @Column(name = "TOTAL")
+    private Double total;
+
     public OrderItem() {
     }
 
-    public OrderItem(Order order, Product product, Integer quantity) {
+    public OrderItem(Order order, Product product, Integer quantity, Double total) {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
+        this.total = total;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public Long getId() {

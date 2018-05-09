@@ -27,4 +27,9 @@ public interface StorageRepo extends JpaRepository<Storage, Long> {
     List<Storage> findAllByCategory(@Param("category") String category);
 
     List<Storage> findAllByManager_Id(Long id);
+
+    @Query(value = "SELECT  s.price\n" +
+            "FROM furniture_shop.storage s\n" +
+            "WHERE s.product_id = :id", nativeQuery = true)
+    Double findPriceByProduct_Id(@Param("id") Long id);
 }

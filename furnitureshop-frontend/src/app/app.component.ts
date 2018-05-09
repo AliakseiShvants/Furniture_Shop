@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, SimpleChanges} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, Output, SimpleChanges} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {User} from '../domain/user/user';
 import {Role} from '../domain/user/role';
@@ -42,7 +42,8 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.user.role = new Role(0, 'ROLE_GUEST');
-    // this.loadUserBasket(this.user.id);
+    this.loadUserBasket(this.user.id);
+    // this.cd.detectChanges();
   }
 
   /**
@@ -55,6 +56,8 @@ export class AppComponent implements OnInit {
         () => this.getBasketByUserId(id)
       ));
       this.guestBasketList = new Array(0);
+    } else {
+      this.getBasketByUserId(id);
     }
   }
 

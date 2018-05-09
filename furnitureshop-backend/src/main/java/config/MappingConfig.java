@@ -32,7 +32,6 @@ public class MappingConfig {
 
     @Bean
     public BeanMappingBuilder beanMappingBuilder() {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         return new BeanMappingBuilder() {
             @Override
             protected void configure() {
@@ -41,7 +40,6 @@ public class MappingConfig {
                 mapping(Requisite.class, RequisiteDTO.class);
                 mapping(Order.class, OrderDTO.class)
                         .fields("manager.fullName", "manager");
-//                        .fields("status.status", "status");
                 mapping(OrderItem.class, OrderItemDTO.class);
                 mapping(Manufacturer.class, ManufacturerDTO.class);
                 mapping(Product.class, ProductDTO.class);

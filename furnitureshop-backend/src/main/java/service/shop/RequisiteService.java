@@ -28,4 +28,8 @@ public class RequisiteService {
     public boolean isRequisiteExist(Long id) {
         return requisiteRepo.existsById(id);
     }
+
+    public void deleteById(Long id) {
+        requisiteRepo.deleteById(id);
+    }
 }

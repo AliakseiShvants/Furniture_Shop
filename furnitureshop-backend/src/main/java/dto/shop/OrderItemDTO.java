@@ -10,7 +10,7 @@ public class OrderItemDTO {
     private ProductDTO product;
     private String code;
     private Integer quantity;
-    private Double price;
+    private Double total;
 
     public OrderItemDTO() {
     }
@@ -23,12 +23,12 @@ public class OrderItemDTO {
         this.code = code;
     }
 
-    public Double getPrice() {
-        return price;
+    public Double getTotal() {
+        return total;
     }
 
-    public void setPrice(Double price) {
-        this.price = price;
+    public void setTotal(Double total) {
+        this.total = total;
     }
 
     public ProductDTO getProduct() {

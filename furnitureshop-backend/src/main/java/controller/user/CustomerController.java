@@ -92,6 +92,24 @@ public class CustomerController {
     }
 
     /**
+     * A method that deletes a {@link User} entity by it id
+     * @param id field of {@link User} entity
+     * @return true if a {@link User} entity is deleted successfully
+     */
+    @DeleteMapping("{id}/delete")
+    public UIResponse<Void> deleteUser(@PathVariable Long id){
+        if (userService.isUserExists(id)){
+            userService.deleteUserById(id);
+            return new UIResponse<>(true);
+        }
+        return new UIResponse<>(new UserNotFoundException());
+    }
+
+    /**
+     * REQUISITE
+     */
+
+    /**
      * A method that returns the user's requisite.
      * @param id user id
      * @return user requisite
@@ -150,20 +168,6 @@ public class CustomerController {
     }
 
     /**
-     * A method that deletes a user
-     * @param id user id
-     * @return http status
-     */
-    @DeleteMapping("{id}/delete")
-    public UIResponse<Void> deleteUser(@PathVariable Long id){
-        if (userService.isUserExists(id)){
-            userService.deleteCustomerById(id);
-            return new UIResponse<>(true);
-        }
-        return new UIResponse<>(new UserNotFoundException());
-    }
-
-    /**
      * ORDERS METHODS
      */
 
@@ -200,7 +204,6 @@ public class CustomerController {
 
                 for (OrderItemDTO orderItemDTO : detailsList){
                     Storage storage = storageService.getStorageItemByProductId(orderItemDTO.getProduct().getId());
-                    orderItemDTO.setPrice(storage.getPrice());
                     orderItemDTO.setCode(storage.getCode());
                 }
                 return new UIResponse<>(true, detailsList);
@@ -262,35 +265,24 @@ public class CustomerController {
     }
 
     @PostMapping("{customerId}/basket/book")
-    public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<BasketDTO> basketItemsDtos){
-        if (userService.isUserExists(customerId)){
-            List<Basket> basketList = basketItemsDtos.stream()
-                    .map(basketItemDTO -> mapper.map(basketItemDTO, Basket.class))
-                    .collect(Collectors.toList());
+    public UIResponse<Void> makeOrder(@PathVariable Long customerId, @RequestBody List<Long> idList){
+        List<Basket> basketList = new ArrayList<>();
+        idList.forEach(item -> basketList.add(basketService.findById(item)));
 
-            if (basketList != null){
-                User customer = userService.findUserById(customerId);
-                User manager = userService.getFreeManager();
-                Status status = statusService.getStatus("IN_PROCESSING");
-                Order newOrder = orderService.addOrder(new Order(customer, manager, LocalDateTime.now(), status));
+        User customer = userService.findUserById(customerId);
+        User manager = userService.getFreeManager();
+        Status status = statusService.findById(1L);
+        Order newOrder = orderService.addOrder(new Order(customer, manager, LocalDateTime.now(), status));
 
-                List<OrderItem> orderItems = new ArrayList<>();
-                basketList.forEach(basketItem -> orderItems.add(
-                        orderItemService.addItem(
-                                new OrderItem(
-                                        newOrder,
-                                        basketItem.getProduct(),
-                                        basketItem.getQuantity()
-                                )
-                        )
-                ));
-
-                basketService.deleteItemsByCustomerId(customerId);
-                return new UIResponse<>(true);
-            }
-            return new UIResponse<>(new NoBasketItemsException());
+        for(Basket basket : basketList){
+            Double price = storageService.findPriceByProductId(basket.getProduct().getId());
+            OrderItem orderItem = new OrderItem(newOrder, basket.getProduct(), basket.getQuantity(),
+                    price * basket.getQuantity());
+            orderItemService.addItem(orderItem);
         }
-        return new UIResponse<>(new UserExistsException());
+
+        basketService.deleteItemsByCustomerId(customerId);
+        return new UIResponse<>(true);
     }
 
 }

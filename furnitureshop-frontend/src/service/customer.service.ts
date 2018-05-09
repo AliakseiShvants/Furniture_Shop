@@ -48,6 +48,11 @@ export class CustomerService {
     return this.httpClient.patch(this.base + customerId + this.requisite + this.update, requisite);
   }
 
+  /**
+   * A method that deletes {@link User} entity by it id fields.
+   * @param {number} customerId
+   * @returns {Observable<Object>}
+   */
   deleteCustomer(customerId: number) {
     return this.httpClient.delete(this.base + customerId + this.delete);
   }
@@ -78,7 +83,7 @@ export class CustomerService {
     return this.httpClient.get(this.base + customerId + this.order + orderId);
   }
 
-  makeOrder(customerId: number, basketItems: Basket[]){
-    return this.httpClient.post(this.base + customerId + this.basket + this.book, basketItems);
+  makeOrder(customerId: number, basketItemsId: number[]){
+    return this.httpClient.post(this.base + customerId + this.basket + this.book, basketItemsId);
   }
 }

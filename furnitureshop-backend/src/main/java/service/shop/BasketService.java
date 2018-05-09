@@ -32,4 +32,8 @@ public class BasketService {
     public void deleteBasketItemByIds(Long customerId, Long productId){
         basketRepo.deleteBasketItemByCustomer_IdAndProduct_Id(customerId, productId);
     }
+
+    public Basket findById(Long id) {
+        return basketRepo.findById(id).get();
+    }
 }

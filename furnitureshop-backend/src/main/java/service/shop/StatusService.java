@@ -13,8 +13,8 @@ public class StatusService {
     @Autowired
     private StatusRepo statusRepo;
 
-    public Status getStatus(String status){
-        return statusRepo.findByStatus(status);
+    public Status findById(Long id){
+        return statusRepo.findById(id).get();
     }
 
     public List<Status> getAll() {

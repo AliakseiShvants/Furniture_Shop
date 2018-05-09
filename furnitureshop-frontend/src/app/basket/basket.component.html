@@ -3,14 +3,9 @@
     <div class="table-title">
       <div class="row">
         <div class="col-6">
-          <h2 class="float-right">{{'BASKET.title'|translate}}</h2>
+          <h2 *ngIf="!isBasketEmpty()" class="float-right">{{'BASKET.title'|translate}}</h2>
+          <h2 *ngIf="isBasketEmpty()" class="float-right">{{'BASKET.empty'|translate}}</h2>
         </div>
-      </div>
-    </div>
-
-    <div class="row mx-4 my-4" *ngIf="isBasketEmpty()">
-      <div class="col-3 m-auto">
-        <h4>{{'BASKET.empty'|translate}}</h4>
       </div>
     </div>
 

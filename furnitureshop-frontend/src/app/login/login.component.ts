@@ -17,7 +17,6 @@ import {Role} from '../../domain/user/role';
 })
 export class LoginComponent implements OnInit {
 
-  user = new User();
   login: string;
   password: string;
   isNotExist = false;
@@ -36,7 +35,6 @@ export class LoginComponent implements OnInit {
               private app: AppComponent) { }
 
   ngOnInit() {
-    this.user.role = new Role(0, "ROLE_GUEST");
     this.openModal();
   }
 
@@ -68,7 +66,7 @@ export class LoginComponent implements OnInit {
               } else {
                 this.router.navigate(['/']);
               }
-            }, 2000);
+            }, 1500);
           }
         }
       );

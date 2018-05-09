@@ -1,9 +1,11 @@
 package dto.shop;
 
+import entity.shop.Status;
+
 public class OrderDTO {
     private Long id;
     private String manager;
-    private String status;
+    private Status status;
     private String creatingDate;
     private String completionDate;
     private Double total;
@@ -19,11 +21,11 @@ public class OrderDTO {
         this.total = total;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

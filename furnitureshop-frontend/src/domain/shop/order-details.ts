@@ -5,5 +5,5 @@ export class OrderDetails {
   code: string;
   product: Product;
   quantity: number;
-  price: number;
+  total: number;
 }

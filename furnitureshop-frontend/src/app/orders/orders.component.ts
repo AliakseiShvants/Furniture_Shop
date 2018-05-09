@@ -9,8 +9,8 @@ import {OrderDetails} from '../../domain/shop/order-details';
 import {ManagerService} from '../../service/manager.service';
 import {AppComponent} from '../app.component';
 import {Status} from '../../domain/shop/status';
-import {Role} from '../../domain/user/role';
 import {UtilService} from '../../service/util.service';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-orders',
@@ -20,21 +20,15 @@ import {UtilService} from '../../service/util.service';
 export class OrdersComponent implements OnInit {
 
   private user = new User();
-  private userId: number;
   private MANAGER = 'ROLE_MANAGER';
   private CUSTOMER = 'ROLE_USER';
 
-  public isDeleted = false;
-  public orderList: Order[];
-  public modalItem: Order;
-  public orderDetailsList: OrderDetails[];
-  public statusList: Status[];
-  roleList: Role[];
-  public modalRef: BsModalRef;
-
-  public IN_PROC = 'IN_PROCESSING';
-  public ACCEPT = 'ACCEPT';
-  public SENT = 'SENT';
+  isDeleted = false;
+  orderList: Order[] = new Array(0);
+  modalItem: Order;
+  orderDetailsList: OrderDetails[];
+  statusList: Status[];
+  modalRef: BsModalRef;
 
   @ViewChild('orderModal')
   private orderTemplate: TemplateRef<any>;
@@ -42,27 +36,16 @@ export class OrdersComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private customerService: CustomerService,
               private app: AppComponent,
+              private translate: TranslateService,
               private managerService: ManagerService,
               private modalService: BsModalService,
               private utilService: UtilService,
               private cd: ChangeDetectorRef) {
-
-    // setInterval(() => {
-    //   this.loadOrders(this.user.role);
-    //   this.cd.detectChanges();
-    // }, 1000);
   }
 
   ngOnInit() {
     this.user = this.app.user;
-    this.userId = this.route.snapshot.params['id'];
-    this.loadRoles();
-    this.loadStatus();
     this.loadOrders(this.user.role.title);
-  }
-
-  private loadRoles() {
-
   }
 
   private loadStatus() {
@@ -75,9 +58,10 @@ export class OrdersComponent implements OnInit {
 
   private loadOrders(role: string) {
     if (role === this.MANAGER){
-      this.getAllManagerOrders(this.userId);
+      this.loadStatus();
+      this.getAllManagerOrders(this.user.id);
     } else {
-      this.getAllCustomerOrders(this.userId);
+      this.getAllCustomerOrders(this.user.id);
     }
   }
 
@@ -96,7 +80,7 @@ export class OrdersComponent implements OnInit {
   }
 
   private getOrderInfo(orderId: number) {
-    this.customerService.getOrderInfo(this.userId, orderId).subscribe(
+    this.customerService.getOrderInfo(this.user.id, orderId).subscribe(
       (res: Uiresponse) => {
         this.orderDetailsList = res.body;
       }
@@ -112,7 +96,7 @@ export class OrdersComponent implements OnInit {
   }
 
   delete(orderId: number){
-    this.managerService.deleteOrder(this.userId, orderId).subscribe(
+    this.managerService.deleteOrder(this.user.id, orderId).subscribe(
       (res: Uiresponse) => {
         this.isDeleted = res.success;
         if (this.isDeleted){
@@ -124,7 +108,7 @@ export class OrdersComponent implements OnInit {
   }
 
   update(order: Order){
-    return this.managerService.updateOrder(this.userId, order)
+    return this.managerService.updateOrder(this.user.id, order)
       .subscribe(
         (res: Uiresponse) => {
           if (res.success){
@@ -135,12 +119,21 @@ export class OrdersComponent implements OnInit {
       );
   }
 
-  totalSum(itemList: OrderDetails[]){
+  getSum(itemList: OrderDetails[]){
     let sum = 0;
     for(const item of itemList){
-      sum = sum + item.quantity * item.price;
+      sum = sum + item.total;
     }
     return sum;
+  }
+
+  /**
+   * A method that returns a price value according current currency
+   * @param {number} price
+   * @returns {number | string}
+   */
+  getPriceByLang(price: number): number{
+    return this.translate.currentLang === this.app.RU ? price : (price / this.app.COURSE);
   }
 
   isManager(): boolean {
@@ -165,4 +158,9 @@ export class OrdersComponent implements OnInit {
     return false;
   }
 
+  getFinishDate(item: Order, statusId: number){
+    if (item.status.id === statusId){
+      return item.completionDate;
+    }
+  }
 }
