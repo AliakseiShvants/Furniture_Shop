@@ -22,8 +22,8 @@ export class StorageService {
    * @param {string} category title field of {@link Category} entity
    * @returns {Observable<Object>}
    */
-  getStorageListByProductCategory(category: string){
-    return this.http.get(this.base + this.product + category);
+  getStorageListByProductCategory(category: string, lang: string){
+    return this.http.get(this.base + this.product + category + '/' + lang);
   }
 
   /**

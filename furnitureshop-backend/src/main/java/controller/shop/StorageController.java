@@ -55,13 +55,28 @@ public class StorageController {
     @Autowired
     private ManufacturerTranslateService manufacturerTranslateService;
 
+    private void makeLocalStorageList(Language language, List<StorageDTO> storageDTOList) {
+        if (language.getId() > 1){
+            storageDTOList.forEach(item -> {
+                ManufacturerTranslate manufacturerTranslate = manufacturerTranslateService
+                        .findByManufacturerId(item.getProduct().getManufacturer().getId());
+                ProductTranslate productTranslate = productTranslateService.findByProductId(item.getProduct().getId());
+                item.getProduct().setName(productTranslate.getName());
+                item.getProduct().setDescription(productTranslate.getDescription());
+                item.getProduct().getManufacturer().setTitle(manufacturerTranslate.getTitle());
+            });
+        }
+    }
+
     /**
      * A method that returns a list of {@link StorageDTO} entities by product category.
      * @param category a title field of {@link Category} entity
      * @return a list of {@link StorageDTO} entities
      */
-    @GetMapping("product/{category}")
-    public UIResponse<List<StorageDTO>> getProductsByCategory(@PathVariable String category){
+    @GetMapping("product/{category}/{lang}")
+    public UIResponse<List<StorageDTO>> getProductsByCategory(@PathVariable String category,
+                                                              @PathVariable String lang){
+        Language language = languageService.findByName(lang);
         List<Product> products = productService.findProductsByCategory(category);
         if (products != null){
             List<StorageDTO> storageDTOList = storageService.findStorageListByCategory(category).stream()
@@ -72,6 +87,7 @@ public class StorageController {
                     imageService.getProductImageUrl(item.getProduct().getId())
                     )
             );
+            makeLocalStorageList(language, storageDTOList);
             return new UIResponse<>(true, storageDTOList);
         }
         return new UIResponse<>(new ProductExistsException());
@@ -103,16 +119,7 @@ public class StorageController {
                 imageService.getProductImageUrl(item.getProduct().getId())
                 )
         );
-        if (language.getId() > 1){
-            storageDTOList.forEach(item -> {
-                ManufacturerTranslate manufacturerTranslate = manufacturerTranslateService
-                        .findByManufacturerId(item.getProduct().getManufacturer().getId());
-                ProductTranslate productTranslate = productTranslateService.findByProductId(item.getProduct().getId());
-                item.getProduct().setName(productTranslate.getName());
-                item.getProduct().setDescription(productTranslate.getDescription());
-                item.getProduct().getManufacturer().setTitle(manufacturerTranslate.getTitle());
-            });
-        }
+        makeLocalStorageList(language, storageDTOList);
         return new UIResponse<>(true, storageDTOList);
     }
 }

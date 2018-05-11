@@ -49,15 +49,21 @@ export class ViewerComponent implements  OnInit {
           this.router.navigated = false;
         }
       }
+    );
+
+    storageService.updateCheapList.subscribe(
+      (lang: string) => {
+        this.getStorageList(lang);
+      }
     )
   }
 
   ngOnInit() {
-    this.getStorageList();
+    this.getStorageList(this.app.lang);
   }
 
-  private getStorageList() {
-    this.storageService.getStorageListByProductCategory(this.categoryTitle)
+  private getStorageList(lang: string) {
+    this.storageService.getStorageListByProductCategory(this.categoryTitle, lang)
       .subscribe(
         (res: Uiresponse) => {
           this.storageList = res.body;
