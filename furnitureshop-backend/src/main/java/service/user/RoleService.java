@@ -15,7 +15,7 @@ public interface RoleService {
 
     /**
      * A method that returns a {@link Role} entity with title equals @param.
-     * @param title a title field of {@link Role} entity
+     * @param title field of {@link Role} entity
      * @return a {@link Role} entity
      */
     Role findRoleByTitle(String title);
@@ -28,7 +28,7 @@ public interface RoleService {
 
     /**
      * A method that returns a {@link Role} entity with title equals @param.
-     * @param id a id field of {@link Role} entity
+     * @param id field of {@link Role} entity
      * @return a {@link Role} entity
      */
     Role getRoleById(Long id);

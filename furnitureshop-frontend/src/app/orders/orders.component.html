@@ -109,13 +109,13 @@
       <tr *ngFor="let orderItem of orderDetailsList">
         <td class="m-auto">{{orderItem.code}}</td>
         <td class="m-auto">{{orderItem.product.name}}</td>
-        <td class="m-auto">{{getPriceByLang(orderItem.quantity).toFixed(2)}}</td>
-        <td class="m-auto">{{getPriceByLang(orderItem.total).toFixed(2)}}</td>
+        <td class="m-auto">{{orderItem.quantity}}</td>
+        <td class="m-auto">{{getPrice(orderItem.total).toFixed(2)}}</td>
       </tr>
       <tr>
         <td colspan="2"></td>
         <td class="float-right">{{'BASKET.total'|translate}}</td>
-        <td class="font-weight-bold">{{getPriceByLang(getSum(orderDetailsList)).toFixed(2)}}{{'CURRENCY'|translate}}</td>
+        <td class="font-weight-bold">{{getPrice(getSum(orderDetailsList)).toFixed(2)}}{{'CURRENCY'|translate}}</td>
       </tr>
       </tbody>
     </table>

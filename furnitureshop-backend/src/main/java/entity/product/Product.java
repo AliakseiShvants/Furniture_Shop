@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * A object that represents a product in the shop
+ * A simple JavaBean object that represents a {@link Product} entity.
  */
 @Component
 @Scope("prototype")

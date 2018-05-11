@@ -6,6 +6,7 @@ import {Uiresponse} from '../../domain/uiresponse';
 import {Category} from '../../domain/product/category';
 import {ProductService} from '../../service/product.service';
 import {AppComponent} from '../app.component';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-menu',

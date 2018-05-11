@@ -118,7 +118,15 @@ export class ViewerComponent implements  OnInit {
    * A method that returns a price value according current currency
    * @param {number} price
    * @returns {number | string}
-   */getPrice(price: number){
-    return this.translate.currentLang === this.app.RU ? price : (price / this.app.COURSE).toFixed(2);
+   */
+  getPrice(price: number){
+    switch (this.translate.currentLang){
+      case this.app.RU: {
+        return price;
+      }
+      case this.app.EN: {
+        return (price / this.app.COURSE);
+      }
+    }
   }
 }

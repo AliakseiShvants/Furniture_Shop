@@ -9,6 +9,8 @@ export class HeaderComponent implements OnInit {
 
   @Output()
   langChanged = new EventEmitter<string>();
+  EN = 'en';
+  RU = 'ru';
 
   constructor() { }
 

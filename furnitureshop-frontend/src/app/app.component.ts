@@ -8,6 +8,8 @@ import {CustomerService} from '../service/customer.service';
 import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
 import {Basket} from '../domain/shop/basket';
+import {StorageService} from '../service/storage.service';
+import {GoodPriceComponent} from './good-price/good-price.component';
 
 @Component({
   selector: 'app-root',
@@ -22,14 +24,15 @@ export class AppComponent implements OnInit {
   user = new User(0);
   basketList: Basket[] = new Array(0);
   guestBasketList: Basket[] = new Array(0);
-
-  private subscription: Subscription;
+  lang: string;
 
   constructor(private customerService: CustomerService,
+              private storageService: StorageService,
               private cd: ChangeDetectorRef,
               private translate: TranslateService) {
 
-    translate.setDefaultLang(this.EN);
+    translate.currentLang = this.RU;
+    this.lang = this.RU;
   }
 
   /**
@@ -38,12 +41,13 @@ export class AppComponent implements OnInit {
    */
   switchLang(lang: string) {
     this.translate.use(lang);
+    this.storageService.updateCheapList.emit(lang);
   }
 
   ngOnInit() {
+    this.translate.setDefaultLang(this.RU);
     this.user.role = new Role(0, 'ROLE_GUEST');
     this.loadUserBasket(this.user.id);
-    // this.cd.detectChanges();
   }
 
   /**

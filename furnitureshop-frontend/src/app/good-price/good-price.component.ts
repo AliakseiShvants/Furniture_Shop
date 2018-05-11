@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {Storage} from '../../domain/shop/storage';
 import {AppComponent} from '../app.component';
 import {UtilService} from '../../service/util.service';
@@ -7,6 +7,8 @@ import {CustomerService} from '../../service/customer.service';
 import {StorageService} from '../../service/storage.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Basket} from '../../domain/shop/basket';
+import {ActivatedRoute, NavigationEnd} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-good-price',
@@ -21,17 +23,25 @@ export class GoodPriceComponent implements OnInit {
   constructor(private app: AppComponent,
               private translate: TranslateService,
               private storageService: StorageService,
-              private customerService: CustomerService) { }
+              private customerService: CustomerService,
+              private cd: ChangeDetectorRef) {
+
+    storageService.updateCheapList.subscribe(
+      (lang: string) => {
+        this.getCheapProductList(lang);
+      }
+    )
+  }
 
   ngOnInit() {
-    this.getCheapProductList();
+    this.getCheapProductList(this.app.lang);
   }
 
   /**
    * Gets a {@link Product} list with four the cheapest {@link Product} items of each {@link Category}
    */
-  private getCheapProductList() {
-    this.storageService.getCheapProductList()
+  getCheapProductList(lang: string) {
+    this.storageService.getCheapProductList(lang)
       .subscribe(
         (res: Uiresponse) => {
           this.cheapStorageList = res.body;
@@ -99,6 +109,13 @@ export class GoodPriceComponent implements OnInit {
    * @returns {number | string}
    */
   getPrice(price: number){
-    return this.translate.currentLang === this.app.RU ? price : (price / this.app.COURSE).toFixed(2);
+    switch (this.translate.currentLang){
+      case this.app.RU: {
+        return price;
+      }
+      case this.app.EN: {
+        return (price / this.app.COURSE);
+      }
+    }
   }
 }

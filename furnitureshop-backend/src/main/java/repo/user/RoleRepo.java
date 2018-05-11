@@ -6,12 +6,10 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * <p>Access interface to {@link Role} entity in database
+ * Access interface to {@link Role} entity in database.
  */
 @Repository
-@Transactional
 public interface RoleRepo extends JpaRepository<Role, Long> {
 
     Role findRoleByTitle(String title);
-
 }

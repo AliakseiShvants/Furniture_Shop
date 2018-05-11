@@ -21,32 +21,32 @@
         </a>
       </li>
 
-      <li class="nav-item dropdown" [hidden]="!isAdmin()">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">
-          {{user?.fullName}}
-          <span class="fa fa-user"></span>
-        </a>
-        <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/customers">{{'NAV.admin.customers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/managers">{{'NAV.admin.managers'|translate}}</a>
-          <a class="dropdown-item" routerLink="/products">{{'NAV.admin.products'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'NAV.admin.orders'|translate}}</a>
-        </div>
-      </li>
+      <!--<li class="nav-item dropdown" [hidden]="!isAdmin()">-->
+        <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"-->
+           <!--aria-expanded="true">-->
+          <!--{{user?.fullName}}-->
+          <!--<span class="fa fa-user"></span>-->
+        <!--</a>-->
+        <!--<div class="dropdown-menu bg-light">-->
+          <!--<a class="dropdown-item" routerLink="/customers">{{'NAV.admin.customers'|translate}}</a>-->
+          <!--<a class="dropdown-item" routerLink="/managers">{{'NAV.admin.managers'|translate}}</a>-->
+          <!--<a class="dropdown-item" routerLink="/products">{{'NAV.admin.products'|translate}}</a>-->
+          <!--<a class="dropdown-item" routerLink="/orders">{{'NAV.admin.orders'|translate}}</a>-->
+        <!--</div>-->
+      <!--</li>-->
 
-      <li class="nav-item dropdown" [hidden]="!isManager()">
-        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-           aria-expanded="true">
-          {{user?.fullName}}
-          <span class="fa fa-user"></span>
-        </a>
-        <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'NAV.customer.profile'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'NAV.manager.orders'|translate}}</a>
-          <a class="dropdown-item" [routerLink]="['/products', user.id]">{{'NAV.manager.products'|translate}}</a>
-        </div>
-      </li>
+      <!--<li class="nav-item dropdown" [hidden]="!isManager()">-->
+        <!--<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"-->
+           <!--aria-expanded="true">-->
+          <!--{{user?.fullName}}-->
+          <!--<span class="fa fa-user"></span>-->
+        <!--</a>-->
+        <!--<div class="dropdown-menu bg-light">-->
+          <!--<a class="dropdown-item" [routerLink]="['/profile', user.id]">{{'NAV.customer.profile'|translate}}</a>-->
+          <!--<a class="dropdown-item" [routerLink]="['/orders', user.id]">{{'NAV.manager.orders'|translate}}</a>-->
+          <!--<a class="dropdown-item" [routerLink]="['/products', user.id]">{{'NAV.manager.products'|translate}}</a>-->
+        <!--</div>-->
+      <!--</li>-->
 
       <li class="nav-item dropdown" [hidden]="!isCustomer()">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
