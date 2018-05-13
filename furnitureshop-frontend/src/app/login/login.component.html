@@ -10,15 +10,13 @@
       <form action="#" method="post" (submit)="submit()" [hidden]="isLogged">
 
         <div class="form-group">
-          <label for="logLogin" class="floatLabel">{{'LOGIN.login'|translate}}</label>
-          <input class="form-control" id="logLogin" name="login" type="text" [(ngModel)]="login"
-                 [ngModelOptions]="{standalone: true}">
+          <label for="login" class="floatLabel">{{'LOGIN.login'|translate}}</label>
+          <input class="form-control" id="login" type="text" name="login" [(ngModel)]="login">
         </div>
 
         <div class="form-group">
-          <label for="logPassword" class="floatLabel">{{'LOGIN.password'|translate}}</label>
-          <input class="form-control" id="logPassword" name="password" type="password" [(ngModel)]="password"
-                 [ngModelOptions]="{standalone: true}">
+          <label for="password" class="floatLabel">{{'LOGIN.password'|translate}}</label>
+          <input class="form-control" id="password" type="password" name="password" [(ngModel)]="password">
         </div>
 
         <div class="form-footer">

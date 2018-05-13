@@ -19,7 +19,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class OrdersComponent implements OnInit {
 
-  private user = new User();
+  // private user = new User();
   private MANAGER = 'ROLE_MANAGER';
   private CUSTOMER = 'ROLE_USER';
 
@@ -41,11 +41,17 @@ export class OrdersComponent implements OnInit {
               private modalService: BsModalService,
               private utilService: UtilService,
               private cd: ChangeDetectorRef) {
+
+    this.utilService.onLangChanged.subscribe(
+      (lang: string) => {
+        this.loadOrders(this.app.user.role.title, lang);
+      }
+    )
   }
 
   ngOnInit() {
-    this.user = this.app.user;
-    this.loadOrders(this.user.role.title);
+    // this.user = this.app.user;
+    this.loadOrders(this.app.user.role.title, this.app.lang);
   }
 
   private loadStatus() {
@@ -56,12 +62,12 @@ export class OrdersComponent implements OnInit {
     )
   }
 
-  private loadOrders(role: string) {
+  private loadOrders(role: string, lang: string) {
     if (role === this.MANAGER){
       this.loadStatus();
-      this.getAllManagerOrders(this.user.id);
+      this.getAllManagerOrders(this.app.user.id);
     } else {
-      this.getAllCustomerOrders(this.user.id);
+      this.getAllCustomerOrders(this.app.user.id, lang);
     }
   }
 
@@ -80,15 +86,15 @@ export class OrdersComponent implements OnInit {
   }
 
   private getOrderInfo(orderId: number) {
-    this.customerService.getOrderInfo(this.user.id, orderId).subscribe(
+    this.customerService.getOrderInfo(this.app.user.id, orderId).subscribe(
       (res: Uiresponse) => {
         this.orderDetailsList = res.body;
       }
     )
   }
 
-  private getAllCustomerOrders(userId: number) {
-    this.customerService.getAllCustomerOrders(userId).subscribe(
+  private getAllCustomerOrders(userId: number, lang: string) {
+    this.customerService.getAllCustomerOrders(userId, lang).subscribe(
       (res: Uiresponse) => {
         this.orderList = res.body;
       }
@@ -96,11 +102,11 @@ export class OrdersComponent implements OnInit {
   }
 
   delete(orderId: number){
-    this.managerService.deleteOrder(this.user.id, orderId).subscribe(
+    this.managerService.deleteOrder(this.app.user.id, orderId).subscribe(
       (res: Uiresponse) => {
         this.isDeleted = res.success;
         if (this.isDeleted){
-          this.loadOrders(this.user.role.title);
+          this.loadOrders(this.app.user.role.title, this.app.lang);
           this.cd.detectChanges();
         }
       }
@@ -108,11 +114,11 @@ export class OrdersComponent implements OnInit {
   }
 
   update(order: Order){
-    return this.managerService.updateOrder(this.user.id, order)
+    return this.managerService.updateOrder(this.app.user.id, order)
       .subscribe(
         (res: Uiresponse) => {
           if (res.success){
-            this.loadOrders(this.user.role.title);
+            this.loadOrders(this.app.user.role.title, this.app.lang);
             this.cd.detectChanges();
           }
         }
@@ -144,11 +150,11 @@ export class OrdersComponent implements OnInit {
   }
 
   isManager(): boolean {
-    return this.user.role.title === this.MANAGER;
+    return this.app.user.role.title === this.MANAGER;
   }
 
   isCustomer(): boolean {
-    return this.user.role.title === this.CUSTOMER;
+    return this.app.user.role.title === this.CUSTOMER;
   }
 
   selected(first: number, second: number){

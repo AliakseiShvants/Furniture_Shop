@@ -13,8 +13,6 @@ export class StorageService {
 
   private cheapList = 'cheapList/';
 
-  updateCheapList = new EventEmitter<string>();
-
   constructor(private http: HttpClient) { }
 
   /**

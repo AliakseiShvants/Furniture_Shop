@@ -1,21 +1,11 @@
 package entity.user;
 
 public class AuthorizationData {
-    private Long id;
     private String fullName;
     private String login;
     private String password;
-    private String email;
 
     public AuthorizationData() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getFullName() {
@@ -42,11 +32,4 @@ public class AuthorizationData {
         this.password = password;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

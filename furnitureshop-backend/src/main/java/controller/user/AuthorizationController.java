@@ -60,8 +60,7 @@ public class AuthorizationController {
         User newUser;
         if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
             Role role = roleService.findRoleByTitle("ROLE_USER");
-            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(),
-                    data.getEmail(), role);
+            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(), role);
             newUser = userService.addUser(newUser);
             return new UIResponse<>(true, mapper.map(newUser, UserDTO.class));
         }

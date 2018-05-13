@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable()
@@ -8,6 +8,10 @@ export class UtilService {
   private role = 'role/';
   private status = 'status/';
   private product = 'product/';
+
+  onLangChanged = new EventEmitter<string>();
+
+
 
   private all = 'all';
 

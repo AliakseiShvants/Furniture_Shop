@@ -101,8 +101,7 @@ public class AdminController {
         User newUser;
         if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
             Role role = roleService.findRoleByTitle("ROLE_USER");
-            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(),
-                    data.getEmail(), role);
+            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(), role);
             userService.addUser(newUser);
             return new UIResponse<>(true);
         }
@@ -129,8 +128,7 @@ public class AdminController {
     @PostMapping("manager/add")
     public UIResponse<UserDTO> addManager(@RequestBody UserDTO managerDTO){
         Role role = roleService.findRoleByTitle("ROLE_MANAGER");
-        User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getPassword(),
-                managerDTO.getEmail(), role);
+        User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getPassword(), role);
         manager = userService.addUser(manager);
         return new UIResponse<>(true, mapper.map(manager, UserDTO.class));
     }

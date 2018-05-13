@@ -58,7 +58,7 @@ export class CustomerComponent implements OnInit {
   }
 
   addNewCustomer() {
-    this.adminService.addNewCustomer(new AuthorizationData(this.fullName, this.login, this.password, this.email))
+    this.adminService.addNewCustomer(new AuthorizationData(this.fullName, this.login, this.password))
       .subscribe(
         (data: Uiresponse) => {
           this.success = data.success;

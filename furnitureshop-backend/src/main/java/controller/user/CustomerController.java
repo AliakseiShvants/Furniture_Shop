@@ -1,7 +1,10 @@
 package controller.user;
 
+import entity.Language;
 import entity.UIResponse;
+import entity.product.ManufacturerTranslate;
 import entity.product.Product;
+import entity.product.ProductTranslate;
 import entity.shop.*;
 import entity.user.User;
 import dto.shop.BasketDTO;
@@ -9,11 +12,16 @@ import dto.shop.OrderDTO;
 import dto.shop.OrderItemDTO;
 import dto.shop.RequisiteDTO;
 import dto.user.UserDTO;
+import entity.user.UserTranslate;
 import exception.*;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import service.LanguageService;
+import service.product.ManufacturerTranslateService;
 import service.product.ProductService;
+import service.product.ProductTranslateService;
+import service.product.UserTranslateService;
 import service.shop.*;
 import service.user.UserService;
 
@@ -55,6 +63,18 @@ public class CustomerController {
 
     @Autowired
     private StatusService statusService;
+
+    @Autowired
+    private LanguageService languageService;
+
+    @Autowired
+    private ProductTranslateService productTranslateService;
+
+    @Autowired
+    private ManufacturerTranslateService manufacturerTranslateService;
+
+    @Autowired
+    private UserTranslateService userTranslateService;
 
     /**
      * PROFILE METHODS
@@ -176,15 +196,20 @@ public class CustomerController {
      * @param id a user id
      * @return list of orders
      */
-    @GetMapping("{id}/order/all")
-    public UIResponse<List<OrderDTO>> getAllUserOrders(@PathVariable Long id){
-        if (userService.isUserExists(id)){
-            List<OrderDTO> userOrdersDto = orderService.getCustomerOrders(id).stream()
-                    .map(order -> mapper.map(order, OrderDTO.class))
-                    .collect(Collectors.toList());
-            return new UIResponse<>(true, userOrdersDto);
+    @GetMapping("{id}/order/all/{lang}")
+    public UIResponse<List<OrderDTO>> getAllUserOrders(@PathVariable Long id, @PathVariable String lang){
+        List<OrderDTO> userOrdersDto = orderService.getCustomerOrders(id).stream()
+                .map(order -> mapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList());
+        Language language = languageService.findByName(lang);
+        if (language.getId() > 1){
+            userOrdersDto.forEach(item -> {
+                User manager = userService.findByFullName(item.getManager());
+                UserTranslate managerTranslate = userTranslateService.findByUserId(manager.getId());
+                item.setManager(managerTranslate.getFullName());
+            });
         }
-        return new UIResponse<>(new UserNotFoundException());
+        return new UIResponse<>(true, userOrdersDto);
     }
 
     /**

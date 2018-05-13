@@ -22,11 +22,12 @@ export class GoodPriceComponent implements OnInit {
 
   constructor(private app: AppComponent,
               private translate: TranslateService,
-              private storageService: StorageService,
+              private utilService: UtilService,
               private customerService: CustomerService,
+              private storageService: StorageService,
               private cd: ChangeDetectorRef) {
 
-    storageService.updateCheapList.subscribe(
+    this.utilService.onLangChanged.subscribe(
       (lang: string) => {
         this.getCheapProductList(lang);
       }

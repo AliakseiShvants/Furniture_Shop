@@ -17,8 +17,8 @@ import {Role} from '../../domain/user/role';
 })
 export class LoginComponent implements OnInit {
 
-  login: string;
-  password: string;
+  login = '';
+  password= '';
   isNotExist = false;
   isLogged = false;
 
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   private log_in() {
-    this.authService.login(new AuthorizationData(null, this.login, this.password, null))
+    this.authService.login(new AuthorizationData(null, this.login, this.password))
       .subscribe(
         (response: Uiresponse) => {
           this.isLogged = response.success;

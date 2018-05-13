@@ -54,11 +54,10 @@ public class User {
     public User() {
     }
 
-    public User(String fullName, String login, String password, String email, Role role) {
+    public User(String fullName, String login, String password, Role role) {
         this.fullName = fullName;
         this.login = login;
         this.password = password;
-        this.email = email;
         this.role = role;
     }
 

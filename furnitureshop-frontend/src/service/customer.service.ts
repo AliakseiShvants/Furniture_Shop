@@ -21,7 +21,7 @@ export class CustomerService {
   private delete = '/delete';
   private update = '/update';
   private add = '/add';
-  private all = 'all';
+  private all = 'all/';
   private book = 'book';
 
 
@@ -75,8 +75,8 @@ export class CustomerService {
     return this.httpClient.delete(this.base + customerId + this.basket + productId + this.delete);
   }
 
-  getAllCustomerOrders(customerId: number) {
-    return this.httpClient.get(this.base + customerId + this.order + this.all);
+  getAllCustomerOrders(customerId: number, lang: string) {
+    return this.httpClient.get(this.base + customerId + this.order + this.all + lang);
   }
 
   getOrderInfo(customerId: number, orderId: number){

@@ -53,6 +53,8 @@ public interface UserService {
      */
     void deleteUserById(Long id);
 
+    User findByFullName(String name);
+
     User getCustomerByLoginAndPassword(String login, String password);
 
     List<User> getAllCustomers();

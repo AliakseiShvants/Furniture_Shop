@@ -10,6 +10,7 @@ import {Subscription} from 'rxjs/Subscription';
 import {Basket} from '../domain/shop/basket';
 import {StorageService} from '../service/storage.service';
 import {GoodPriceComponent} from './good-price/good-price.component';
+import {UtilService} from '../service/util.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   lang: string;
 
   constructor(private customerService: CustomerService,
-              private storageService: StorageService,
+              private utilService: UtilService,
               private cd: ChangeDetectorRef,
               private translate: TranslateService) {
 
@@ -41,7 +42,7 @@ export class AppComponent implements OnInit {
    */
   switchLang(lang: string) {
     this.translate.use(lang);
-    this.storageService.updateCheapList.emit(lang);
+    this.utilService.onLangChanged.emit(lang);
   }
 
   ngOnInit() {
