@@ -11,6 +11,7 @@ import {AppComponent} from '../app.component';
 import {StorageService} from '../../service/storage.service';
 import {TranslateService} from '@ngx-translate/core';
 import {Basket} from '../../domain/shop/basket';
+import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-viewer',
@@ -32,6 +33,7 @@ export class ViewerComponent implements  OnInit {
               private translate: TranslateService,
               private storageService: StorageService,
               private customerService: CustomerService,
+              private utilService: UtilService,
               private app: AppComponent) {
 
     this.subscription = this.route.params
@@ -51,7 +53,7 @@ export class ViewerComponent implements  OnInit {
       }
     );
 
-    storageService.updateCheapList.subscribe(
+    this.utilService.onLangChanged.subscribe(
       (lang: string) => {
         this.getStorageList(lang);
       }
@@ -59,7 +61,7 @@ export class ViewerComponent implements  OnInit {
   }
 
   ngOnInit() {
-    this.getStorageList(this.app.lang);
+    this.getStorageList(this.translate.currentLang);
   }
 
   private getStorageList(lang: string) {

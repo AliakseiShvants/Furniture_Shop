@@ -58,7 +58,7 @@ export class ManagerComponent implements OnInit {
   }
 
   addNewManager() {
-    this.adminService.addNewManager(new AuthorizationData(this.fullName, this.login, this.password, this.email))
+    this.adminService.addNewManager(new AuthorizationData(this.fullName, this.login, this.password))
       .subscribe(
         (data: Uiresponse) => {
           this.success = data.success;

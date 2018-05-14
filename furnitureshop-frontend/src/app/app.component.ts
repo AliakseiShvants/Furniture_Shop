@@ -42,7 +42,7 @@ export class AppComponent implements OnInit {
    */
   switchLang(lang: string) {
     this.translate.use(lang);
-    this.utilService.onLangChanged.emit(lang);
+    this.utilService.onLangChanged.emit(this.translate.currentLang);
   }
 
   ngOnInit() {

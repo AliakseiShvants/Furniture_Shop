@@ -60,7 +60,7 @@ export class RegisterComponent implements OnInit {
   submitRegister() {
     if(this.validateRegister(this.fullName, this.email, this.login, this.password, this.confirmPassword)){
 
-      this.authService.register(new AuthorizationData(this.fullName, this.login, this.password, this.email))
+      this.authService.register(new AuthorizationData(this.fullName, this.login, this.password))
         .subscribe(
           (data: Uiresponse) => {
             this.isRegistered = data.success;

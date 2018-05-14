@@ -35,7 +35,7 @@ export class GoodPriceComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getCheapProductList(this.app.lang);
+    this.getCheapProductList(this.translate.currentLang);
   }
 
   /**
