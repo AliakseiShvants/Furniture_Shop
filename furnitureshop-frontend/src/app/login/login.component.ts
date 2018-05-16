@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   private log_in() {
-    this.authService.login(new AuthorizationData(null, this.login, this.password))
+    this.authService.login(new AuthorizationData(this.login, this.password))
       .subscribe(
         (response: Uiresponse) => {
           this.isLogged = response.success;

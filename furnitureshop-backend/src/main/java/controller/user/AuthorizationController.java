@@ -10,20 +10,36 @@ import dto.user.UserDTO;
 import exception.UserExistsException;
 import exception.UserNotFoundException;
 import org.dozer.DozerBeanMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.LocaleResolver;
 import service.user.RoleService;
 import service.user.UserService;
+
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/api/")
 public class AuthorizationController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(CustomerController.class);
+
+    @Autowired
+    private MessageSource messageSource;
+
     @Autowired
     private DozerBeanMapper mapper;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
 //    @Autowired
 //    private ObjectMapper objectMapper;
@@ -41,11 +57,13 @@ public class AuthorizationController {
      */
     @PostMapping("login")
     public UIResponse<UserDTO> login(@RequestBody AuthorizationData data){
-        User user = userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword());
-        if (user != null){
+        User user = userService.getCustomerByLogin(data.getLogin());
+        if (encoder.matches(data.getPassword(), user.getPassword())){
             UserDTO userDTO = mapper.map(user, UserDTO.class);
+            LOG.info(messageSource.getMessage("user.login", new Object[]{user.getLogin()}, Locale.ENGLISH));
             return new UIResponse<>(true, userDTO);
         }
+        LOG.error(messageSource.getMessage("user.login.error", new Object[]{data.getLogin()}, Locale.ENGLISH));
         return new UIResponse<>(new UserNotFoundException());
     }
 
@@ -58,12 +76,15 @@ public class AuthorizationController {
     @PostMapping("register")
     public UIResponse<UserDTO> register(@RequestBody AuthorizationData data){
         User newUser;
-        if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
+        if (userService.getCustomerByLogin(data.getLogin()) == null){
             Role role = roleService.findRoleByTitle("ROLE_USER");
-            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(), role);
+            newUser = new User(data.getFullName(), data.getLogin(), data.getEmail(), role);
+            newUser.setPassword(encoder.encode(data.getPassword()));
             newUser = userService.addUser(newUser);
+            LOG.info(messageSource.getMessage("user.register", new Object[]{newUser.getLogin()}, Locale.ENGLISH));
             return new UIResponse<>(true, mapper.map(newUser, UserDTO.class));
         }
+        LOG.error(messageSource.getMessage("user.register.error", new Object[]{data.getLogin()}, Locale.ENGLISH));
         return new UIResponse<>(new UserExistsException());
     }
 }

@@ -60,14 +60,13 @@ export class RegisterComponent implements OnInit {
   submitRegister() {
     if(this.validateRegister(this.fullName, this.email, this.login, this.password, this.confirmPassword)){
 
-      this.authService.register(new AuthorizationData(this.fullName, this.login, this.password))
+      this.authService.register(new AuthorizationData(this.login, this.password, this.fullName, this.email))
         .subscribe(
           (data: Uiresponse) => {
             this.isRegistered = data.success;
             this.isExist = !data.success;
 
             if (this.isRegistered){
-              // this.app.user = data.body;
               setTimeout(() => {
                 this.modalRef.hide();
                 this.router.navigate(['/login']);

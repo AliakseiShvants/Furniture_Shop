@@ -4,3 +4,4 @@
 /furnitureshop-backend/target/FURNITURE_SHOP/WEB-INF/classes/config/*.class
 *.class
 target
+/*.log

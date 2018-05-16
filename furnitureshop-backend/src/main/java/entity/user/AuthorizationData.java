@@ -4,8 +4,17 @@ public class AuthorizationData {
     private String fullName;
     private String login;
     private String password;
+    private String email;
 
     public AuthorizationData() {
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFullName() {

@@ -67,8 +67,8 @@ export class CustomerService {
     return this.httpClient.get(this.base + customerId + this.basket + productId + this.add);
   }
 
-  getBasketList(customerId: number){
-    return this.httpClient.get(this.base + customerId + this.basket + this.all);
+  getBasketList(customerId: number, lang: string){
+    return this.httpClient.get(this.base + customerId + this.basket + this.all + lang);
   }
 
   deleteBasketItem(customerId: number, productId: number) {

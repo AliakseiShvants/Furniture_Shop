@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
   }
 
   private getBasketByUserId(id: number){
-    this.customerService.getBasketList(id).subscribe(
+    this.customerService.getBasketList(id, this.translate.currentLang).subscribe(
       (res: Uiresponse) => {
         this.basketList = res.body;
       }

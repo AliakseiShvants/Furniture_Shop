@@ -1,6 +1,7 @@
 package entity.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import entity.shop.Requisite;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -54,10 +55,10 @@ public class User {
     public User() {
     }
 
-    public User(String fullName, String login, String password, Role role) {
+    public User(String fullName, String login, String email, Role role) {
         this.fullName = fullName;
         this.login = login;
-        this.password = password;
+        this.email = email;
         this.role = role;
     }
 

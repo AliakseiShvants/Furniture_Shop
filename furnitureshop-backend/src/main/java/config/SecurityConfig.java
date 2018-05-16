@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -35,37 +36,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-//    @Autowired
-//    private JwtAuthenticationEntryPoint unauthorizedHandler;
-//
-//    @Bean
-//    public JwtAuthenticationFilter authenticationTokenFilterBean() throws Exception {
-//        return new JwtAuthenticationFilter();
-//    }
-
-//    @Bean
-//    public BCryptPasswordEncoder encoder(){
-//        return new BCryptPasswordEncoder();
-//    }
-//
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService).init(auth);
-//                .passwordEncoder(encoder());
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(encoder());
     }
+
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+//        auth
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(encoder());
+//    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http
-                .csrf().and().cors().disable()
+        http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
@@ -79,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .authenticated()
 //                .and()
 //                .formLogin()
-//                .loginPage("/api/login");
+//                .loginProcessingUrl("/api/login");
 //                .and()
 //                .authorizeRequests()
 //                .antMatchers("/api/customer/**").authenticated()

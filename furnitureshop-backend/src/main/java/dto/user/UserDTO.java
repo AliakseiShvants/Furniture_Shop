@@ -10,7 +10,7 @@ public class UserDTO {
     private Long id;
     private String fullName;
     private String login;
-    private String password;
+//    private String password;
     private String email;
     private LocalDate birthday;
     private RequisiteDTO requisite;
@@ -28,13 +28,13 @@ public class UserDTO {
         this.login = login;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+//    public String getPassword() {
+//        return password;
+//    }
+//
+//    public void setPassword(String password) {
+//        this.password = password;
+//    }
 
     public RequisiteDTO getRequisite() {
         return requisite;

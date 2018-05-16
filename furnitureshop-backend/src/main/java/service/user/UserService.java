@@ -55,7 +55,7 @@ public interface UserService {
 
     User findByFullName(String name);
 
-    User getCustomerByLoginAndPassword(String login, String password);
+    User getCustomerByLogin(String login);
 
     List<User> getAllCustomers();
 

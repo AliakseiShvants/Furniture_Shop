@@ -12,6 +12,7 @@ import exception.UserExistsException;
 import exception.UserNotFoundException;
 import org.dozer.DozerBeanMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import service.product.ProductService;
 import service.shop.OrderService;
@@ -32,6 +33,9 @@ public class AdminController {
 
     @Autowired
     private DozerBeanMapper mapper;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Autowired
     private UserService userService;
@@ -81,7 +85,6 @@ public class AdminController {
             User dbUser = userService.findUserById(userDTO.getId());
             dbUser.setFullName(userDTO.getFullName());
             dbUser.setLogin(userDTO.getLogin());
-            dbUser.setPassword(userDTO.getPassword());
             dbUser.setEmail(userDTO.getEmail());
             dbUser.setBirthday(userDTO.getBirthday());
             dbUser.setSex(userDTO.getSex());
@@ -99,9 +102,10 @@ public class AdminController {
     @PostMapping("customer/add")
     public UIResponse<Void> addCustomer(@RequestBody AuthorizationData data){
         User newUser;
-        if (userService.getCustomerByLoginAndPassword(data.getLogin(), data.getPassword()) == null){
+        if (userService.getCustomerByLogin(data.getLogin()) == null){
             Role role = roleService.findRoleByTitle("ROLE_USER");
-            newUser = new User(data.getFullName(), data.getLogin(), data.getPassword(), role);
+            newUser = new User(data.getFullName(), data.getLogin(), data.getEmail(), role);
+            newUser.setPassword(encoder.encode(data.getPassword()));
             userService.addUser(newUser);
             return new UIResponse<>(true);
         }
@@ -126,9 +130,10 @@ public class AdminController {
      * @return new {@link UserDTO} entity
      */
     @PostMapping("manager/add")
+    //todo two request object: authdata and userdto
     public UIResponse<UserDTO> addManager(@RequestBody UserDTO managerDTO){
         Role role = roleService.findRoleByTitle("ROLE_MANAGER");
-        User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getPassword(), role);
+        User manager = new User(managerDTO.getFullName(), managerDTO.getLogin(), managerDTO.getEmail(), role);
         manager = userService.addUser(manager);
         return new UIResponse<>(true, mapper.map(manager, UserDTO.class));
     }

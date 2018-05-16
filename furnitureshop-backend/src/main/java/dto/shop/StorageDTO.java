@@ -3,7 +3,7 @@ package dto.shop;
 import dto.product.ProductDTO;
 import dto.user.UserDTO;
 
-public class StorageDTO {
+public class StorageDTO extends ShopDTO {
 
     private Long id;
     private ProductDTO product;

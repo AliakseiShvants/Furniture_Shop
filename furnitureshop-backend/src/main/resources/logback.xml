@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_HOME" value="F:/Shvants/projects/UrlShorter" />
+    <property name="LOG_HOME" value="F:/Shvants/projects/Furniture_Shop" />
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <file>${LOG_HOME}/logs.log</file>
         <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>1MB</maxFileSize>
+            <maxFileSize>100KB</maxFileSize>
         </triggeringPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
             <Pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</Pattern>

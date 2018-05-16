@@ -1,5 +1,6 @@
 package controller.shop;
 
+import dto.shop.ShopDTO;
 import entity.Language;
 import entity.UIResponse;
 import entity.product.Category;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import service.LanguageService;
 import service.product.*;
 import service.shop.StorageService;
+import entity.Localization;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -55,18 +57,19 @@ public class StorageController {
     @Autowired
     private ManufacturerTranslateService manufacturerTranslateService;
 
-    private void makeLocalStorageList(Language language, List<StorageDTO> storageDTOList) {
-        if (language.getId() > 1){
-            storageDTOList.forEach(item -> {
-                ManufacturerTranslate manufacturerTranslate = manufacturerTranslateService
-                        .findByManufacturerId(item.getProduct().getManufacturer().getId());
-                ProductTranslate productTranslate = productTranslateService.findByProductId(item.getProduct().getId());
-                item.getProduct().setName(productTranslate.getName());
-                item.getProduct().setDescription(productTranslate.getDescription());
-                item.getProduct().getManufacturer().setTitle(manufacturerTranslate.getTitle());
-            });
+      private List<? extends ShopDTO> makeLocalList(Language language, List<? extends ShopDTO> list) {
+            if (language.getId() > 1){
+                list.forEach(item -> {
+                    ManufacturerTranslate manufacturerTranslate = manufacturerTranslateService
+                            .findByManufacturerId(item.getProduct().getManufacturer().getId());
+                    ProductTranslate productTranslate = productTranslateService.findByProductId(item.getProduct().getId());
+                    item.getProduct().setName(productTranslate.getName());
+                    item.getProduct().setDescription(productTranslate.getDescription());
+                    item.getProduct().getManufacturer().setTitle(manufacturerTranslate.getTitle());
+                });
+            }
+            return list;
         }
-    }
 
     /**
      * A method that returns a list of {@link StorageDTO} entities by product category.
@@ -74,12 +77,12 @@ public class StorageController {
      * @return a list of {@link StorageDTO} entities
      */
     @GetMapping("product/{category}/{lang}")
-    public UIResponse<List<StorageDTO>> getProductsByCategory(@PathVariable String category,
-                                                              @PathVariable String lang){
+    public UIResponse<List<? extends ShopDTO>> getProductsByCategory(@PathVariable String category,
+                                                                     @PathVariable String lang){
         Language language = languageService.findByName(lang);
         List<Product> products = productService.findProductsByCategory(category);
         if (products != null){
-            List<StorageDTO> storageDTOList = storageService.findStorageListByCategory(category).stream()
+            List<? extends ShopDTO> storageDTOList = storageService.findStorageListByCategory(category).stream()
                     .map(storageItem -> mapper.map(storageItem, StorageDTO.class))
                     .collect(Collectors.toList());
 
@@ -87,7 +90,7 @@ public class StorageController {
                     imageService.getProductImageUrl(item.getProduct().getId())
                     )
             );
-            makeLocalStorageList(language, storageDTOList);
+            storageDTOList = makeLocalList(language, storageDTOList);
             return new UIResponse<>(true, storageDTOList);
         }
         return new UIResponse<>(new ProductExistsException());
@@ -98,7 +101,7 @@ public class StorageController {
      * @return a list of {@link StorageDTO} entities
      */
     @GetMapping("product/cheapList/{lang}")
-    public UIResponse<List<StorageDTO>> findCheapProducts(@PathVariable String lang){
+    public UIResponse<List<? extends ShopDTO>> findCheapProducts(@PathVariable String lang){
         Language language = languageService.findByName(lang);
         List<Category> categoryList = categoryService.findAllCategories();
         List<Storage> storageList = new ArrayList<>();
@@ -111,7 +114,7 @@ public class StorageController {
                         .collect(Collectors.toList())
                 )
         );
-        List<StorageDTO> storageDTOList = storageList.stream()
+        List<? extends ShopDTO> storageDTOList = storageList.stream()
                 .map(storage -> mapper.map(storage, StorageDTO.class))
                 .collect(Collectors.toList());
 
@@ -119,7 +122,7 @@ public class StorageController {
                 imageService.getProductImageUrl(item.getProduct().getId())
                 )
         );
-        makeLocalStorageList(language, storageDTOList);
+        storageDTOList = makeLocalList(language, storageDTOList);
         return new UIResponse<>(true, storageDTOList);
     }
 }

@@ -8,6 +8,7 @@ import {AppComponent} from '../app.component';
 import {User} from '../../domain/user/user';
 import {TranslateService} from '@ngx-translate/core';
 import {Requisite} from '../../domain/shop/requisite';
+import {UtilService} from '../../service/util.service';
 
 @Component({
   selector: 'app-basket',
@@ -22,13 +23,20 @@ export class BasketComponent implements OnInit {
 
   constructor(private router: Router,
               private cd: ChangeDetectorRef,
+              private utilService: UtilService,
               private customerService: CustomerService,
               private translate: TranslateService,
               private app: AppComponent) {
+
+    this.utilService.onLangChanged.subscribe(
+      (lang: string) => {
+        this.customerService.getBasketList(this.app.user.id, lang);
+      }
+    )
   }
 
   ngOnInit() {
-    this.getBasketList(this.app.user.id);
+    this.getBasketList(this.app.user.id, this.translate.currentLang);
   }
 
   /**
@@ -43,7 +51,7 @@ export class BasketComponent implements OnInit {
    * Gets a {@link User} basket list according registered user or not.
    * @param {number} id field of {@link User} entity
    */
-  private getBasketList(id: number) {
+  private getBasketList(id: number, lang: string) {
     if(id > 0){
       this.basketList = this.app.basketList.slice();
     } else {

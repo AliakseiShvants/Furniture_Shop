@@ -39,7 +39,7 @@ public class AppConfig {
      * Participates in the Spring ApplicationContext's resource loading.
      */
     @Bean
-    public ReloadableResourceBundleMessageSource messageSource() {
+    public MessageSource messageSource() {
 
         ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
         source.setBasenames(messageSourceName);
