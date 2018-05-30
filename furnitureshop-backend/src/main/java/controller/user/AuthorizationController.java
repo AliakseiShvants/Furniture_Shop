@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,7 +67,6 @@ public class AuthorizationController {
         LOG.error(messageSource.getMessage("user.login.error", new Object[]{data.getLogin()}, Locale.ENGLISH));
         return new UIResponse<>(new UserNotFoundException());
     }
-
 
     /**
      * A method for registration new {@link User} entity.

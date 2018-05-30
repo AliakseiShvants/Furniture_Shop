@@ -26,8 +26,6 @@
       <tbody>
       <tr *ngFor="let customer of customers">
         <td>{{customer.fullName}}</td>
-        <td>{{customer.login}}</td>
-        <td>{{customer.password}}</td>
         <td>{{customer.email}}</td>
         <td>
           <a href="#editRequisiteModal" class="btn btn-primary" data-toggle="modal"
@@ -164,14 +162,14 @@
 
           <div class="form-group">
             <label for="editLogin" class="floatLabel">{{ 'register.login'|translate }}</label>
-            <input class="form-control" id="editLogin" name="fullName" type="text" [(ngModel)]="tempCustomer.login"
+            <input class="form-control" id="editLogin" name="fullName" type="text" [(ngModel)]="login"
                    aria-describedby="nameHelp" required minlength="4">
             <small id="nameHelp" class="form-text text-muted">{{'register.login.help'|translate}}</small>
           </div>
 
           <div class="form-group">
             <label for="editPass" class="floatLabel">{{'register.password'|translate}}</label>
-            <input class="form-control" id="editPass" name="fullName" type="text" [(ngModel)]="tempCustomer.password"
+            <input class="form-control" id="editPass" name="fullName" type="text" [(ngModel)]="password"
                    aria-describedby="editPassHelp" required minlength="4">
             <small id="editPassHelp" class="form-text text-muted">{{'register.password.help'|translate}}</small>
           </div>
@@ -245,7 +243,7 @@
         </div>
         <div class="modal-footer">
           <a class="btn btn-primary" data-dismiss="modal" (click)="close()">{{'BUTTON.close'|translate}}</a>
-          <button type="submit" class="btn btn-danger" (click)="deleteCustomer(tempCustomer)">
+          <button type="submit" class="btn btn-danger" (click)="deleteCustomer(tempCustomer.id)">
             {{'BUTTON.delete'|translate}}
           </button>
         </div>
