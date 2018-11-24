@@ -2,7 +2,6 @@
 *.iml
 /furnitureshop-backend/target/*.war
 /furnitureshop-backend/target/FURNITURE_SHOP/WEB-INF/classes/config/*.class
-furnitureshop-backend/src/main/webapp/
 *.class
 target
 /*.log
