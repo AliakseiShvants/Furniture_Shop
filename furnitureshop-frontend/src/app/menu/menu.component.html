@@ -3,11 +3,11 @@
 
     <ul class="nav nav-tabs mr-auto">
       <li class="nav-item">
-        <a class="nav-link" routerLink="/good-price" >{{'NAV.good-price'|translate}}</a>
+        <a class="nav-link" routerLink="/good-price" >{{ 'NAV.good-price' | translate }}</a>
       </li>
 
       <li class="nav-item" *ngFor="let category of categoryList">
-        <a class="nav-link" [routerLink]="['/viewer', category.title]" >{{category.title|translate}}</a>
+        <a class="nav-link" [routerLink]="['/viewer', category.title]" >{{ category.title | translate }}</a>
       </li>
     </ul>
 
@@ -15,9 +15,9 @@
       <li class="nav-item mr-4">
         <a class="btn btn-primary btn-lg" routerLink="/basket">
           <span class="fa fa-shopping-cart">
-            <sup *ngIf="!isBasketEmpty()">{{showBasketCount()}}</sup>
+            <sup *ngIf="!isBasketEmpty()">{{ showBasketCount() }}</sup>
           </span>
-          <div class="d-inline-block" *ngIf="isBasketEmpty()">{{'BUTTON.basket'|translate}}</div>
+          <div class="d-inline-block" *ngIf="isBasketEmpty()">{{ 'BUTTON.basket' | translate }}</div>
         </a>
       </li>
 
@@ -51,20 +51,20 @@
       <li class="nav-item dropdown" [hidden]="!isCustomer()">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
            aria-expanded="true">
-          {{user?.fullName}}
+          {{ user?.fullName }}
           <span class="fa fa-user"></span>
         </a>
         <div class="dropdown-menu bg-light">
-          <a class="dropdown-item" routerLink="/profile">{{'NAV.customer.profile'|translate}}</a>
-          <a class="dropdown-item" routerLink="/orders">{{'NAV.customer.orders'|translate}}</a>
-          <a class="dropdown-item" routerLink="/basket">{{'NAV.customer.basket'|translate}}</a>
+          <a class="dropdown-item" routerLink="/profile">{{ 'NAV.customer.profile' | translate }}</a>
+          <a class="dropdown-item" routerLink="/orders">{{ 'NAV.customer.orders' | translate }}</a>
+          <a class="dropdown-item" routerLink="/basket">{{ 'NAV.customer.basket' | translate }}</a>
         </div>
       </li>
 
       <li class="nav-item" [hidden]="isGuest()">
         <a href="/">
           <button class="btn btn-outline-secondary btn-lg" (click)="logout()" type="button">
-            {{'BUTTON.logout'|translate}}
+            {{ 'BUTTON.logout' | translate }}
             <span class="fa fa-sign-out"></span>
           </button>
         </a>
@@ -72,7 +72,7 @@
 
       <li class="nav-item" [hidden]="!isGuest()">
         <a class="btn btn-outline-primary btn-lg" routerLink="/login">
-          {{'BUTTON.login'|translate}}
+          {{ 'BUTTON.login' | translate }}
           <span class="fa fa-sign-in"></span>
         </a>
       </li>

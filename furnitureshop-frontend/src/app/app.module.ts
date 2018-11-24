@@ -1,4 +1,4 @@
-import {BrowserModule} from '@angular/platform-browser';
+import {BrowserModule, Title} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {FooterComponent} from './footer/footer.component';
@@ -71,7 +71,8 @@ import {DatePipe} from '@angular/common';
     ManagerService,
     AdminService,
     UtilService,
-    AuthorizationService
+    AuthorizationService,
+    Title
   ],
   bootstrap: [AppComponent]
 })

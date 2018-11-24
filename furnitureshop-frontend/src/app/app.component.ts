@@ -11,6 +11,7 @@ import {Basket} from '../domain/shop/basket';
 import {StorageService} from '../service/storage.service';
 import {GoodPriceComponent} from './good-price/good-price.component';
 import {UtilService} from '../service/util.service';
+import {Title} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-root',
@@ -30,10 +31,16 @@ export class AppComponent implements OnInit {
   constructor(private customerService: CustomerService,
               private utilService: UtilService,
               private cd: ChangeDetectorRef,
-              private translate: TranslateService) {
+              private translate: TranslateService,
+              private titleService: Title) {
 
     translate.currentLang = this.RU;
     this.lang = this.RU;
+    this.setTitle('Магазин мебели "12 стульев"');
+  }
+
+  public setTitle(newTitle: string) {
+    this.titleService.setTitle(newTitle);
   }
 
   /**
@@ -43,6 +50,11 @@ export class AppComponent implements OnInit {
   switchLang(lang: string) {
     this.translate.use(lang);
     this.utilService.onLangChanged.emit(this.translate.currentLang);
+    if(lang == this.EN){
+      this.setTitle('Furniture shop "12 chairs"');
+    } else {
+      this.setTitle('Магазин мебели "12 стульев"');
+    }
   }
 
   ngOnInit() {
