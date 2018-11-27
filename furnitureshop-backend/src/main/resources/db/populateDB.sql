@@ -1,6 +1,6 @@
-﻿INSERT INTO furniture_shop.role(title) VALUES ('ROLE_USER'), ('ROLE_MANAGER'), ('ROLE_ADMIN');
+﻿INSERT INTO furniture_shop.roles(TITLE) VALUES ('ROLE_USER'), ('ROLE_MANAGER'), ('ROLE_ADMIN');
 
-INSERT INTO furniture_shop.requisite(zip, country, city, address)
+INSERT INTO furniture_shop.requisites(ZIP, COUNTRY, CITY, ADDRESS)
 VALUES  ('230010', 'РБ', 'Гродно', 'ул. Кабяка, 12/2-136'),
   ('223610', 'РБ', 'Слуцк', 'ул. Серпуховская, 6-24'),
   ('230017', 'РБ', 'Гродно', 'ул. Огинского, 1-23'),
@@ -8,22 +8,22 @@ VALUES  ('230010', 'РБ', 'Гродно', 'ул. Кабяка, 12/2-136'),
   ('', 'Тайвань', '', ''),
   ('65056', 'РФ', 'Москва', 'ул. Столяров, 10а');
 
-INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, email, role_id, requisite_id)
+INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, EMAIL, ROLE_ID, REQUISITE_ID)
 VALUES ('Nadzeja Shvants', 'nad', '123', 'nada@gmail.com', 1, 1),
        ('masha shvants', 'ms@2003', '2003', 'masha@mail.ru', 1, 2);
-INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, email, role_id, requisite_id, team)
+INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, EMAIL, ROLE_ID, REQUISITE_ID, TEAM)
 VALUES ('Бовшевич Анна', 'ane4ka', '24121986', 'ab@gmail.com', 2, 3, 1),
        ('Алексей Шванц', 'ashvants', '11091991', 'ashvants91@gmail.com', 2, 3, 2);
-INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, email, role_id)
+INSERT INTO furniture_shop.users (FULLNAME, LOGIN, PASSWORD, EMAIL, ROLE_ID)
 VALUES ('Aliaksei Shvants', 'admin', 'admin', 'admin@gmail.com', 3);
 
-INSERT INTO furniture_shop.manufacturer(requisite_id, title)
+INSERT INTO furniture_shop.manufacturers(REQUISITE_ID, TITLE)
     VALUES (4, 'China Furniture'), (5, 'Spring'), (6, 'Стол & стул');
 
-INSERT INTO furniture_shop.category(title)
+INSERT INTO furniture_shop.categories(TITLE)
 VALUES ('door'), ('chair'), ('table'), ('bed'), ('dresser');
 
-INSERT INTO furniture_shop.product(manufacturer_id, category_id, name, description)
+INSERT INTO furniture_shop.products(manufacturer_id, category_id, name, description)
 VALUES
   (1, 2, 'Пекин', 'Зеленый пластиковый стул со спинкой'),
   (1, 2, 'Восток', 'Красный деревянный стул с мягкой спинкой'),
@@ -41,40 +41,43 @@ VALUES
   (3, 5, 'Осень', 'Шкаф-купе зеркальный'),
   (3, 5, 'Лето', 'Шкаф двудверный');
 
-INSERT INTO furniture_shop.product_image(product_id, url)
+INSERT INTO furniture_shop.product_images(product_id, url)
     VALUES
       (1, '../../assets/img/chairs/green.jpg'),
       (2, '../../assets/img/chairs/red.jpg'),
       (3, '../../assets/img/chairs/white.jpg');
 
-INSERT INTO furniture_shop.storage(product_id, code, price, quantity)
+INSERT INTO furniture_shop.storage_items(product_id, manager_id, code, price, quantity)
     VALUES
-      (1, 'CH001', 10.00, 100),
-      (2, 'CH002', 15.00, 80),
-      (3, 'CH003', 11.00, 70),
-      (4, 'TBL001', 110.00, 20),
-      (5, 'DR001', 50.00, 20),
-      (6, 'DR002', 150.00, 10),
-      (7, 'CH004', 5.00, 100),
-      (8, 'TBL002', 75.00, 21),
-      (9, 'BD001', 175.00, 9),
-      (10, 'BD002', 35.00, 45),
-      (11, 'DRS001', 95.00, 12),
-      (12, 'DRS002', 125.00, 10),
-      (13, 'DRS003', 195.00, 5);
+      (1, 1, 'CH001', 10.00, 100),
+      (2, 2, 'CH002', 15.00, 80),
+      (3, 1, 'CH003', 11.00, 70),
+      (4, 2, 'TBL001', 110.00, 20),
+      (5, 1, 'DR001', 50.00, 20),
+      (6, 2, 'DR002', 150.00, 10),
+      (7, 1, 'CH004', 5.00, 100),
+      (8, 2, 'TBL002', 75.00, 21),
+      (9, 1, 'BD001', 175.00, 9),
+      (10, 2, 'BD002', 35.00, 45),
+      (11, 1, 'DRS001', 95.00, 12),
+      (12, 2, 'DRS002', 125.00, 10),
+      (13, 1, 'DRS003', 195.00, 5);
 
-INSERT INTO furniture_shop.orders(customer_id, manager_id, create_date)
+INSERT INTO furniture_shop.order_statuses(status)
     VALUES
-      (1, 3, '2018-04-12 08:00:00'),
-      (1, 3, '2018-04-12 09:00:00');
+      ('IN PROGRESS'),
+      ('ACCEPT'),
+      ('DONE');
 
-INSERT INTO furniture_shop.order_details(order_id, product_id, quantity)
+INSERT INTO furniture_shop.orders(customer_id, manager_id, status_id, create_date)
+    VALUES
+      (1, 1, 1, '2018-04-12 08:00:00'),
+      (1, 1, 1, '2018-04-12 09:00:00');
+
+INSERT INTO furniture_shop.order_items(order_id, product_id, quantity)
   VALUES
     (1, 1, 1),
     (1, 2, 2),
     (1, 3, 1),
-
     (2, 9, 1),
     (2, 10, 1);
-
-
