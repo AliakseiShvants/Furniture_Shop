@@ -3,6 +3,7 @@ package config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -19,7 +20,8 @@ import javax.sql.DataSource;
 import static util.Constants.*;
 
 @Configuration
-@PropertySource(APP_PROP)
+@PropertySource(DEV)
+//@Profile("dev")
 @EnableTransactionManagement
 public class DBConnectionConfig {
 

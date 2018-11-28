@@ -1,7 +1,8 @@
 package util;
 
 public class Constants {
-    public static final String APP_PROP = "classpath:application.properties";
+    public static final String DEV = "classpath:application-dev.properties";
+    public static final String HEROKU = "classpath:application-heroku.properties";
     public static final String DRIVER = "spring.datasource.driver";
     public static final String URL = "spring.datasource.url";
     public static final String SCHEMA = "spring.datasource.schema";
